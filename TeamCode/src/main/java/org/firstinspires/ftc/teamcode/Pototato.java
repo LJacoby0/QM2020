@@ -55,7 +55,6 @@ public class Pototato extends LinearOpMode {
 
     //hi
 
-
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
