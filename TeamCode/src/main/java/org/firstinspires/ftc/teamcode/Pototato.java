@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.teamcode.HardwarePot;
 
 
 /**
@@ -53,34 +54,15 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name="Pototato", group="Linear Opmode")
 public class Pototato extends LinearOpMode {
 
+    private HardwarePot rb = new HardwarePot();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-    private DcMotor frontDrive = null;
-    private DcMotor backDrive = null;
 
     @Override
     public void runOpMode() {
+        rb.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "leftDrive");
-        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
-        frontDrive  = hardwareMap.get(DcMotor.class, "frontDrive");
-        backDrive  = hardwareMap.get(DcMotor.class, "backDrive");
-
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontDrive.setDirection(DcMotor.Direction.FORWARD);
-        backDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -88,44 +70,49 @@ public class Pototato extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-            // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower;
-            double rightPower;
-            double frontPower;
-            double backPower;
-
-            // Choose to drive using either Tank Mode, or POV Mode
-            // Comment out the method that's not used.  The default below is POV.
-
-            // POV Mode uses left stick to go forward, and right stick to turn.
-            // - This uses basic math to combine motions and is easier to drive straight.
-            double yaxis = gamepad1.left_stick_y;
-            double xaxis = gamepad1.left_stick_x;
-            double turnright  =  gamepad1.right_trigger;
-            double turnleft  =  gamepad1.left_trigger;
-
-            frontPower = Range.clip(xaxis, -1.0, 1.0);
-            backPower = Range.clip(xaxis, -1.0, 1.0);
-            leftPower    = Range.clip(yaxis, -1.0, 1.0) ;
-            rightPower   = Range.clip(yaxis, -1.0, 1.0) ;
-
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
-
-            // Send calculated power to wheels
-            leftDrive.setPower(leftPower);
-            rightDrive.setPower(rightPower);
-            frontDrive.setPower(frontPower);
-            backDrive.setPower(backPower);
+            drive();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
             telemetry.update();
         }
+    }
+    private void drive(){
+        double leftPower;
+        double rightPower;
+        double frontPower;
+        double backPower;
+
+        double lefty = gamepad1.left_stick_y;
+        double leftx = gamepad1.left_stick_x;
+        boolean rightb  =  gamepad1.right_bumper;
+        boolean leftb  =  gamepad1.left_bumper;
+
+        if(rightb){
+            leftPower = .5;
+            rightPower = .5;
+            frontPower = .5;
+            backPower = .5;
+        } else if(leftb){
+            leftPower = -0.5;
+            rightPower = -0.5;
+            frontPower = -0.5;
+            backPower = -0.5;
+        } else{
+
+            frontPower = Range.clip(leftx, -1.0, 1.0);
+            backPower = Range.clip(leftx, -1.0, 1.0);
+            leftPower    = Range.clip(lefty, -1.0, 1.0) ;
+            rightPower   = Range.clip(lefty, -1.0, 1.0) ;
+        }
+
+        rb.leftDrive.setPower(leftPower);
+        rb.rightDrive.setPower(rightPower);
+        rb.frontDrive.setPower(frontPower);
+        rb.backDrive.setPower(backPower);
+
+        telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
+        telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+
     }
 }
