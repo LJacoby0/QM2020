@@ -51,10 +51,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 public class HardwarePot {
     /* Public OpMode members. */
-    DcMotor  leftDrive   = null;
-    DcMotor  rightDrive  = null;
-    DcMotor frontDrive = null;
-    DcMotor backDrive = null;
+//    DcMotor  leftDrive   = null;
+//    DcMotor  rightDrive  = null;
+//    DcMotor frontDrive = null;
+//    DcMotor backDrive = null;
 
 //    public static final double MID_SERVO       =  0.5 ;
 //    public static final double ARM_UP_POWER    =  0.45 ;
