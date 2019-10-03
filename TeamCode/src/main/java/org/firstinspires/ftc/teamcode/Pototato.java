@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -51,12 +52,14 @@ import org.firstinspires.ftc.teamcode.HardwarePot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Pototato", group="Linear Opmode")
+@TeleOp(name="Pototato", group="Sensor")
 public class Pototato extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    private final double MAX_DRIVE_SPEED = 0.8;
+    private final double MIN_DRIVE_SPEED = -0.8;
 
     @Override
     public void runOpMode() {
@@ -78,38 +81,28 @@ public class Pototato extends LinearOpMode {
         }
     }
     private void drive(){
-        double leftPower;
-        double rightPower;
-        double frontPower;
-        double backPower;
+        double leftPower = 0;
+        double rightPower = 0;
+        double frontPower = 0;
+        double backPower = 0;
 
-        double lefty = gamepad1.left_stick_y;
-        double leftx = gamepad1.left_stick_x;
+        double leftY = gamepad1.left_stick_y;
+        double leftX = gamepad1.left_stick_x;
+        double rightX = gamepad1.left_stick_x;
         boolean rightb  =  gamepad1.right_bumper;
         boolean leftb  =  gamepad1.left_bumper;
 
-        if(rightb){
-            leftPower = .5;
-            rightPower = .5;
-            frontPower = .5;
-            backPower = .5;
-        } else if(leftb){
-            leftPower = -0.5;
-            rightPower = -0.5;
-            frontPower = -0.5;
-            backPower = -0.5;
-        } else{
-
-            frontPower = Range.clip(leftx, -1.0, 1.0);
-            backPower = Range.clip(leftx, -1.0, 1.0);
-            leftPower    = Range.clip(lefty, -1.0, 1.0) ;
-            rightPower   = Range.clip(lefty, -1.0, 1.0) ;
+        if (leftY < -0.13 || leftY > 0.13) {
+            frontPower = Range.clip(leftY , MIN_DRIVE_SPEED, MAX_DRIVE_SPEED);
+            rb.frontDrive.setPower(frontPower);
         }
-
-        rb.leftDrive.setPower(leftPower);
-        rb.rightDrive.setPower(rightPower);
-        rb.frontDrive.setPower(frontPower);
-        rb.backDrive.setPower(backPower);
+        else if(leftX < -0.13 || leftX > 0.13) {
+            rightPower = Range.clip(leftX , MIN_DRIVE_SPEED, MAX_DRIVE_SPEED);
+            rb.frontDrive.setPower(rightPower);
+        }
+        else{
+            rb.driveStop();
+        }
 
         telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
         telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
