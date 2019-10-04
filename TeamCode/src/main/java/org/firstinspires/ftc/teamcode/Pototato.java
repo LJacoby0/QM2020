@@ -34,8 +34,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
 
@@ -44,22 +46,21 @@ import org.firstinspires.ftc.teamcode.HardwarePot;
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * <p>
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal structure that all linear OpModes contain.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Pototato", group="Sensor")
+@TeleOp(name = "Pototato", group = "Sensor")
 public class Pototato extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private final double MAX_DRIVE_SPEED = 0.8;
-    private final double MIN_DRIVE_SPEED = -0.8;
+
 
     @Override
     public void runOpMode() {
@@ -80,7 +81,8 @@ public class Pototato extends LinearOpMode {
             telemetry.update();
         }
     }
-    private void drive(){
+
+    private void drive() {
         double leftPower = 0;
         double rightPower = 0;
         double frontPower = 0;
@@ -89,18 +91,32 @@ public class Pototato extends LinearOpMode {
         double leftY = gamepad1.left_stick_y;
         double leftX = gamepad1.left_stick_x;
         double rightX = gamepad1.left_stick_x;
-        boolean rightb  =  gamepad1.right_bumper;
-        boolean leftb  =  gamepad1.left_bumper;
+        boolean rightb = gamepad1.right_bumper;
+        boolean leftb = gamepad1.left_bumper;
 
-        if (leftY < -0.13 || leftY > 0.13) {
-            frontPower = Range.clip(leftY , MIN_DRIVE_SPEED, MAX_DRIVE_SPEED);
+        if (rightb) {
+            rb.frontDrive.setPower(Constants.SPIN_SPEED);
+            rb.backDrive.setPower(Constants.SPIN_SPEED);
+            rb.rightDrive.setPower(Constants.SPIN_SPEED);
+            rb.leftDrive.setPower(Constants.SPIN_SPEED);
+        } else if (leftb) {
+            rb.frontDrive.setPower(-Constants.SPIN_SPEED);
+            rb.backDrive.setPower(-Constants.SPIN_SPEED);
+            rb.rightDrive.setPower(-Constants.SPIN_SPEED);
+            rb.leftDrive.setPower(-Constants.SPIN_SPEED);
+        } else if (leftY < -0.13 || leftY > 0.13) {
+            frontPower = Range.clip(leftY, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
             rb.frontDrive.setPower(frontPower);
-        }
-        else if(leftX < -0.13 || leftX > 0.13) {
-            rightPower = Range.clip(leftX , MIN_DRIVE_SPEED, MAX_DRIVE_SPEED);
-            rb.frontDrive.setPower(rightPower);
-        }
-        else{
+            rb.backDrive.setPower(-frontPower);
+            rb.leftDrive.setPower(0);
+            rb.rightDrive.setPower(0);
+        } else if (leftX < -0.13 || leftX > 0.13) {
+            rightPower = Range.clip(leftX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
+            rb.frontDrive.setPower(0);
+            rb.backDrive.setPower(0);
+            rb.leftDrive.setPower(-rightPower);
+            rb.rightDrive.setPower(rightPower);
+        } else {
             rb.driveStop();
         }
 
