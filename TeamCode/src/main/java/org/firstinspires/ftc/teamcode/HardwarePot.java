@@ -75,11 +75,14 @@ public class HardwarePot {
         rightDrive = hwMap.get(DcMotor.class, "rightDrive");
         frontDrive  = hwMap.get(DcMotor.class, "frontDrive");
         backDrive  = hwMap.get(DcMotor.class, "backDrive");
+
+        // Set motor directions
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         backDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
+        // Set robot to brake when power is zero
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
