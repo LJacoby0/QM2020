@@ -41,19 +41,6 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
 
-/**
- * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
- * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
- * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- * <p>
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all linear OpModes contain.
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
 @TeleOp(name = "Pototato", group = "Sensor")
 public class Pototato extends LinearOpMode {
 
@@ -75,10 +62,31 @@ public class Pototato extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             drive();
+            drag();
+            arm();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
+        }
+    }
+
+    private void drag(){
+        if(gamepad1.dpad_up){
+            rb.drag.setPower(-.3);
+        }else if(gamepad1.dpad_down){
+            rb.drag.setPower(.3);
+        }else{
+            rb.drag.setPower(0);
+        }
+    }
+    private void arm(){
+        if(gamepad1.y){
+            rb.lift.setPower(.3);
+        } else if(gamepad1.x){
+            rb.lift.setPower(-.3);
+        }else {
+            rb.lift.setPower(0);
         }
     }
 
@@ -111,11 +119,11 @@ public class Pototato extends LinearOpMode {
             rb.leftDrive.setPower(0);
             rb.rightDrive.setPower(0);
         } else if (leftX < -0.13 || leftX > 0.13) {
-            rightPower = Range.clip(leftX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
+            leftPower = Range.clip(leftX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
             rb.frontDrive.setPower(0);
             rb.backDrive.setPower(0);
-            rb.leftDrive.setPower(-rightPower);
-            rb.rightDrive.setPower(rightPower);
+            rb.leftDrive.setPower(leftPower);
+            rb.rightDrive.setPower(-leftPower   );
         } else {
             rb.driveStop();
         }

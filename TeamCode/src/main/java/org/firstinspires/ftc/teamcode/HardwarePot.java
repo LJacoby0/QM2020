@@ -33,28 +33,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * This is NOT an opmode.
- *
- * This class can be used to define all the specific hardware for a single robot.
- * In this case that robot is a Pushbot.
- * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
- *
- * This hardware class assumes the following device names have been configured on the robot:
- * Note:  All names are lower case and some have single spaces between words.
- *
- * Motor channel:  Left  drive motor:        "left_drive"
- * Motor channel:  Right drive motor:        "right_drive"
- * Motor channel:  Manipulator drive motor:  "left_arm"
- * Servo channel:  Servo to open left claw:  "left_hand"
- * Servo channel:  Servo to open right claw: "right_hand"
- */
 public class HardwarePot {
     /* Public OpMode members. */
     DcMotor  leftDrive   = null;
     DcMotor  rightDrive  = null;
     DcMotor frontDrive = null;
     DcMotor backDrive = null;
+    DcMotor drag = null;
+    DcMotor lift = null;
 
 //    public static final double MID_SERVO       =  0.5 ;
 //    public static final double ARM_UP_POWER    =  0.45 ;
@@ -75,24 +61,38 @@ public class HardwarePot {
         rightDrive = hwMap.get(DcMotor.class, "rightDrive");
         frontDrive  = hwMap.get(DcMotor.class, "frontDrive");
         backDrive  = hwMap.get(DcMotor.class, "backDrive");
+        drag  = hwMap.get(DcMotor.class, "drag");
+        lift  = hwMap.get(DcMotor.class, "lift");
+
 
         // Set motor directions
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         backDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        drag.setDirection(DcMotor.Direction.FORWARD);
+        lift.setDirection(DcMotor.Direction.FORWARD);
+
+
 
         // Set robot to brake when power is zero
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        drag.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
 
         // Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         frontDrive.setPower(0);
         backDrive.setPower(0);
+        drag.setPower(0);
+        lift.setPower(0);
+
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -100,6 +100,10 @@ public class HardwarePot {
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        drag.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
 
 
 //        // Define and initialize ALL installed servos.
