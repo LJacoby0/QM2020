@@ -41,8 +41,9 @@ public class HardwarePot {
     DcMotor backDrive = null;
     DcMotor drag = null;
     DcMotor lift = null;
+    Servo hand = null;
 
-//    public static final double MID_SERVO       =  0.5 ;
+//    public static final double hand       =  0.5;
 //    public static final double ARM_UP_POWER    =  0.45 ;
 //    public static final double ARM_DOWN_POWER  = -0.45 ;
 
@@ -64,6 +65,8 @@ public class HardwarePot {
         drag  = hwMap.get(DcMotor.class, "drag");
         lift  = hwMap.get(DcMotor.class, "lift");
 
+        hand = hwMap.get(Servo.class, "hand");
+
 
         // Set motor directions
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -74,7 +77,6 @@ public class HardwarePot {
         lift.setDirection(DcMotor.Direction.FORWARD);
 
 
-
         // Set robot to brake when power is zero
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -82,7 +84,6 @@ public class HardwarePot {
         backDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         drag.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
 
         // Set all motors to zero power

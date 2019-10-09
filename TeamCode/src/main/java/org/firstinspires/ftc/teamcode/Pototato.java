@@ -123,7 +123,7 @@ public class Pototato extends LinearOpMode {
             rb.frontDrive.setPower(0);
             rb.backDrive.setPower(0);
             rb.leftDrive.setPower(leftPower);
-            rb.rightDrive.setPower(-leftPower   );
+            rb.rightDrive.setPower(-leftPower);
         } else {
             rb.driveStop();
         }
