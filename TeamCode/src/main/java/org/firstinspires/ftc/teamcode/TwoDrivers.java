@@ -105,11 +105,12 @@ public class TwoDrivers extends LinearOpMode {
         boolean rightb = gamepad1.right_bumper;
         boolean leftb = gamepad1.left_bumper;
 
-        if (gamepad1.right_trigger >= Constants.TRIGGER_THRESHOLD) {
-            power = Constants.DRIVE_POWER_SLOW;
-        } else {
-            power = Constants.DRIVE_POWER;
-        }
+//        if (gamepad1.right_trigger >= Constants.TRIGGER_THRESHOLD) {
+//            power = Constants.DRIVE_POWER_SLOW;
+//        } else {
+//            power = Constants.DRIVE_POWER;
+//        }
+        power = 1;
 
         //this moves spinning to the driver right stick and makes it more sensitive
 //        double allpower = 0;
