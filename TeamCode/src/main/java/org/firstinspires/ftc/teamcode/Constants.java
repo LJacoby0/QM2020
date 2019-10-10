@@ -11,7 +11,7 @@ public final class Constants {
     public static final float DRIVE_STICK_THRESHOLD = .6f;
     public static final float DRIVE_STICK_THRESHOLD_SQUARED = DRIVE_STICK_THRESHOLD * DRIVE_STICK_THRESHOLD;
     public static final float TRIGGER_THRESHOLD = .65f;
-    public static final float SPIN_SPEED = .6f;
+    public static final float SPIN_SPEED = .4f;
     public static final double MAX_DRIVE_SPEED = 0.6;
     public static final double MIN_DRIVE_SPEED = -0.6;
 
