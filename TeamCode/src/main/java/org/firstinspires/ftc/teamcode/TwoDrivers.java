@@ -38,6 +38,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.robotcore.internal.android.dx.rop.code.ConservativeTranslationAdvice;
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
 
@@ -103,10 +105,10 @@ public class TwoDrivers extends LinearOpMode {
         boolean rightb = gamepad1.right_bumper;
         boolean leftb = gamepad1.left_bumper;
 
-        if (gamepad1.right_trigger >= .6f) {
-            power = .5f;
+        if (gamepad1.right_trigger >= Constants.TRIGGER_THRESHOLD) {
+            power = Constants.DRIVE_POWER_SLOW;
         } else {
-            power = 1;
+            power = Constants.DRIVE_POWER;
         }
 
         //this moves spinning to the driver right stick and makes it more sensitive

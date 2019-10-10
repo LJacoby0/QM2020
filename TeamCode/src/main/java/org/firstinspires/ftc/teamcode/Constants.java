@@ -14,8 +14,6 @@ public final class Constants {
     public static final float SPIN_SPEED = .4f;
     public static final double MAX_DRIVE_SPEED = 0.6;
     public static final double MIN_DRIVE_SPEED = -0.6;
-    public static final double MAX_SLOW_DRIVE_SPEED = 0.3;
-    public static final double MIN_SLOW_DRIVE_SPEED = -0.3;
 
 
 
