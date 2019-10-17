@@ -89,11 +89,11 @@ public class Pototato extends LinearOpMode {
             rb.lift.setPower(0);
         }
     }
-    private void hand(){
-        if(gamepad2.x){
-
-        }
-    }
+//    private void hand(){
+//        if(gamepad2.x){
+//
+//        }
+//    }
 
     private void drive() {
         double leftPower = 0;

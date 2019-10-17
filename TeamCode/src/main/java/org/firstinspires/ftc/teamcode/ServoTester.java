@@ -1,6 +1,6 @@
 
 
-        package org.firstinspires.ftc.teamcode.hardware;
+        package org.firstinspires.ftc.teamcode;
 
         import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -23,8 +23,7 @@
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-        @TeleOp(name = "\uD83D\uDD27 Servo Utility", group = "Utility")
-        @Disabled
+        @TeleOp(name = "Servo Tester", group = "Sensor")
         public class ServoTester extends LinearOpMode {
 
             // Define class members
