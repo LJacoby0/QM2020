@@ -5,7 +5,9 @@
         import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+//        import com.qualcomm.robotcore.hardware.CRServo;
         import com.qualcomm.robotcore.hardware.Servo;
+
 
         import org.firstinspires.ftc.teamcode.HardwarePot;
 
@@ -37,10 +39,11 @@
 
         // Connect to servo (Assume PushBot Left Hand)
         // Change the text in quotes to match any servo name on your robot.
+//        CRServo servo = hardwareMap.get(CRServo.class, "hand");
         Servo servo = hardwareMap.get(Servo.class, "hand");
 
 
-            // Wait for the start button
+                // Wait for the start button
         telemetry.addData(">", "Press Start to scan Servo." );
         telemetry.update();
         waitForStart();
@@ -64,7 +67,7 @@
         telemetry.update();
 
         // Set the servo to the new position and pause;
-        servo.setPosition(position);
+        servo.set(position);
         sleep(DELAY);
         idle();
         }
