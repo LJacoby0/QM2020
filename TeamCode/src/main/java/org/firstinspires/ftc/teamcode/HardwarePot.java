@@ -65,8 +65,6 @@ public class HardwarePot {
         drag  = hwMap.get(DcMotor.class, "drag");
         lift  = hwMap.get(DcMotor.class, "lift");
 
-        hand = hwMap.get(Servo.class, "hand");
-
 
         // Set motor directions
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -106,12 +104,9 @@ public class HardwarePot {
 
 
 
+        hand = hwMap.get(Servo.class, "hand");
+        hand.setPosition(.50);
 
-//        // Define and initialize ALL installed servos.
-//        leftClaw  = hwMap.get(Servo.class, "left_hand");
-//        rightClaw = hwMap.get(Servo.class, "right_hand");
-//        leftClaw.setPosition(MID_SERVO);
-//        rightClaw.setPosition(MID_SERVO);
     }
     void driveStop() {
         leftDrive.setPower(0);

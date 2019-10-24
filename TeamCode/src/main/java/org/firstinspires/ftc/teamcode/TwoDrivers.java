@@ -66,6 +66,7 @@ public class TwoDrivers extends LinearOpMode {
             drive();
             drag();
             arm();
+            hand();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -89,6 +90,13 @@ public class TwoDrivers extends LinearOpMode {
             rb.lift.setPower(-.3);
         }else {
             rb.lift.setPower(0);
+        }
+    }
+    private void hand(){
+        if(gamepad2.x){
+            rb.hand.setPosition(.30);//open
+        } else if(gamepad2.y){
+            rb.hand.setPosition(.65);//close
         }
     }
 

@@ -67,7 +67,7 @@
         telemetry.update();
 
         // Set the servo to the new position and pause;
-        servo.set(position);
+        servo.setPosition(position);
         sleep(DELAY);
         idle();
         }
