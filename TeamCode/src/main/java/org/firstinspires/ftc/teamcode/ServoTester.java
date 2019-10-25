@@ -29,10 +29,10 @@
         public class ServoTester extends LinearOpMode {
 
             // Define class members
-        private double position = 0.5; // Start at halfway position
+        private double position = 0.5; // Start at halfway position so was .5
 
         private final double INCREMENT = 0.01 ;
-        private final int DELAY = 100;
+        private final int DELAY = 100;//was 100
 
         @Override
         public void runOpMode() {
@@ -52,24 +52,24 @@
         // Scan servo till stop pressed.
         while(opModeIsActive()){
 
-        // slew the servo, according to the rampUp (direction) variable.
-        if (gamepad1.left_bumper) {
-        // Keep stepping up until we hit the max value.
-        position += INCREMENT;
-        } else if (gamepad1.right_bumper) {
-        // Keep stepping down until we hit the min value.
-        position -= INCREMENT;
-        }
+                // slew the servo, according to the rampUp (direction) variable.
+                if (gamepad1.left_bumper) {
+                        // Keep stepping up until we hit the max value.
+                        position += INCREMENT;
+                } else if (gamepad1.right_bumper) {
+                        // Keep stepping down until we hit the min value.
+                        position -= INCREMENT;
+                }
 
-        // Display the current value
-        telemetry.addData("Servo Position", "%5.2f", position);
-        telemetry.addData(">", "Press Stop to end test.");
-        telemetry.update();
+                // Display the current value
+                telemetry.addData("Servo Position", "%5.2f", position);
+                telemetry.addData(">", "Press Stop to end test.");
+                telemetry.update();
 
-        // Set the servo to the new position and pause;
-        servo.set(position);
-        sleep(DELAY);
-        idle();
+                // Set the servo to the new position and pause;
+                servo.setPosition(position);
+                sleep(DELAY);
+                idle();
         }
 
         // Signal done;
