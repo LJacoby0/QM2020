@@ -94,9 +94,9 @@ public class TwoDrivers extends LinearOpMode {
     }
     private void hand(){
         if(gamepad2.y){
-            rb.hand.setPosition(.30);//open
+            rb.hand.setPosition(.66);//open
         } else if(gamepad2.x){
-            rb.hand.setPosition(.65);//close
+            rb.hand.setPosition(.90);//close
         }
     }
 
@@ -131,15 +131,17 @@ public class TwoDrivers extends LinearOpMode {
 //        }
 
         if (rightb) {
-            rb.frontDrive.setPower(Constants.SPIN_SPEED);
-            rb.backDrive.setPower(Constants.SPIN_SPEED);
-            rb.rightDrive.setPower(Constants.SPIN_SPEED);
-            rb.leftDrive.setPower(Constants.SPIN_SPEED);
+//            rb.frontDrive.setPower(Constants.SPIN_SPEED);
+//            rb.backDrive.setPower(Constants.SPIN_SPEED);
+//            rb.rightDrive.setPower(Constants.SPIN_SPEED);
+            telemetry.addLine("spin right");
+//            rb.leftDrive.setPower(Constants.SPIN_SPEED);
         } else if (leftb) {
-            rb.frontDrive.setPower(-Constants.SPIN_SPEED);
-            rb.backDrive.setPower(-Constants.SPIN_SPEED);
-            rb.rightDrive.setPower(-Constants.SPIN_SPEED);
-            rb.leftDrive.setPower(-Constants.SPIN_SPEED);
+//            rb.frontDrive.setPower(-Constants.SPIN_SPEED);
+//            rb.backDrive.setPower(-Constants.SPIN_SPEED);
+//            rb.rightDrive.setPower(-Constants.SPIN_SPEED);
+//            rb.leftDrive.setPower(-Constants.SPIN_SPEED);
+            telemetry.addLine("spin left");
         } else if (leftY < -0.13 || leftY > 0.13) {
             //tried to add slow mode
             frontPower = Range.clip(leftY, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
