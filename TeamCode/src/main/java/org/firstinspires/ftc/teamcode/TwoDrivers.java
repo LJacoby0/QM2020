@@ -94,9 +94,9 @@ public class TwoDrivers extends LinearOpMode {
     }
     private void hand(){
         if(gamepad2.y){
-            rb.hand.setPosition(.30);//open
+            rb.hand.setPosition(.5);//open
         } else if(gamepad2.x){
-            rb.hand.setPosition(.65);//close
+            rb.hand.setPosition(1.0);//close
         }
     }
 
@@ -141,6 +141,7 @@ public class TwoDrivers extends LinearOpMode {
             rb.rightDrive.setPower(-Constants.SPIN_SPEED);
             rb.leftDrive.setPower(-Constants.SPIN_SPEED);
         } else if (leftY < -0.13 || leftY > 0.13) {
+            telemetry.addData("controller Y is: ", "", leftY);
             //tried to add slow mode
             frontPower = Range.clip(leftY, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
             rb.frontDrive.setPower(frontPower * power);
@@ -148,6 +149,7 @@ public class TwoDrivers extends LinearOpMode {
             rb.leftDrive.setPower(0);
             rb.rightDrive.setPower(0);
         } else if (leftX < -0.13 || leftX > 0.13) {
+            telemetry.addData("controller X is: ", "", leftX);
             //tried to add slow mode
             leftPower = Range.clip(leftX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
             rb.frontDrive.setPower(0);
@@ -155,7 +157,11 @@ public class TwoDrivers extends LinearOpMode {
             rb.leftDrive.setPower(leftPower * power);
             rb.rightDrive.setPower(-leftPower * power);
         } else {
-            rb.driveStop();
+            //rb.driveStop();
+            rb.leftDrive.setPower(0);
+            rb.rightDrive.setPower(0);
+            rb.frontDrive.setPower(0);
+            rb.backDrive.setPower(0);
         }
 
         telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
