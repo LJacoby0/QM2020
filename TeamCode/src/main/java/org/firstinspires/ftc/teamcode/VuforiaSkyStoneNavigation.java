@@ -54,7 +54,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
- * positioning and orientation of robot on the SKYSTONE FTC field.
+ * positioning and orientation of rb on the SKYSTONE FTC field.
  * The code is structured as a LinearOpMode
  * <p>
  * When images are located, Vuforia is able to determine the position and orientation of the
@@ -68,8 +68,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * Four Bridge targets are located on the bridge uprights.
  * Refer to the Field Setup manual for more specific location details
  * <p>
- * A final calculation then uses the location of the camera on the robot to determine the
- * robot's location and orientation on the field.
+ * A final calculation then uses the location of the camera on the rb to determine the
+ * rb's location and orientation on the field.
  *
  * @see VuforiaLocalizer
  * @see VuforiaTrackableDefaultListener
@@ -192,7 +192,7 @@ public class VuforiaSkyStoneNavigation extends LinearOpMode {
 
         /**
          * In order for localization to work, we need to tell the system where each target is on the field, and
-         * where the phone resides on the robot.  These specifications are in the form of <em>transformation matrices.</em>
+         * where the phone resides on the rb.  These specifications are in the form of <em>transformation matrices.</em>
          * Transformation matrices are a central, important concept in the math here involved in localization.
          * See <a href="https://en.wikipedia.org/wiki/Transformation_matrix">Transformation Matrix</a>
          * for detailed information. Commonly, you'll encounter transformation matrices as instances
@@ -266,18 +266,18 @@ public class VuforiaSkyStoneNavigation extends LinearOpMode {
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
         //
-        // Create a transformation matrix describing where the phone is on the robot.
+        // Create a transformation matrix describing where the phone is on the rb.
         //
         // NOTE !!!!  It's very important that you turn OFF your phone's Auto-Screen-Rotation option.
         // Lock it into Portrait for these numbers to work.
         //
-        // Info:  The coordinate frame for the robot looks the same as the field.
-        // The robot's "forward" direction is facing out along X axis, with the LEFT side facing out along the Y axis.
-        // Z is UP on the robot.  This equates to a bearing angle of Zero degrees.
+        // Info:  The coordinate frame for the rb looks the same as the field.
+        // The rb's "forward" direction is facing out along X axis, with the LEFT side facing out along the Y axis.
+        // Z is UP on the rb.  This equates to a bearing angle of Zero degrees.
         //
         // The phone starts out lying flat, with the screen facing Up and with the physical top of the phone
         // pointing to the LEFT side of the Robot.
-        // The two examples below assume that the camera is facing forward out the front of the robot.
+        // The two examples below assume that the camera is facing forward out the front of the rb.
 
         // We need to rotate the camera around it's long axis to bring the correct camera forward.
         if (CAMERA_CHOICE == BACK) {
@@ -291,11 +291,11 @@ public class VuforiaSkyStoneNavigation extends LinearOpMode {
             phoneXRotate = 90;
         }
 
-        // Next, translate the camera lens to where it is on the robot.
-        // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        // Next, translate the camera lens to where it is on the rb.
+        // In this example, it is centered (left to right), but forward of the middle of the rb, and above ground level.
+        final float CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of rb center
         final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the rb's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
@@ -338,14 +338,14 @@ public class VuforiaSkyStoneNavigation extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
+            // Provide feedback as to where the rb is located (if we know).
             if (targetVisible) {
-                // express position (translation) of robot in inches.
+                // express position (translation) of rb in inches.
                 VectorF translation = lastLocation.getTranslation();
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
-                // express the rotation of the robot in degrees.
+                // express the rotation of the rb in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
             } else {

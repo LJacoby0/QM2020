@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 /**
- * Constants for omni robot
+ * Constants for omni rb
  */
 public final class Constants {
     // DRIVING CONSTANTS

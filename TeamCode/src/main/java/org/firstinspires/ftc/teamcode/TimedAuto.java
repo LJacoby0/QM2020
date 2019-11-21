@@ -30,39 +30,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-import org.firstinspires.ftc.teamcode.HardwarePot;
-
-/**
- * This file illustrates the concept of driving a path based on time.
- * It uses the common Pushbot hardware class to define the drive on the rb.
- * The code is structured as a LinearOpMode
- *
- * The code assumes that you do NOT have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByEncoder;
- *
- *   The desired path in this example is:
- *   - Drive forward for 3 seconds
- *   - Spin right for 1.3 seconds
- *   - Drive Backwards for 1 Second
- *   - Stop and close the claw.
- *
- *  The code is written in a simple form with no optimizations.
- *  However, there are several ways that this type of sequence could be streamlined,
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
-@Autonomous(name="Pushbot: Auto Drive By Time", group="Pushbot")
-public class Auto_DriveByTime extends LinearOpMode {
+@Autonomous(name="Timed Auto")
+public class TimedAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private HardwarePot         rb   = new HardwarePot();   // Use hardware
+    HardwarePot rb = new HardwarePot();
     private ElapsedTime     runtime = new ElapsedTime();
 
 
@@ -71,11 +46,6 @@ public class Auto_DriveByTime extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
         rb.init(hardwareMap);
 
         // Send telemetry message to signify rb waiting;
@@ -95,9 +65,36 @@ public class Auto_DriveByTime extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        runtime.reset();
+        while (opModeIsActive() && runtime.seconds() < 3.0){
+            //do another thing
+        }
 
-        // Step 2: Lower claw
+        // Step 2:  Spin right for 1.3 seconds
+        rb.leftDrive.setPower(TURN_SPEED);
+        rb.rightDrive.setPower(-TURN_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
 
+        // Step 3:  Drive Backwards for 1 Second
+        rb.leftDrive.setPower(-FORWARD_SPEED);
+        rb.rightDrive.setPower(-FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        // Step 4:  Stop and close the claw.
+        rb.leftDrive.setPower(0);
+        rb.rightDrive.setPower(0);
+//        rb.leftClaw.setPosition(1.0);
+//        rb.rightClaw.setPosition(0.0);
+
+        rb.driveStop();
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

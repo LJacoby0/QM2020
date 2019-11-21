@@ -75,7 +75,7 @@ public class HardwarePot {
         lift.setDirection(DcMotor.Direction.FORWARD);
 
 
-        // Set robot to brake when power is zero
+        // Set rb to brake when power is zero
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
