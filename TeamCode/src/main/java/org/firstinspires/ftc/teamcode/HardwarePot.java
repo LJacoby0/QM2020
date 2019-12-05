@@ -29,6 +29,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -41,7 +42,9 @@ public class HardwarePot {
     DcMotor backDrive = null;
     DcMotor drag = null;
     DcMotor lift = null;
-    Servo hand = null;
+    Servo righthand = null;
+    Servo lefthand = null;
+
 
 //    public static final double hand       =  0.5;
 //    public static final double ARM_UP_POWER    =  0.45 ;
@@ -104,8 +107,8 @@ public class HardwarePot {
 
 
 
-        hand = hwMap.get(Servo.class, "hand");
-        hand.setPosition(.50);
+        righthand = hwMap.get(Servo.class, "righthand");
+        lefthand = hwMap.get(Servo.class, "lefthand");
 
     }
     void driveStop() {

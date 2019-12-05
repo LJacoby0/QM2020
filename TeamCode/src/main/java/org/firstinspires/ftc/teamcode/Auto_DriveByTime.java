@@ -66,7 +66,7 @@ public class Auto_DriveByTime extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
 
-    static final double     FORWARD_SPEED = 0.6;
+    static final double     FORWARD_SPEED = 0.1;
     static final double     TURN_SPEED    = 0.5;
 
     @Override
@@ -87,16 +87,49 @@ public class Auto_DriveByTime extends LinearOpMode {
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
-        // Step 1:  Drive forward for 3 seconds
-        rb.leftDrive.setPower(FORWARD_SPEED);
-        rb.rightDrive.setPower(FORWARD_SPEED);
+        // Init: Move hand up
+        rb.drag.setPower(-.3);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.8)) {
+            telemetry.addData("Path", "Init: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        // Step 1: Drive right for 2 seconds
+        rb.frontDrive.setPower(FORWARD_SPEED);
+        rb.backDrive.setPower(FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
         // Step 2: Lower claw
+        rb.drag.setPower(.3); // lower claw (NEEDS TESTING TO SET VALUE)
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.7)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        // Step 3: Drive back to edge of platform
+        rb.leftDrive.setPower(-FORWARD_SPEED);
+        rb.rightDrive.setPower(-FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 1.05)) {
+            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        // Step 4: Drive left with platform
+        rb.frontDrive.setPower(-FORWARD_SPEED);
+        rb.backDrive.setPower(-FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
 
 
         telemetry.addData("Path", "Complete");
