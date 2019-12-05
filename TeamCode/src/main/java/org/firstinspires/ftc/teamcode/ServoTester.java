@@ -40,7 +40,7 @@
         // Connect to servo (Assume PushBot Left Hand)
         // Change the text in quotes to match any servo name on your rb.
 //        CRServo servo = hardwareMap.get(CRServo.class, "hand");
-        Servo servo = hardwareMap.get(Servo.class, "hand");
+        Servo servo = hardwareMap.get(Servo.class, "righthand");
 
 
                 // Wait for the start button

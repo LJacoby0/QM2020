@@ -93,10 +93,10 @@ public class TwoDrivers extends LinearOpMode {
         }
     }
     private void hand(){
-        if(gamepad2.y){
-            rb.righthand.setPosition(.5);//open
-        } else if(gamepad2.x){
-            rb.righthand.setPosition(1.0);//close
+        if(gamepad2.dpad_left){
+            rb.righthand.setPosition(.47);//open
+        } else if(gamepad2.dpad_right){
+            rb.righthand.setPosition(.70);//close
         }
     }
 
