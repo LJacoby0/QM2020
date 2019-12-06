@@ -94,9 +94,9 @@ public class TwoDrivers extends LinearOpMode {
     }
     private void hand(){
         if(gamepad2.dpad_left){
-            rb.righthand.setPosition(.23);//open
+            rb.righthand.setPosition(.46);//open
         } else if(gamepad2.dpad_right){
-            rb.righthand.setPosition(.46);//close
+            rb.righthand.setPosition(.84);//close
         }
     }
 
@@ -120,6 +120,8 @@ public class TwoDrivers extends LinearOpMode {
 //        }
         power = 1;
 
+        // closed .84
+        // open .46
         //this moves spinning to the driver right stick and makes it more sensitive
 //        double allpower = 0;
 //        if (rightX < -0.13 || rightX > 0.13) {
@@ -130,17 +132,15 @@ public class TwoDrivers extends LinearOpMode {
 //            rb.leftDrive.setPower(allpower);
 //        }
 
-        if (rightb) {
-            rb.frontDrive.setPower(Constants.SPIN_SPEED);
-            rb.backDrive.setPower(Constants.SPIN_SPEED);
-            rb.rightDrive.setPower(Constants.SPIN_SPEED);
-            rb.leftDrive.setPower(Constants.SPIN_SPEED);
-        } else if (leftb) {
-            rb.frontDrive.setPower(-Constants.SPIN_SPEED);
-            rb.backDrive.setPower(-Constants.SPIN_SPEED);
-            rb.rightDrive.setPower(-Constants.SPIN_SPEED);
-            rb.leftDrive.setPower(-Constants.SPIN_SPEED);
-        } else if (leftY < -0.13 || leftY > 0.13) {
+//
+        if (rightX < -0.13 || rightX > 0.13) {
+            frontPower = Range.clip(rightX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
+            rb.frontDrive.setPower(frontPower * power);
+            rb.backDrive.setPower(frontPower * power);
+            rb.rightDrive.setPower(frontPower * power);
+            rb.leftDrive.setPower(frontPower * power);
+        }
+        else if (leftY < -0.13 || leftY > 0.13) {
             telemetry.addData("controller Y is: ", "", leftY);
             //tried to add slow mode
             frontPower = Range.clip(leftY, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
