@@ -84,9 +84,9 @@ public class TwoDrivers extends LinearOpMode {
         }
     }
     private void arm(){
-        if(gamepad2.right_bumper){
+        if(gamepad2.left_bumper){
             rb.lift.setPower(.3);
-        } else if(gamepad2.left_bumper){
+        } else if(gamepad2.right_bumper){
             rb.lift.setPower(-.3);
         }else {
             rb.lift.setPower(0);
@@ -94,9 +94,9 @@ public class TwoDrivers extends LinearOpMode {
     }
     private void hand(){
         if(gamepad2.dpad_left){
-            rb.righthand.setPosition(.47);//open
+            rb.righthand.setPosition(.23);//open
         } else if(gamepad2.dpad_right){
-            rb.righthand.setPosition(.70);//close
+            rb.righthand.setPosition(.46);//close
         }
     }
 
