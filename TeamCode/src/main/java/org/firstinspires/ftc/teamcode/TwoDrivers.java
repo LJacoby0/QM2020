@@ -94,9 +94,9 @@ public class TwoDrivers extends LinearOpMode {
     }
     private void hand(){
         if(gamepad2.dpad_left){
-            rb.righthand.setPosition(.46);//open
+            rb.righthand.setPosition(Constants.OPEN_HAND);//open
         } else if(gamepad2.dpad_right){
-            rb.righthand.setPosition(.84);//close
+            rb.righthand.setPosition(Constants.CLOSED_HAND);//close
         }
     }
 
@@ -133,6 +133,18 @@ public class TwoDrivers extends LinearOpMode {
 //        }
 
 //
+        if (rightb) {
+            rb.frontDrive.setPower(Constants.SPIN_SPEED);
+            rb.backDrive.setPower(Constants.SPIN_SPEED);
+            rb.rightDrive.setPower(Constants.SPIN_SPEED);
+            rb.leftDrive.setPower(Constants.SPIN_SPEED);
+        } else if (leftb) {
+            rb.frontDrive.setPower(-Constants.SPIN_SPEED);
+            rb.backDrive.setPower(-Constants.SPIN_SPEED);
+            rb.rightDrive.setPower(-Constants.SPIN_SPEED);
+            rb.leftDrive.setPower(-Constants.SPIN_SPEED);
+        }
+
         if (rightX < -0.13 || rightX > 0.13) {
             frontPower = Range.clip(rightX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
             rb.frontDrive.setPower(frontPower * power);
