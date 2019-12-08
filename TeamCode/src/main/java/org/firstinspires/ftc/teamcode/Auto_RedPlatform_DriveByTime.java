@@ -70,7 +70,7 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         runtime.reset();
 
         //back up
-        while (opModeIsActive() && (runtime.seconds() < .5)) {
+        while (opModeIsActive() && (runtime.seconds() < .8)) {
             goBack(Constants.FORWARD_SPEED);
             telemetry.addData("Path", "Back: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -78,17 +78,17 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         goStop();
         runtime.reset();
 
-        //go right to platform
-        while (opModeIsActive() && (runtime.seconds() < .7)) {
-            goRight(Constants.FORWARD_SPEED);
-            telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        goStop();
-        runtime.reset();
+//        //go right to platform
+//        while (opModeIsActive() && (runtime.seconds() < .8)) {
+//            goRight(Constants.FORWARD_SPEED);
+//            telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
+//            telemetry.update();
+//        }
+//        goStop();
+//        runtime.reset();
 
         //slowly go right to platform
-        while (opModeIsActive() && (runtime.seconds() < .5)) {
+        while (opModeIsActive() && (runtime.seconds() < 2.7)) {
             goRight(Constants.SLOW_DRIVE_SPEED);
             telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -106,17 +106,17 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         runtime.reset();
 
 
-        //Drive left with platform
-        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-            goLeft(Constants.FORWARD_SPEED);
-            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        goStop();
-        runtime.reset();
+//        //Drive left with platform
+//        while (opModeIsActive() && (runtime.seconds() < .5)) {
+//            goLeft(Constants.FORWARD_SPEED);
+//            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
+//            telemetry.update();
+//        }
+//        goStop();
+//        runtime.reset();
 
         //slowly drive left w platform
-        while (opModeIsActive() && (runtime.seconds() < 1)) {
+        while (opModeIsActive() && (runtime.seconds() < 8.1)) {
             goLeft(Constants.SLOW_DRIVE_SPEED);
             telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -135,8 +135,18 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         rb.righthand.setPosition(Constants.CLOSED_HAND);
         runtime.reset();
 
+//        //spin
+//        while (opModeIsActive() && (runtime.seconds() < .4                                                                                  )) {
+//            goClockwise(Constants.SLOW_DRIVE_SPEED);
+//            telemetry.addData("Path", "Leg 5: %2.5f S Elapsed", runtime.seconds());
+//            telemetry.update();
+//        }
+//        goStop();
+//        runtime.reset();
+
+
         //leave platform
-        while (opModeIsActive() && (runtime.seconds() < 2.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 4.2)) {
             goFront(Constants.SLOW_DRIVE_SPEED);
             telemetry.addData("Path", "Leg 5: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -175,6 +185,12 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         rb.backDrive.setPower(speed);
         rb.leftDrive.setPower(0);
         rb.rightDrive.setPower(0);
+    }
+    public void goClockwise(double speed){
+        rb.frontDrive.setPower(speed);
+        rb.backDrive.setPower(speed);
+        rb.leftDrive.setPower(speed);
+        rb.rightDrive.setPower(speed);
     }
 
     public void goStop(){

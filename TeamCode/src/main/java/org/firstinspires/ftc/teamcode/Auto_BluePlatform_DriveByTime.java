@@ -41,8 +41,8 @@ import org.firstinspires.ftc.teamcode.HardwarePot;
 @Autonomous(name="Blue Platform Auto")
 public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
 
-    private HardwarePot rb   = new HardwarePot();   // Use hardware
-    private ElapsedTime runtime = new ElapsedTime();
+    private HardwarePot         rb   = new HardwarePot();   // Use hardware
+    private ElapsedTime     runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
@@ -70,7 +70,7 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
         runtime.reset();
 
         //back up
-        while (opModeIsActive() && (runtime.seconds() < .5)) {
+        while (opModeIsActive() && (runtime.seconds() < .4)) {
             goFront(Constants.FORWARD_SPEED);
             telemetry.addData("Path", "Back: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
@@ -78,18 +78,27 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
         goStop();
         runtime.reset();
 
-        //go right to platform
-        while (opModeIsActive() && (runtime.seconds() < .9)) {
-            goLeft(Constants.FORWARD_SPEED);
-            telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
+        //pause
+        while (opModeIsActive() && (runtime.seconds() < .5)) {
+            goStop();
+            telemetry.addData("Path", "Back: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
         goStop();
         runtime.reset();
 
+//        //go right to platform
+//        while (opModeIsActive() && (runtime.seconds() < .8)) {
+//            goRight(Constants.FORWARD_SPEED);
+//            telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
+//            telemetry.update();
+//        }
+//        goStop();
+//        runtime.reset();
+
         //slowly go right to platform
-        while (opModeIsActive() && (runtime.seconds() < .3)) {
-            goLeft(Constants.SLOW_DRIVE_SPEED);
+        while (opModeIsActive() && (runtime.seconds() < 2.9)) {
+            goRight(Constants.SLOW_DRIVE_SPEED);
             telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -106,18 +115,18 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
         runtime.reset();
 
 
-        //Drive left with platform
-        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-            goRight(Constants.FORWARD_SPEED);
-            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        goStop();
-        runtime.reset();
+//        //Drive left with platform
+//        while (opModeIsActive() && (runtime.seconds() < .5)) {
+//            goLeft(Constants.FORWARD_SPEED);
+//            telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
+//            telemetry.update();
+//        }
+//        goStop();
+//        runtime.reset();
 
         //slowly drive left w platform
-        while (opModeIsActive() && (runtime.seconds() < 1)) {
-            goRight(Constants.SLOW_DRIVE_SPEED);
+        while (opModeIsActive() && (runtime.seconds() < 8.0)) {
+            goLeft(Constants.SLOW_DRIVE_SPEED);
             telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -127,7 +136,7 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
 
         //let go of platform
         while (opModeIsActive() && (runtime.seconds() < 1.7)) {
-            rb.drag.setPower(-.3); // lower claw (NEEDS TESTING TO SET VALUE)
+            rb.drag.setPower(-.3); // lower claw
             telemetry.addData("Path", "Leg 5: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -135,10 +144,28 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
         rb.righthand.setPosition(Constants.CLOSED_HAND);
         runtime.reset();
 
+//        //spin
+//        while (opModeIsActive() && (runtime.seconds() < .4                                                                                  )) {
+//            goClockwise(Constants.SLOW_DRIVE_SPEED);
+//            telemetry.addData("Path", "Leg 5: %2.5f S Elapsed", runtime.seconds());
+//            telemetry.update();
+//        }
+//        goStop();
+//        runtime.reset();
+
+        //turn a bit
+        while (opModeIsActive() && (runtime.seconds() < .05)) {
+            goCounter(Constants.MAX_DRIVE_SPEED);
+            telemetry.addData("Path", "Leg 6: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        goStop();
+        runtime.reset();
+
         //leave platform
-        while (opModeIsActive() && (runtime.seconds() < 2.5)) {
+        while (opModeIsActive() && (runtime.seconds() < 4.5)) {
             goBack(Constants.SLOW_DRIVE_SPEED);
-            telemetry.addData("Path", "Leg 5: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("Path", "Leg 6: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
         goStop();
@@ -175,6 +202,19 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
         rb.backDrive.setPower(speed);
         rb.leftDrive.setPower(0);
         rb.rightDrive.setPower(0);
+    }
+    public void goClock(double speed){
+        rb.frontDrive.setPower(speed);
+        rb.backDrive.setPower(speed);
+        rb.leftDrive.setPower(speed);
+        rb.rightDrive.setPower(speed);
+    }
+
+    public void goCounter(double speed){
+        rb.frontDrive.setPower(-speed);
+        rb.backDrive.setPower(-speed);
+        rb.leftDrive.setPower(-speed);
+        rb.rightDrive.setPower(-speed);
     }
 
     public void goStop(){

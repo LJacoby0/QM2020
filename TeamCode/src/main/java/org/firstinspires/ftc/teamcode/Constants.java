@@ -13,18 +13,11 @@ public final class Constants {
     public static final float TRIGGER_THRESHOLD = .65f;
     public static final float SPIN_SPEED = .3f;//slowed down from .4f
     public static final double MAX_DRIVE_SPEED = 0.6;
-    public static final double SLOW_DRIVE_SPEED = .4;
+    public static final double SLOW_DRIVE_SPEED = .3;
     public static final double MIN_DRIVE_SPEED = -0.6;
     public static final double FORWARD_SPEED = .5;
     public static final double CLOSED_HAND = .84;
     public static final double OPEN_HAND = .46;
-
-
-
-
-
-
-
 
     private Constants() {
     }
