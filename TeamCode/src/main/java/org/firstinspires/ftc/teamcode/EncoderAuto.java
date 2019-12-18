@@ -79,19 +79,14 @@ public class EncoderAuto extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED,  -16, 0,  3.0);  //
-        sleep(250);
+        encoderDrive(DRIVE_SPEED,  -10, 0,  1.0);  //
         robot.drag.setPower(-0.3);
-        sleep(250);
-        encoderDrive(DRIVE_SPEED,   0, 33, 5.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(250);
+        encoderDrive(DRIVE_SPEED,   0, 27, 2.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         robot.drag.setPower(0.3);
         sleep(250);
-        encoderDrive(DRIVE_SPEED, 0, -34,  6.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        sleep(250);
+        encoderDrive(DRIVE_SPEED, 0, -27,  2.0);  // S3: Reverse 24 Inches with 4 Sec timeout
         robot.drag.setPower(-0.3);
-        sleep(250);
-        encoderDrive(DRIVE_SPEED, 57, 0, 5.0);
+        encoderDrive(DRIVE_SPEED, 40, 0, 2.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
