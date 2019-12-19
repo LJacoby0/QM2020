@@ -72,10 +72,11 @@ public class TwoDriversDiagonal extends LinearOpMode {
     /**
      * Main Diagonal Driving Function
      * Basic Controls: Left stick is 360 degree motion and right stick is just rotation
-     * @param x_stick x value of left stick value -/+
-     * @param y_stick y value of left stick
+     *
+     * @param x_stick       x value of left stick value -/+
+     * @param y_stick       y value of left stick
      * @param x_right_stick x value or right stick
-     * @param multiplier pre-determined multiplier in constants file, can be modified by slow mode
+     * @param multiplier    pre-determined multiplier in constants file, can be modified by slow mode
      */
 
     // diaDrive(leftX, leftY, rightX, pow);
@@ -135,7 +136,6 @@ public class TwoDriversDiagonal extends LinearOpMode {
         }
 
 
-
 //Old vars
 //            float leftY = -gamepad1.left_stick_y;
 //            float leftX = gamepad1.left_stick_x;
@@ -163,7 +163,6 @@ public class TwoDriversDiagonal extends LinearOpMode {
         } else {
             rb.driveStop();
         }
-
 
         telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
         telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
