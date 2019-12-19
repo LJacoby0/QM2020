@@ -82,12 +82,13 @@ public class TwoDriversDiagonal extends LinearOpMode {
     // diaDrive(leftX, leftY, rightX, pow);
     public void diaDrive(double x_stick, double y_stick, double x_right_stick, double multiplier) {
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
-        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick);
-        rb.backDrive.setPower(-x_stick * multiplier + x_right_stick);
+        rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
+        rb.backDrive.setPower(x_stick * multiplier + x_right_stick);
         rb.leftDrive.setPower(y_stick * multiplier + x_right_stick);
         rb.rightDrive.setPower(-y_stick * multiplier + x_right_stick);
         //TODO: mess w/ multipliers
         //TODO: Verify that this code actually works
+        //TODO: make robot move forward a little when block servo closes
     }
 
 
@@ -153,6 +154,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         //MAIN:
         //Deadzone:  TODO: Make adjustable deadzone
+        //TODO: Driving rotation
 
 
         if (leftX * leftX + leftY * leftY >= DRIVE_STICK_THRESHOLD_SQUARED || Math.abs(rightX) >= DRIVE_STICK_THRESHOLD) {
