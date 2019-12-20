@@ -10,7 +10,7 @@ import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD_SQUARED;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
-@TeleOp(name = "TwoDriversDiagonal", group = "Sensor")
+@TeleOp(name = "TwoDriversDiagonal 12/20", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
@@ -34,12 +34,15 @@ public class TwoDriversDiagonal extends LinearOpMode {
             drag();
             arm();
             hand();
+            //compass();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
     }
+
+//Gunner Functions:
 
     private void drag() {
         if (gamepad2.dpad_up) {
@@ -60,7 +63,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
             rb.lift.setPower(0);
         }
     }
-
+//TODO: Make robot move forwards a little bit when hand is opened
     private void hand() {
         if (gamepad2.dpad_left) {
             rb.righthand.setPosition(Constants.OPEN_HAND);//open
@@ -68,7 +71,31 @@ public class TwoDriversDiagonal extends LinearOpMode {
             rb.righthand.setPosition(Constants.CLOSED_HAND);//close
         }
     }
-
+//TODO: finish Compass code
+//
+//    private void compass() {
+//        if (gamepad2.dpad_up) {
+//            rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
+//            rb.backDrive.setPower(x_stick * multiplier + x_right_stick);
+//            rb.leftDrive.setPower(y_stick * multiplier + x_right_stick);
+//            rb.rightDrive.setPower(-y_stick * multiplier + x_right_stick);
+//        } else if (gamepad2.dpad_down) {
+//            rb.drag.setPo private void compass() {
+////        if (gamepad2.dpad_up) {
+////            rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
+////            rb.backDrive.setPower(x_stick * multiplier + x_right_stick);
+////            rb.leftDrive.setPower(y_stick * multiplier + x_right_stick);
+////            rb.rightDrive.setPower(-y_stick * multiplier + x_right_stick);
+////        } else if (gamepad2.dpad_down) {
+////            rb.drag.setPower(.3);
+////        } else {
+////            rb.drag.setPower(0);
+////        }
+////    }wer(.3);
+//        } else {
+//            rb.drag.setPower(0);
+//        }
+//    }
     /**
      * Main Diagonal Driving Function
      * Basic Controls: Left stick is 360 degree motion and right stick is just rotation
@@ -81,14 +108,12 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     // diaDrive(leftX, leftY, rightX, pow);
     public void diaDrive(double x_stick, double y_stick, double x_right_stick, double multiplier) {
+
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
-        rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
-        rb.backDrive.setPower(x_stick * multiplier + x_right_stick);
-        rb.leftDrive.setPower(y_stick * multiplier + x_right_stick);
-        rb.rightDrive.setPower(-y_stick * multiplier + x_right_stick);
-        //TODO: mess w/ multipliers
-        //TODO: Verify that this code actually works
-        //TODO: make robot move forward a little when block servo closes
+        rb.backDrive.setPower(-x_stick * multiplier + x_right_stick); //actually the right motor
+        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick*0.96); //actually the left motor, 0.96 is to balance weight
+        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick); //actually the front motor
+        rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); //actually the back motor
     }
 
 
