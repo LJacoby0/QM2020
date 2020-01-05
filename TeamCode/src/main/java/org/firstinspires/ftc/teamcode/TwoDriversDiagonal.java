@@ -48,7 +48,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
         if (gamepad2.dpad_up) {
             rb.drag.setPower(-.3);
         } else if (gamepad2.dpad_down) {
-            rb.drag.setPower(.3);
+            rb.drag.setPower(.6);
         } else {
             rb.drag.setPower(0);
         }
@@ -56,7 +56,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     private void arm() {
         if (gamepad2.left_bumper) {
-            rb.lift.setPower(.3);
+            rb.lift.setPower(.5);
         } else if (gamepad2.right_bumper) {
             rb.lift.setPower(-.3);
         } else {
@@ -150,10 +150,10 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         //idk why we even have these buttons but ok...
         if (rightb) {
-            rb.frontDrive.setPower(Constants.SPIN_SPEED);
-            rb.backDrive.setPower(Constants.SPIN_SPEED);
-            rb.rightDrive.setPower(Constants.SPIN_SPEED);
-            rb.leftDrive.setPower(Constants.SPIN_SPEED);
+                rb.frontDrive.setPower(Constants.SPIN_SPEED);
+                rb.backDrive.setPower(Constants.SPIN_SPEED);
+                rb.rightDrive.setPower(Constants.SPIN_SPEED);
+                rb.leftDrive.setPower(Constants.SPIN_SPEED);
         } else if (leftb) {
             rb.frontDrive.setPower(-Constants.SPIN_SPEED);
             rb.backDrive.setPower(-Constants.SPIN_SPEED);
