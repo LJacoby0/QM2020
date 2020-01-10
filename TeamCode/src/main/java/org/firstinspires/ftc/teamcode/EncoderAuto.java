@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -41,9 +39,9 @@ public class EncoderAuto extends LinearOpMode {
     HardwarePot robot   = new HardwarePot();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_MOTOR_REV    = 1150 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 5.2 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
@@ -80,15 +78,12 @@ public class EncoderAuto extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         encoderDrive(DRIVE_SPEED,  -16, 0,  3.0);  //
-        sleep(250);
         robot.drag.setPower(-0.3);
         sleep(250);
         encoderDrive(DRIVE_SPEED,   0, 33, 5.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        sleep(250);
         robot.drag.setPower(0.3);
         sleep(250);
         encoderDrive(DRIVE_SPEED, 0, -34,  6.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-        sleep(250);
         robot.drag.setPower(-0.3);
         sleep(250);
         encoderDrive(DRIVE_SPEED, 57, 0, 5.0);
@@ -165,7 +160,7 @@ public class EncoderAuto extends LinearOpMode {
             robot.frontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+              sleep(250);   // optional pause after each move
         }
     }
 }
