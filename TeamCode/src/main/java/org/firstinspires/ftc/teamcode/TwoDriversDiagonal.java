@@ -10,7 +10,7 @@ import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD_SQUARED;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
-@TeleOp(name = "TwoDriversDiagonal 12/20", group = "Sensor")
+@TeleOp(name = "TwoDriversDiagonal 1/9", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
@@ -111,7 +111,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
         rb.backDrive.setPower(-x_stick * multiplier + x_right_stick); //actually the right motor
-        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick*0.96); //actually the left motor, 0.96 is to balance weight
+        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick); //actually the left motor, 0.96 is to balance weight
         rb.rightDrive.setPower(y_stick * multiplier + x_right_stick); //actually the front motor
         rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); //actually the back motor
     }
@@ -184,7 +184,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         if (leftX * leftX + leftY * leftY >= DRIVE_STICK_THRESHOLD_SQUARED || Math.abs(rightX) >= DRIVE_STICK_THRESHOLD) {
 
-            diaDrive(leftX, leftY, rightX, pow);
+            diaDrive(leftX, leftY, rightX*0.75, pow);
 
 
         } else {
