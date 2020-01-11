@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
+
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
@@ -34,7 +36,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
             drag();
             arm();
             hand();
-            //compass();
+            compass();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -72,7 +74,32 @@ public class TwoDriversDiagonal extends LinearOpMode {
         }
     }
 //TODO: finish Compass code
-//
+//leyla's draft
+    private void compass() {
+        if (gamepad1.dpad_up) {
+            rb.frontDrive.setPower(0);
+            rb.backDrive.setPower(0);
+            rb.leftDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+            rb.rightDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+        } else if (gamepad1.dpad_down) {
+            rb.frontDrive.setPower(0);
+            rb.backDrive.setPower(0);
+            rb.leftDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+            rb.rightDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+        } else if (gamepad1.dpad_left) {
+            rb.frontDrive.setPower(-Constants.MAX_DRIVE_SPEED);
+            rb.backDrive.setPower(Constants.MAX_DRIVE_SPEED);
+            rb.leftDrive.setPower(0);
+            rb.rightDrive.setPower(0);
+        } else if (gamepad1.dpad_right) {
+            rb.frontDrive.setPower(Constants.MAX_DRIVE_SPEED);
+            rb.backDrive.setPower(-Constants.MAX_DRIVE_SPEED);
+            rb.leftDrive.setPower(0);
+            rb.rightDrive.setPower(0);
+        }
+    }
+
+        //todd's draft
 //    private void compass() {
 //        if (gamepad2.dpad_up) {
 //            rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
@@ -133,10 +160,6 @@ public class TwoDriversDiagonal extends LinearOpMode {
         boolean leftb = gamepad1.left_bumper;
 
 
-        power = 1;
-
-        // closed .84
-        // open .46
         //
         // this moves spinning to the driver right stick and makes it more sensitive
 //        double allpower = 0;
@@ -148,7 +171,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 //            rb.leftDrive.setPower(allpower);
 //        }
 
-        //idk why we even have these buttons but ok...
+        //slower spinning for alignment
         if (rightb) {
                 rb.frontDrive.setPower(Constants.SPIN_SPEED);
                 rb.backDrive.setPower(Constants.SPIN_SPEED);

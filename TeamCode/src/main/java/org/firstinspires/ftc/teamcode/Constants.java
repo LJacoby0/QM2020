@@ -20,8 +20,8 @@ public final class Constants {
     public static final float DRIVE_STICK_THRESHOLD_SQUARED = DRIVE_STICK_THRESHOLD * DRIVE_STICK_THRESHOLD;
     public static final float TRIGGER_THRESHOLD = .10f;
     //Servo:
-    public static final double CLOSED_HAND = 1;
-    public static final double OPEN_HAND = 0;
+    public static final double CLOSED_HAND = .65;
+    public static final double OPEN_HAND = 0.32;
 
     private Constants() {
     }
