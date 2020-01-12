@@ -118,5 +118,32 @@ public class HardwarePot {
         backDrive.setPower(0);
     }
 
+    void driveForwards() {
+        rightDrive.setPower(0); //Front
+        leftDrive.setPower(0); //Back
+        frontDrive.setPower(Constants.MAX_DRIVE_SPEED+.2); //Left
+        backDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2); //Right
+    }
+    void driveBackwards() {
+        rightDrive.setPower(0); //Front
+        leftDrive.setPower(0); //Back
+        frontDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2); //Left
+        backDrive.setPower(Constants.MAX_DRIVE_SPEED+.2); //Right
+    }
+
+    void driveLeft() {
+        rightDrive.setPower(-Constants.MAX_DRIVE_SPEED); //Front
+        leftDrive.setPower(Constants.MAX_DRIVE_SPEED); //Back
+        frontDrive.setPower(0);  //Left
+        backDrive.setPower(0); //Right
+    }
+
+    void driveRight() {
+        rightDrive.setPower(Constants.MAX_DRIVE_SPEED); //Front
+        leftDrive.setPower(-Constants.MAX_DRIVE_SPEED); //Back
+        frontDrive.setPower(0); //Left
+        backDrive.setPower(0); //Right
+    }
+
 }
 

@@ -75,54 +75,51 @@ public class TwoDriversDiagonal extends LinearOpMode {
     }
 //TODO: finish Compass code
 //leyla's draft
+//    private void compass() {
+//        if (gamepad1.dpad_up) {
+//            rb.frontDrive.setPower(0);
+//            rb.backDrive.setPower(0);
+//            rb.leftDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+//            rb.rightDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+//        } else if (gamepad1.dpad_down) {
+//            rb.frontDrive.setPower(0);
+//            rb.backDrive.setPower(0);
+//            rb.leftDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+//            rb.rightDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+//        } else if (gamepad1.dpad_left) {
+//            rb.frontDrive.setPower(-Constants.MAX_DRIVE_SPEED);
+//            rb.backDrive.setPower(Constants.MAX_DRIVE_SPEED);
+//            rb.leftDrive.setPower(0);
+//            rb.rightDrive.setPower(0);
+//        } else if (gamepad1.dpad_right) {
+//            rb.frontDrive.setPower(Constants.MAX_DRIVE_SPEED);
+//            rb.backDrive.setPower(-Constants.MAX_DRIVE_SPEED);
+//            rb.leftDrive.setPower(0);
+//            rb.rightDrive.setPower(0);
+//        }
+//    }
+//Leyla's draft w/ new directions
+
     private void compass() {
         if (gamepad1.dpad_up) {
-            rb.frontDrive.setPower(0);
-            rb.backDrive.setPower(0);
-            rb.leftDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
-            rb.rightDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+
+            rb.driveForwards(); //see hardwarepot.java
+
         } else if (gamepad1.dpad_down) {
-            rb.frontDrive.setPower(0);
-            rb.backDrive.setPower(0);
-            rb.leftDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
-            rb.rightDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+            
+            rb.driveBackwards(); //see hardwarepot.java
+
         } else if (gamepad1.dpad_left) {
-            rb.frontDrive.setPower(-Constants.MAX_DRIVE_SPEED);
-            rb.backDrive.setPower(Constants.MAX_DRIVE_SPEED);
-            rb.leftDrive.setPower(0);
-            rb.rightDrive.setPower(0);
+
+            rb.driveLeft(); //see hardwarepot.java
+
         } else if (gamepad1.dpad_right) {
-            rb.frontDrive.setPower(Constants.MAX_DRIVE_SPEED);
-            rb.backDrive.setPower(-Constants.MAX_DRIVE_SPEED);
-            rb.leftDrive.setPower(0);
-            rb.rightDrive.setPower(0);
+
+            rb.driveRight(); //see hardwarepot.java
         }
     }
 
-        //todd's draft
-//    private void compass() {
-//        if (gamepad2.dpad_up) {
-//            rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
-//            rb.backDrive.setPower(x_stick * multiplier + x_right_stick);
-//            rb.leftDrive.setPower(y_stick * multiplier + x_right_stick);
-//            rb.rightDrive.setPower(-y_stick * multiplier + x_right_stick);
-//        } else if (gamepad2.dpad_down) {
-//            rb.drag.setPo private void compass() {
-////        if (gamepad2.dpad_up) {
-////            rb.frontDrive.setPower(-x_stick * multiplier + x_right_stick);
-////            rb.backDrive.setPower(x_stick * multiplier + x_right_stick);
-////            rb.leftDrive.setPower(y_stick * multiplier + x_right_stick);
-////            rb.rightDrive.setPower(-y_stick * multiplier + x_right_stick);
-////        } else if (gamepad2.dpad_down) {
-////            rb.drag.setPower(.3);
-////        } else {
-////            rb.drag.setPower(0);
-////        }
-////    }wer(.3);
-//        } else {
-//            rb.drag.setPower(0);
-//        }
-//    }
+
     /**
      * Main Diagonal Driving Function
      * Basic Controls: Left stick is 360 degree motion and right stick is just rotation
@@ -191,7 +188,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 //            float rightX = gamepad1.right_stick_x;
 
 
-        //Slow mode code, should be irrelevant if variable speed is added to main code. If the driver prefers it tho, it can be used
+        //Slow mode code
         double pow;
         if (gamepad1.right_trigger >= TRIGGER_THRESHOLD) {
             pow = DRIVE_POWER_SLOW; //Slow constant
