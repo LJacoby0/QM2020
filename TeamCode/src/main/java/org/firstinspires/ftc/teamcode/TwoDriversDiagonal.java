@@ -8,11 +8,13 @@ import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
 
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER_SLOW;
+import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER_SLOW;
+import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD_SQUARED;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
-@TeleOp(name = "TwoDriversDiagonal 1/9", group = "Sensor")
+@TeleOp(name = "TwoDriversDiagonal 1/12", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
@@ -37,6 +39,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
             arm();
             hand();
             compass();
+
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -106,7 +109,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
             rb.driveForwards(); //see hardwarepot.java
 
         } else if (gamepad1.dpad_down) {
-            
+
             rb.driveBackwards(); //see hardwarepot.java
 
         } else if (gamepad1.dpad_left) {
@@ -182,19 +185,20 @@ public class TwoDriversDiagonal extends LinearOpMode {
         }
 
 
-//Old vars
-//            float leftY = -gamepad1.left_stick_y;
-//            float leftX = gamepad1.left_stick_x;
-//            float rightX = gamepad1.right_stick_x;
+        //Slow movement trigger
+        //Lets driver use the right or lefttrigger to slow down the movement and rotation of the robot
+        double movementModifier;
+        double rotationModifier;
+        if (gamepad1.right_trigger >= TRIGGER_THRESHOLD || gamepad1.left_trigger >= TRIGGER_THRESHOLD) {
+            movementModifier = DRIVE_POWER_SLOW; //Slow constant
+            rotationModifier = ROTATION_POWER_SLOW;
 
-
-        //Slow mode code
-        double pow;
-        if (gamepad1.right_trigger >= TRIGGER_THRESHOLD) {
-            pow = DRIVE_POWER_SLOW; //Slow constant
         } else {
-            pow = DRIVE_POWER;
+            movementModifier = DRIVE_POWER;
+            rotationModifier = ROTATION_POWER;
         }
+
+
 
 
         //MAIN:
@@ -204,7 +208,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         if (leftX * leftX + leftY * leftY >= DRIVE_STICK_THRESHOLD_SQUARED || Math.abs(rightX) >= DRIVE_STICK_THRESHOLD) {
 
-            diaDrive(leftX, leftY, rightX*0.75, pow);
+            diaDrive(leftX, leftY, rightX*rotationModifier, movementModifier); //0.75 controls rotation
 
 
         } else {
