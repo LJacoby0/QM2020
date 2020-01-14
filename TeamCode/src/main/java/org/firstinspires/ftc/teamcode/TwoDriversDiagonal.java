@@ -3,18 +3,18 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
 
-//Constant Imports from Constants.java
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER_SLOW;
-import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER_SLOW;
-import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD_SQUARED;
+import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER;
+import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
-@TeleOp(name = "TwoDriversDiagonal 1/13", group = "Sensor")
+//Constant Imports from Constants.java
+
+@TeleOp(name = "TwoDriversDiagonal 1/14", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
@@ -70,9 +70,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
         //Additional Controls Using Left stick up and down...
         else if (gamepad2.left_stick_x > .3) {
             rb.lift.setPower(.7);
-        }
-
-        else if (gamepad2.left_stick_x < -.3) {
+        } else if (gamepad2.left_stick_x < -.3) {
             rb.lift.setPower(-.3);
         }
 
@@ -81,7 +79,8 @@ public class TwoDriversDiagonal extends LinearOpMode {
             rb.lift.setPower(0);
         }
     }
-//TODO: Make robot move forwards a little bit when hand is opened
+
+    //TODO: Make robot move forwards a little bit when hand is opened
     private void hand() {
         if (gamepad2.dpad_left) {
             rb.righthand.setPosition(Constants.OPEN_HAND);//open
@@ -151,7 +150,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
         rb.backDrive.setPower(-x_stick * multiplier + x_right_stick); //actually the right motor
-        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick); //actually the left motor, 0.96 is to balance weight
+        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick); //actually the left motor
         rb.rightDrive.setPower(y_stick * multiplier + x_right_stick); //actually the front motor
         rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); //actually the back motor
     }
@@ -163,7 +162,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
         double rightPower = 0;
         double frontPower = 0;
         double backPower = 0;
-        double power;
+
         //Get Stick Values
         double leftY = gamepad1.left_stick_y;
         double leftX = gamepad1.left_stick_x;
@@ -173,23 +172,12 @@ public class TwoDriversDiagonal extends LinearOpMode {
         boolean leftb = gamepad1.left_bumper;
 
 
-        //
-        // this moves spinning to the driver right stick and makes it more sensitive
-//        double allpower = 0;
-//        if (rightX < -0.13 || rightX > 0.13) {
-//            allpower = Range.clip(rightX, Constants.MIN_DRIVE_SPEED, Constants.MAX_DRIVE_SPEED);
-//            rb.frontDrive.setPower(allpower);
-//            rb.backDrive.setPower(allpower);
-//            rb.rightDrive.setPower(allpower);
-//            rb.leftDrive.setPower(allpower);
-//        }
-
         //slower spinning for alignment
         if (rightb) {
-                rb.frontDrive.setPower(Constants.SPIN_SPEED);
-                rb.backDrive.setPower(Constants.SPIN_SPEED);
-                rb.rightDrive.setPower(Constants.SPIN_SPEED);
-                rb.leftDrive.setPower(Constants.SPIN_SPEED);
+            rb.frontDrive.setPower(Constants.SPIN_SPEED);
+            rb.backDrive.setPower(Constants.SPIN_SPEED);
+            rb.rightDrive.setPower(Constants.SPIN_SPEED);
+            rb.leftDrive.setPower(Constants.SPIN_SPEED);
         } else if (leftb) {
             rb.frontDrive.setPower(-Constants.SPIN_SPEED);
             rb.backDrive.setPower(-Constants.SPIN_SPEED);
@@ -199,7 +187,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
 
         //Slow movement trigger
-        //Lets driver use the right or lefttrigger to slow down the movement and rotation of the robot
+        //Lets driver use the right or left trigger to slow down the movement and rotation of the robot
         double movementModifier;
         double rotationModifier;
         if (gamepad1.right_trigger >= TRIGGER_THRESHOLD || gamepad1.left_trigger >= TRIGGER_THRESHOLD) {
@@ -212,17 +200,9 @@ public class TwoDriversDiagonal extends LinearOpMode {
         }
 
 
+        if ((leftX * leftX) + (leftY * leftY) >= DRIVE_STICK_THRESHOLD_SQUARED || Math.abs(rightX) >= DRIVE_STICK_THRESHOLD) {
 
-
-        //MAIN:
-        //Deadzone:  TODO: Make adjustable deadzone
-        //TODO: Driving rotation
-
-
-        if (leftX * leftX + leftY * leftY >= DRIVE_STICK_THRESHOLD_SQUARED || Math.abs(rightX) >= DRIVE_STICK_THRESHOLD) {
-
-            diaDrive(leftX, leftY, rightX*rotationModifier, movementModifier); //0.75 controls rotation
-
+            diaDrive(leftX, leftY, rightX * rotationModifier, movementModifier);
 
         } else {
             rb.driveStop();

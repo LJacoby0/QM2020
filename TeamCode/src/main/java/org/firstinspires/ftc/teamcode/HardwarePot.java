@@ -111,6 +111,8 @@ public class HardwarePot {
         lefthand = hwMap.get(Servo.class, "lefthand");
 
     }
+
+    //Driving Functions
     void driveStop() {
         leftDrive.setPower(0);
         rightDrive.setPower(0);
