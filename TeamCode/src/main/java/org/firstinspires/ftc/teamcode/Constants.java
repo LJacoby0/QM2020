@@ -18,9 +18,9 @@ public final class Constants {
     public static final double MIN_DRIVE_SPEED = -0.6;
     public static final double FORWARD_SPEED = .5;
     //Sticks:
-    public static final float DRIVE_STICK_THRESHOLD = .6f;
+    public static final float DRIVE_STICK_THRESHOLD = .2f;
     public static final float DRIVE_STICK_THRESHOLD_SQUARED = DRIVE_STICK_THRESHOLD * DRIVE_STICK_THRESHOLD;
-    public static final float TRIGGER_THRESHOLD = .10f;
+    public static final float TRIGGER_THRESHOLD = .5f;
     //Servo:
     public static final double CLOSED_HAND = .65;
     public static final double OPEN_HAND = 0.32;

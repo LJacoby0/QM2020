@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
 
+//Constant Imports from Constants.java
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER_SLOW;
@@ -14,7 +14,7 @@ import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD_SQUARED;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
-@TeleOp(name = "TwoDriversDiagonal 1/12", group = "Sensor")
+@TeleOp(name = "TwoDriversDiagonal 1/13", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
@@ -24,6 +24,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        //Init
         rb.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -61,10 +62,22 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     private void arm() {
         if (gamepad2.left_bumper) {
-            rb.lift.setPower(.5);
+            rb.lift.setPower(.7);
         } else if (gamepad2.right_bumper) {
             rb.lift.setPower(-.3);
-        } else {
+        }
+
+        //Additional Controls Using Left stick up and down...
+        else if (gamepad2.left_stick_x > .3) {
+            rb.lift.setPower(.7);
+        }
+
+        else if (gamepad2.left_stick_x < -.3) {
+            rb.lift.setPower(-.3);
+        }
+
+        //if no input, turn motor off
+        else {
             rb.lift.setPower(0);
         }
     }
