@@ -51,9 +51,9 @@ public class TwoDriversDiagonal extends LinearOpMode {
 //Gunner Functions:
 
     private void drag() {
-        if (gamepad2.dpad_up) {
+        if (gamepad2.y) {
             rb.drag.setPower(-.3);
-        } else if (gamepad2.dpad_down) {
+        } else if (gamepad2.a) {
             rb.drag.setPower(.6);
         } else {
             rb.drag.setPower(0);
@@ -82,9 +82,9 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     //TODO: Make robot move forwards a little bit when hand is opened
     private void hand() {
-        if (gamepad2.dpad_left) {
+        if (gamepad2.dpad_up) {
             rb.righthand.setPosition(Constants.OPEN_HAND);//open
-        } else if (gamepad2.dpad_right) {
+        } else if (gamepad2.dpad_down) {
             rb.righthand.setPosition(Constants.CLOSED_HAND);//close
         }
     }
