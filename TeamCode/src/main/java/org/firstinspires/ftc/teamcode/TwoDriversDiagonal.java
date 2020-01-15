@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+//Constant Imports from Constants.java
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
@@ -12,7 +13,7 @@ import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
-//Constant Imports from Constants.java
+
 
 @TeleOp(name = "TwoDriversDiagonal 1/14", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
@@ -61,6 +62,8 @@ public class TwoDriversDiagonal extends LinearOpMode {
     }
 
     private void arm() {
+        //TODO: if we have time, maybe add encoders to this motor so the height can be preset and
+        // toggled using triggers. definitely include an override though for manual control.
         if (gamepad2.left_bumper) {
             rb.lift.setPower(.7);
         } else if (gamepad2.right_bumper) {
@@ -69,8 +72,8 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         //Additional Controls Using Left stick up and down...
         else if (gamepad2.left_stick_x > .3) {
-            rb.lift.setPower(.7);
-        } else if (gamepad2.left_stick_x < -.3) {
+            rb.lift.setPower(.9);
+        } else if (gamepad2.left_stick_x < -.3) { //TODO: Figure out why this doesn't go down
             rb.lift.setPower(-.3);
         }
 
@@ -88,7 +91,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
             rb.righthand.setPosition(Constants.CLOSED_HAND);//close
         }
     }
-//TODO: finish Compass code
+
 //leyla's draft
 //    private void compass() {
 //        if (gamepad1.dpad_up) {
@@ -149,10 +152,11 @@ public class TwoDriversDiagonal extends LinearOpMode {
     public void diaDrive(double x_stick, double y_stick, double x_right_stick, double multiplier) {
 
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
-        rb.backDrive.setPower(-x_stick * multiplier + x_right_stick); //actually the right motor
-        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick); //actually the left motor
-        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick); //actually the front motor
-        rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); //actually the back motor
+        rb.backDrive.setPower(-x_stick * multiplier + x_right_stick);
+        rb.frontDrive.setPower(x_stick * multiplier + x_right_stick);
+        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick);
+        rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick);
+
     }
 
 
@@ -204,12 +208,19 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
             diaDrive(leftX, leftY, rightX * rotationModifier, movementModifier);
 
+            //maybe add data into the console?... :
+            telemetry.addData("Left Y is: ", "", leftY);
+            telemetry.addData("Left X is: ", "", leftX);
+            telemetry.addData("Right X is: ", "", rightX);
+
+
         } else {
             rb.driveStop();
         }
 
         telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
         telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.update();
 
     }
 }
