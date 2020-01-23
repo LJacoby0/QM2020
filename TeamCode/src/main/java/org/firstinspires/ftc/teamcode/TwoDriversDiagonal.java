@@ -15,7 +15,7 @@ import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
 
 
-@TeleOp(name = "TwoDriversDiagonal 1/14", group = "Sensor")
+@TeleOp(name = "TwoDriversDiagonal 1/23", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
@@ -86,9 +86,11 @@ public class TwoDriversDiagonal extends LinearOpMode {
     //TODO: Make robot move forwards a little bit when hand is opened
     private void hand() {
         if (gamepad2.dpad_up) {
-            rb.righthand.setPosition(Constants.OPEN_HAND);//open
-        } else if (gamepad2.dpad_down) {
             rb.righthand.setPosition(Constants.CLOSED_HAND);//close
+
+        } else if (gamepad2.dpad_down) {
+            rb.righthand.setPosition(Constants.OPEN_HAND);//open
+
         }
     }
 
