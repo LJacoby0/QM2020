@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
-
+//adam is stoopid
+//this team is weird
+// this code is weird
+// that robot is weird
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -44,7 +47,7 @@ public class EncoderAuto extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.5 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+    static final double     DRIVE_SPEED             = 0.1  ;
     static final double     TURN_SPEED              = 0.5;
 
     @Override
@@ -77,16 +80,18 @@ public class EncoderAuto extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-        encoderDrive(DRIVE_SPEED,  -16, 0,  3.0);  //
+        encoderDrive(DRIVE_SPEED,  -1, 0,  3.0);  //
+        sleep(250);
         robot.drag.setPower(-0.3);
         sleep(250);
-        encoderDrive(DRIVE_SPEED,   0, 33, 5.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,   0, 10, 5.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         robot.drag.setPower(0.3);
         sleep(250);
-        encoderDrive(DRIVE_SPEED, 0, -34,  6.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 0, -10,  5.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        sleep(250);
         robot.drag.setPower(-0.3);
         sleep(250);
-        encoderDrive(DRIVE_SPEED, 57, 0, 5.0);
+        encoderDrive(DRIVE_SPEED, 3, 0, 5.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -159,8 +164,6 @@ public class EncoderAuto extends LinearOpMode {
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.frontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-              sleep(250);   // optional pause after each move
         }
     }
 }
