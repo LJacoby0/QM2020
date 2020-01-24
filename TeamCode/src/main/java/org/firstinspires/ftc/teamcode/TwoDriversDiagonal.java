@@ -130,8 +130,8 @@ public class TwoDriversDiagonal extends LinearOpMode {
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
         rb.backDrive.setPower(-x_stick * multiplier + x_right_stick);
         rb.frontDrive.setPower(x_stick * multiplier + x_right_stick);
-        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick * 1.4);
-        rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick * .85);
+        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick ); // *1.4
+        rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); // *.85
 
     }
 
@@ -200,4 +200,3 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     }
 }
-
