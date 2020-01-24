@@ -22,7 +22,7 @@ public final class Constants {
     public static final float TRIGGER_THRESHOLD = .5f;
 
     //Servo:
-    public static final double CLOSED_HAND = .69;
-    public static final double OPEN_HAND = .25;
+    public static final double CLOSED_HAND = .75;
+    public static final double OPEN_HAND = .32;
 
 }

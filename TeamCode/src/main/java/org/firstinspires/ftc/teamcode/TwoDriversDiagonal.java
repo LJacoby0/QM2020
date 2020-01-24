@@ -94,6 +94,32 @@ public class TwoDriversDiagonal extends LinearOpMode {
         }
     }
 
+//leyla's draft
+//    private void compass() {
+//        if (gamepad1.dpad_up) {
+//            rb.frontDrive.setPower(0);
+//            rb.backDrive.setPower(0);
+//            rb.leftDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+//            rb.rightDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+//        } else if (gamepad1.dpad_down) {
+//            rb.frontDrive.setPower(0);
+//            rb.backDrive.setPower(0);
+//            rb.leftDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
+//            rb.rightDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
+//        } else if (gamepad1.dpad_left) {
+//            rb.frontDrive.setPower(-Constants.MAX_DRIVE_SPEED);
+//            rb.backDrive.setPower(Constants.MAX_DRIVE_SPEED);
+//            rb.leftDrive.setPower(0);
+//            rb.rightDrive.setPower(0);
+//        } else if (gamepad1.dpad_right) {
+//            rb.frontDrive.setPower(Constants.MAX_DRIVE_SPEED);
+//            rb.backDrive.setPower(-Constants.MAX_DRIVE_SPEED);
+//            rb.leftDrive.setPower(0);
+//            rb.rightDrive.setPower(0);
+//        }
+//    }
+//Leyla's draft w/ new directions
+
     private void compass() {
         if (gamepad1.dpad_up) {
 
@@ -130,8 +156,13 @@ public class TwoDriversDiagonal extends LinearOpMode {
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
         rb.backDrive.setPower(-x_stick * multiplier + x_right_stick);
         rb.frontDrive.setPower(x_stick * multiplier + x_right_stick);
+<<<<<<< HEAD
         rb.rightDrive.setPower(y_stick * multiplier + x_right_stick ); // *1.4
         rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); // *.85
+=======
+        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick);
+        rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick);
+>>>>>>> parent of 952a2e8... Merge remote-tracking branch 'origin/master'
 
     }
 
