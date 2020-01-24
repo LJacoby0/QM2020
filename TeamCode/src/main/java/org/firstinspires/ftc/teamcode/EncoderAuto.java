@@ -1,8 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-//adam is stoopid
-//this team is weird
-// this code is weird
-// that robot is weird
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
