@@ -126,7 +126,7 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
 
         //slowly drive left w platform
         while (opModeIsActive() && (runtime.seconds() < 8.0)) {
-            goLeft(Constants.SLOW_DRIVE_SPEED);
+            goLeft(Constants.MAX_DRIVE_SPEED);
             telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

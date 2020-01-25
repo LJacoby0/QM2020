@@ -27,6 +27,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
     public void runOpMode() {
         //Init
         rb.init(hardwareMap);
+        rb.righthand.setPosition(0.75);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -85,10 +86,10 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
     private void hand() {
         if (gamepad2.dpad_up) {
-            rb.righthand.setPosition(Constants.CLOSED_HAND);//close
+            rb.righthand.setPosition(Constants.CLOSED_HAND);
 
         } else if (gamepad2.dpad_down) {
-            rb.righthand.setPosition(Constants.OPEN_HAND);//open
+            rb.righthand.setPosition(Constants.OPEN_HAND);
 
         }
     }
