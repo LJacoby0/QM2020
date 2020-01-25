@@ -23,7 +23,7 @@ public class BetterEncoderAuto extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.937 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.2;
+    static final double     DRIVE_SPEED             = 0.04;
     static final double     TURN_SPEED              = 0.2;
 
     @Override
@@ -60,19 +60,17 @@ public class BetterEncoderAuto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -8,  -8, 0, 0, 2.0);
-        sleep(250);
-        robot.drag.setPower(-0.3);
-        sleep(250);
-        encoderDrive(DRIVE_SPEED,   0, 0, -40, -40, 4.0);
-        sleep(250);
+        encoderDrive(DRIVE_SPEED,  -2,  2, 0, 0, 2.0);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED,   0, 0, 3.5, -3.5, 4.0);
+        sleep(500);
         robot.drag.setPower(0.3);
-        sleep(250);
-        encoderDrive(DRIVE_SPEED, 0, 0, 40, 40, 4.0);
-        sleep(250);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED, 0, 0, -3.75, 3.75, 4.0);
+        sleep(500);
         robot.drag.setPower(-0.3);
-        sleep(250);
-        encoderDrive(DRIVE_SPEED, 40, 40, 0, 0, 5.0);
+        sleep(500);
+        encoderDrive(DRIVE_SPEED, 6, -6, 0, 0, 5.0);
 
         sleep(1000);     // pause for servos to move
 
@@ -134,7 +132,7 @@ public class BetterEncoderAuto extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (timer.seconds() < timeoutS) &&
-                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy() && robot.frontDrive.isBusy() && robot.backDrive.isBusy())) {
+                    (robot.leftDrive.isBusy() || robot.rightDrive.isBusy() || robot.frontDrive.isBusy() || robot.backDrive.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);

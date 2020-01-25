@@ -8,7 +8,7 @@ public final class Constants {
     //Speeds:
     public static final float DRIVE_POWER = 1;
     public static final float DRIVE_POWER_SLOW = .5f;
-    public static final double ROTATION_POWER_SLOW = 0.075;
+    public static final double ROTATION_POWER_SLOW = 0.2;
     public static final double ROTATION_POWER = 0.75;
     public static final float SPIN_SPEED = .3f;//slowed down from .4f
     public static final double MAX_DRIVE_SPEED = 0.6;
@@ -24,6 +24,6 @@ public final class Constants {
 
     //Servo:
     public static final double CLOSED_HAND = .69;
-    public static final double OPEN_HAND = .25;
+    public static final double OPEN_HAND = .22;
 
 }
