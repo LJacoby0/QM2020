@@ -83,7 +83,6 @@ public class TwoDriversDiagonal extends LinearOpMode {
         }
     }
 
-    //TODO: Make robot move forwards a little bit when hand is opened
     private void hand() {
         if (gamepad2.dpad_up) {
             rb.righthand.setPosition(Constants.CLOSED_HAND);//close
@@ -93,32 +92,6 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
         }
     }
-
-//leyla's draft
-//    private void compass() {
-//        if (gamepad1.dpad_up) {
-//            rb.frontDrive.setPower(0);
-//            rb.backDrive.setPower(0);
-//            rb.leftDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
-//            rb.rightDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
-//        } else if (gamepad1.dpad_down) {
-//            rb.frontDrive.setPower(0);
-//            rb.backDrive.setPower(0);
-//            rb.leftDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2);
-//            rb.rightDrive.setPower(Constants.MAX_DRIVE_SPEED+.2);
-//        } else if (gamepad1.dpad_left) {
-//            rb.frontDrive.setPower(-Constants.MAX_DRIVE_SPEED);
-//            rb.backDrive.setPower(Constants.MAX_DRIVE_SPEED);
-//            rb.leftDrive.setPower(0);
-//            rb.rightDrive.setPower(0);
-//        } else if (gamepad1.dpad_right) {
-//            rb.frontDrive.setPower(Constants.MAX_DRIVE_SPEED);
-//            rb.backDrive.setPower(-Constants.MAX_DRIVE_SPEED);
-//            rb.leftDrive.setPower(0);
-//            rb.rightDrive.setPower(0);
-//        }
-//    }
-//Leyla's draft w/ new directions
 
     private void compass() {
         if (gamepad1.dpad_up) {

@@ -78,14 +78,6 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         goStop();
         runtime.reset();
 
-//        //go right to platform
-//        while (opModeIsActive() && (runtime.seconds() < .8)) {
-//            goRight(Constants.FORWARD_SPEED);
-//            telemetry.addData("Path", "Right: %2.5f S Elapsed", runtime.seconds());
-//            telemetry.update();
-//        }
-//        goStop();
-//        runtime.reset();
 
         //slowly go right to platform
         while (opModeIsActive() && (runtime.seconds() < 2.7)) {
@@ -117,7 +109,7 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
 
         //slowly drive left w platform
         while (opModeIsActive() && (runtime.seconds() < 8.1)) {
-            goLeft(Constants.SLOW_DRIVE_SPEED);
+            goLeft(Constants.MAX_DRIVE_SPEED);
             telemetry.addData("Path", "Leg 4: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -164,6 +156,13 @@ public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
         rb.frontDrive.setPower(0);
         rb.backDrive.setPower(0);
         rb.leftDrive.setPower(speed);
+        rb.rightDrive.setPower(-speed);
+    }
+
+    public void goFrontAndLittleToRight (double speed){
+        rb.frontDrive.setPower(0);
+        rb.backDrive.setPower(0);
+        rb.leftDrive.setPower(speed * 1.1); //TODO: TEST THIS
         rb.rightDrive.setPower(-speed);
     }
 
