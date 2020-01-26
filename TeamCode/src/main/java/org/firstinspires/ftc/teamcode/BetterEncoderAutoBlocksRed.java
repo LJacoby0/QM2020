@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * "EncoderAuto" class.
  */
 
-@Autonomous(name="Better Encoder Auto Blocks Red")
+@Autonomous(name="Encoder Auto Blocks Red")
 public class BetterEncoderAutoBlocksRed extends LinearOpMode {
 
     /* Declare OpMode members. */
