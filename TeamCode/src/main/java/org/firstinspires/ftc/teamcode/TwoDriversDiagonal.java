@@ -15,7 +15,7 @@ import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
 
 
-@TeleOp(name = "TwoDriversDiagonal 1/24", group = "Sensor")
+@TeleOp(name = "! TwoDriversDiagonal 1/26", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
