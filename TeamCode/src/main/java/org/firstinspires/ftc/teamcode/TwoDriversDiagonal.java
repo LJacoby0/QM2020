@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//Constant Imports from Constants.java
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
@@ -13,6 +12,7 @@ import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER;
 import static org.firstinspires.ftc.teamcode.Constants.ROTATION_POWER_SLOW;
 import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
+//Constant Imports from Constants.java
 
 
 @TeleOp(name = "! TwoDriversDiagonal 1/26", group = "Sensor")
@@ -67,13 +67,13 @@ public class TwoDriversDiagonal extends LinearOpMode {
         if (gamepad2.left_bumper) {
             rb.lift.setPower(.7);
         } else if (gamepad2.right_bumper) {
-            rb.lift.setPower(-.3);
+            rb.lift.setPower(-.35);
         }
 
         //Additional Controls Using Left stick up and down...
         else if (gamepad2.left_stick_x > .3) {
             rb.lift.setPower(.9);
-        } else if (gamepad2.left_stick_x < -.3) { //TODO: Figure out why this doesn't go down
+        } else if (gamepad2.left_stick_x < -.3) {
             rb.lift.setPower(-.3);
         }
 
@@ -130,7 +130,7 @@ public class TwoDriversDiagonal extends LinearOpMode {
         //Calculates a power level for all motors rather than using pre-determined levels, allows for a mix of motors to be running for more control.
         rb.backDrive.setPower(-x_stick * multiplier + x_right_stick);
         rb.frontDrive.setPower(x_stick * multiplier + x_right_stick);
-        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick ); // *1.4
+        rb.rightDrive.setPower(y_stick * multiplier + x_right_stick); // *1.4
         rb.leftDrive.setPower(-y_stick * multiplier + x_right_stick); // *.85
 
     }
@@ -184,18 +184,12 @@ public class TwoDriversDiagonal extends LinearOpMode {
 
             diaDrive(leftX, leftY, rightX * rotationModifier, movementModifier);
 
-            //maybe add data into the console?... :
-            telemetry.addData("Left Y is: ", "", leftY);
-            telemetry.addData("Left X is: ", "", leftX);
-            telemetry.addData("Right X is: ", "", rightX);
-
-
         } else {
             rb.driveStop();
         }
 
-        telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
-        telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+//        telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
+//        telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.update();
 
     }
