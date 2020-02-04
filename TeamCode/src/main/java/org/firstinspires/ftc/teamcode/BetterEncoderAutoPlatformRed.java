@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * "EncoderAuto" class.
  */
 
-@Autonomous(name="Better Encoder Auto")
-public class BetterEncoderAuto extends LinearOpMode {
+@Autonomous(name="Encoder Auto Platform Red")
+public class BetterEncoderAutoPlatformRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwarePot robot   = new HardwarePot();   // Use a Pushbot's hardware
@@ -24,6 +24,7 @@ public class BetterEncoderAuto extends LinearOpMode {
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.04;
+    static final double     DRAGGING_SPEED          = 0.5;
     static final double     TURN_SPEED              = 0.2;
 
     @Override
@@ -60,17 +61,18 @@ public class BetterEncoderAuto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -2,  2, 0, 0, 2.0);
+        robot.righthand.setPosition(Constants.CLOSED_HAND); //close hand
+        encoderDrive(DRIVE_SPEED,  -1.5,  1.5, 0, 0, 2.0);
         sleep(500);
-        encoderDrive(DRIVE_SPEED,   0, 0, 3.5, -3.5, 4.0);
+        encoderDrive(DRIVE_SPEED,   0, 0, 2, -2, 4.0);
         sleep(500);
         robot.drag.setPower(0.3);
         sleep(500);
-        encoderDrive(DRIVE_SPEED, 0, 0, -3.75, 3.75, 4.0);
+        encoderDrive(DRAGGING_SPEED, 0, 0, -2.5, 2.5, 4.0);
         sleep(500);
         robot.drag.setPower(-0.3);
         sleep(500);
-        encoderDrive(DRIVE_SPEED, 6, -6, 0, 0, 5.0);
+        encoderDrive(DRIVE_SPEED, 1.5, -1.5, 0, 0, 5.0);
 
         sleep(1000);     // pause for servos to move
 
@@ -118,7 +120,7 @@ public class BetterEncoderAuto extends LinearOpMode {
             // reset the timeout time and start motion.
 //            runtime.reset();
             robot.leftDrive.setPower(Math.abs(speed));
-            robot.rightDrive.setPower(Math.abs(speed));
+            robot.rightDrive.setPower(Math.abs(speed) * 1.2); // 1.2 compensates for the weight distribution
             robot.frontDrive.setPower(Math.abs(speed));
             robot.backDrive.setPower(Math.abs(speed));
 
