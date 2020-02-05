@@ -83,11 +83,11 @@ public class EncoderAuto extends LinearOpMode {
         sleep(250);
         robot.drag.setPower(-0.3);
         sleep(250);
-        encoderDrive(DRIVE_SPEED,   0, 33, 5.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,   0, 33, 5.0);
         sleep(250);
         robot.drag.setPower(0.3);
         sleep(250);
-        encoderDrive(DRIVE_SPEED, 0, -34,  6.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 0, -34,  6.0);
         sleep(250);
         robot.drag.setPower(-0.3);
         sleep(250);
@@ -98,7 +98,7 @@ public class EncoderAuto extends LinearOpMode {
     }
 
     /*
-     *  Method to perfmorm a relative move, based on encoder counts.
+     *  Method to perform a relative move, based on encoder counts.
      *  Encoders are not reset as the move is based on the current position.
      *  Move will stop if any of three conditions occur:
      *  1) Move gets to the desired position
