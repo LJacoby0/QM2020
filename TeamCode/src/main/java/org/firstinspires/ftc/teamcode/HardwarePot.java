@@ -29,15 +29,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class HardwarePot {
     /* Public OpMode members. */
-    DcMotor  leftDrive   = null;
-    DcMotor  rightDrive  = null;
+    DcMotor leftDrive   = null;
+    DcMotor rightDrive  = null;
     DcMotor frontDrive = null;
     DcMotor backDrive = null;
     DcMotor drag = null;
@@ -111,11 +110,41 @@ public class HardwarePot {
         lefthand = hwMap.get(Servo.class, "lefthand");
 
     }
+
+    //Driving Functions
     void driveStop() {
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         frontDrive.setPower(0);
         backDrive.setPower(0);
+    }
+
+    void driveForwards() {
+        rightDrive.setPower(-Constants.MAX_DRIVE_SPEED); //Front
+        leftDrive.setPower(Constants.MAX_DRIVE_SPEED); //Back
+        frontDrive.setPower(0);  //Left
+        backDrive.setPower(0); //Right
+    }
+    void driveBackwards() {
+
+        rightDrive.setPower(Constants.MAX_DRIVE_SPEED); //Front
+        leftDrive.setPower(-Constants.MAX_DRIVE_SPEED); //Back
+        frontDrive.setPower(0); //Left
+        backDrive.setPower(0); //Right
+    }
+
+    void driveLeft() {
+        rightDrive.setPower(0); //Front
+        leftDrive.setPower(0); //Back
+        frontDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2); //Left
+        backDrive.setPower(Constants.MAX_DRIVE_SPEED+.2); //Right
+    }
+
+    void driveRight() {
+        rightDrive.setPower(0); //Front
+        leftDrive.setPower(0); //Back
+        frontDrive.setPower(Constants.MAX_DRIVE_SPEED+.2); //Left
+        backDrive.setPower(-Constants.MAX_DRIVE_SPEED-.2); //Right
     }
 
 }
