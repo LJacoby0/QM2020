@@ -26,15 +26,15 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.feeder;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
+import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.feeder.FeederConstants;
 
 public class HardwareFeeder {
     /* Public OpMode members. */
@@ -44,6 +44,8 @@ public class HardwareFeeder {
     DcMotor BL = null;
     DcMotor intakeleft = null;
     DcMotor intakeright = null;
+    Servo platformleft = null;
+    Servo platformright = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -62,12 +64,15 @@ public class HardwareFeeder {
         BL  = hwMap.get(DcMotor.class, "BL");
         intakeright  = hwMap.get(DcMotor.class, "intakeright");
         intakeleft  = hwMap.get(DcMotor.class, "intakeleft");
+        platformleft = hwMap.get(Servo.class, "platform left");
+        platformright = hwMap.get(Servo.class, "platform right");
+
 
 
         // Set motor directions
-        FR.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        FR.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         FL.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        BR.setDirection(DcMotor.Direction.FORWARD);
+        BR.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.FORWARD);
         intakeright.setDirection(DcMotor.Direction.FORWARD);
         intakeleft.setDirection(DcMotor.Direction.REVERSE);
@@ -103,7 +108,7 @@ public class HardwareFeeder {
     }
 
     //Driving Functions
-    void driveStop() {
+    public void driveStop() {
         FR.setPower(0);
         FL.setPower(0);
         BR.setPower(0);
@@ -116,11 +121,18 @@ public class HardwareFeeder {
 //        BR.setPower(-Constants.MAX_DRIVE_SPEED);
 //        BL.setPower(Constants.MAX_DRIVE_SPEED);
 //    }
-    void drive(double speed) {
-        FR.setPower(-speed);
+    public void drive(double speed) {
+        FR.setPower(speed);
         FL.setPower(speed);
-        BR.setPower(-speed);
+        BR.setPower(speed);
         BL.setPower(speed);
+    }
+
+    public void drive(double leftPower, double rightPower) {
+        FR.setPower(rightPower);
+        FL.setPower(leftPower);
+        BR.setPower(rightPower);
+        BL.setPower(leftPower);
     }
 
 //    void driveBackwards() {
@@ -137,18 +149,28 @@ public class HardwareFeeder {
 //        BL.setPower(-speed);
 //    }
 
-    void strafe(double speed) {
+    public void strafe(double speed) {
+        FR.setPower(speed);
+        FL.setPower(-speed);
+        BR.setPower(-speed);
+        BL.setPower(speed);
+    }
+
+    public void turn(double speed) {
         FR.setPower(speed);
         FL.setPower(-speed);
         BR.setPower(speed);
         BL.setPower(-speed);
     }
 
-    void turn(double speed) {
-        FR.setPower(-speed);
-        FL.setPower(-speed);
-        BR.setPower(-speed);
-        BL.setPower(-speed);
+    public void setPlatformUp(boolean isUp) {
+        if(isUp) {
+            platformleft.setPosition(FeederConstants.LEFT_PLATFORM_UP);
+            platformright.setPosition(FeederConstants.RIGHT_PLATFORM_UP);
+        } else {
+            platformleft.setPosition(FeederConstants.LEFT_PLATFORM_DOWN);
+            platformright.setPosition(FeederConstants.RIGHT_PLATFORM_DOWN);
+        }
     }
 
 //    void turnLeft(double speed) {
@@ -158,16 +180,16 @@ public class HardwareFeeder {
 //        BL.setPower(speed);
 //    }
 
-    void intakeIn() {
+    public void intakeIn() {
         intakeleft.setPower(-Constants.MAX_DRIVE_SPEED);
         intakeright.setPower(-Constants.MAX_DRIVE_SPEED);
     }
 
-    void intakeOut(){
+    public void intakeOut(){
         intakeleft.setPower(Constants.MAX_DRIVE_SPEED);
         intakeright.setPower(Constants.MAX_DRIVE_SPEED);
     }
-    void intakeStop(){
+    public void intakeStop(){
         intakeleft.setPower(0);
         intakeright.setPower(0);
     }

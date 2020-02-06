@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.feeder;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -63,6 +63,7 @@ public class Feeder extends LinearOpMode {
         while (opModeIsActive()) {
             drive();
             intake();
+            platform();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -89,8 +90,13 @@ public class Feeder extends LinearOpMode {
 
 
         if (leftY < -0.13 || leftY > 0.13) {
-            frontPower = Range.clip(leftY, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
-            rb.drive(frontPower);
+            double drive = -gamepad1.left_stick_y;
+            double turn  =  gamepad1.right_stick_x;
+            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            rb.drive(-leftPower, -rightPower);
+//            frontPower = Range.clip(leftY, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
+//            rb.drive(frontPower);
         } else if (leftX < -0.13 || leftX > 0.13) {
             strafePower = Range.clip(leftX, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
             rb.strafe(strafePower);
@@ -118,5 +124,14 @@ public class Feeder extends LinearOpMode {
             rb.intakeStop();
         }
 
+    }
+    private void platform(){
+        double rightTrigger = gamepad1.right_trigger;
+        double leftTrigger = gamepad1.left_trigger;
+        if(rightTrigger>.15){
+            rb.setPlatformUp(false);
+        }else if(leftTrigger>.15){
+            rb.setPlatformUp(true);
+        }
     }
 }

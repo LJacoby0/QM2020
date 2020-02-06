@@ -37,10 +37,9 @@
         @Override
         public void runOpMode() {
 
-        // Connect to servo (Assume PushBot Left Hand)
         // Change the text in quotes to match any servo name on your rb.
 //        CRServo servo = hardwareMap.get(CRServo.class, "hand");
-        Servo servo = hardwareMap.get(Servo.class, "righthand");
+        Servo servo = hardwareMap.get(Servo.class, "platform left");
 
 
                 // Wait for the start button
