@@ -110,46 +110,53 @@ public class HardwareFeeder {
         BL.setPower(0);
     }
 
-    void driveForwards() {
-        FR.setPower(-Constants.MAX_DRIVE_SPEED);
-        FL.setPower(Constants.MAX_DRIVE_SPEED);
-        BR.setPower(-Constants.MAX_DRIVE_SPEED);
-        BL.setPower(Constants.MAX_DRIVE_SPEED);
-    }
-    void driveForwards(double speed) {
+//    void driveForwards() {
+//        FR.setPower(-Constants.MAX_DRIVE_SPEED);
+//        FL.setPower(Constants.MAX_DRIVE_SPEED);
+//        BR.setPower(-Constants.MAX_DRIVE_SPEED);
+//        BL.setPower(Constants.MAX_DRIVE_SPEED);
+//    }
+    void drive(double speed) {
         FR.setPower(-speed);
         FL.setPower(speed);
         BR.setPower(-speed);
         BL.setPower(speed);
     }
 
-    void driveBackwards() {
-        FR.setPower(Constants.MAX_DRIVE_SPEED);
-        FL.setPower(-Constants.MAX_DRIVE_SPEED);
-        BR.setPower(Constants.MAX_DRIVE_SPEED);
-        BL.setPower(-Constants.MAX_DRIVE_SPEED);
-    }
+//    void driveBackwards() {
+//        FR.setPower(Constants.MAX_DRIVE_SPEED);
+//        FL.setPower(-Constants.MAX_DRIVE_SPEED);
+//        BR.setPower(Constants.MAX_DRIVE_SPEED);
+//        BL.setPower(-Constants.MAX_DRIVE_SPEED);
+//    }
+//
+//    void driveBackwards(double speed) {
+//        FR.setPower(speed);
+//        FL.setPower(-speed);
+//        BR.setPower(speed);
+//        BL.setPower(-speed);
+//    }
 
-    void driveBackwards(double speed) {
+    void strafe(double speed) {
         FR.setPower(speed);
         FL.setPower(-speed);
         BR.setPower(speed);
         BL.setPower(-speed);
     }
 
-    void turnRight(double speed) {
+    void turn(double speed) {
         FR.setPower(-speed);
         FL.setPower(-speed);
         BR.setPower(-speed);
         BL.setPower(-speed);
     }
 
-    void turnLeft(double speed) {
-        FR.setPower(speed);
-        FL.setPower(speed);
-        BR.setPower(speed);
-        BL.setPower(speed);
-    }
+//    void turnLeft(double speed) {
+//        FR.setPower(speed);
+//        FL.setPower(speed);
+//        BR.setPower(speed);
+//        BL.setPower(speed);
+//    }
 
     void intakeIn() {
         intakeleft.setPower(-Constants.MAX_DRIVE_SPEED);

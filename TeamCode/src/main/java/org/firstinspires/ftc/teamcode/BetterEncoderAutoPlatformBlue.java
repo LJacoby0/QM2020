@@ -25,7 +25,6 @@ public class BetterEncoderAutoPlatformBlue extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.04;
     static final double     DRAGGING_SPEED          = 0.5;
-    static final double     TURN_SPEED              = 0.2;
 
     @Override
     public void runOpMode() {

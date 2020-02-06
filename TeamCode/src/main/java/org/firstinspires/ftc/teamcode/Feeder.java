@@ -81,18 +81,24 @@ public class Feeder extends LinearOpMode {
         double rightPower = 0;
         double frontPower = 0;
         double backPower = 0;
+        double strafePower = 0;
 
         double leftY = gamepad1.left_stick_y;
         double leftX = gamepad1.left_stick_x;
+        double rightX = gamepad1.right_stick_x;
 
 
         if (leftY < -0.13 || leftY > 0.13) {
             frontPower = Range.clip(leftY, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
-            rb.driveForwards(frontPower);
+            rb.drive(frontPower);
         } else if (leftX < -0.13 || leftX > 0.13) {
-            leftPower = Range.clip(leftX, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
-            rb.turnRight(leftPower);
-        } else {
+            strafePower = Range.clip(leftX, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
+            rb.strafe(strafePower);
+        } else if (rightX < -0.13 || rightX > 0.13) {
+            leftPower = Range.clip(rightX, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
+            rb.turn(leftPower);
+        }
+        else {
             rb.driveStop();
         }
 
