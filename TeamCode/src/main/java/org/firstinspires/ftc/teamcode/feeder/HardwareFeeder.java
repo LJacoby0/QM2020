@@ -135,7 +135,7 @@ public void drive(double speed) {
         BL.setPower(leftPower);
     }
 
-    public void newDrive(double frontrightPower, double frontleftPower, double backrightPower, double backleftPower) {
+    public void drive(double frontrightPower, double frontleftPower, double backrightPower, double backleftPower) {
         FR.setPower(frontrightPower);
         FL.setPower(frontleftPower);
         BR.setPower(backrightPower);
@@ -190,6 +190,10 @@ public void drive(double speed) {
     public void intakeIn() {
         intakeleft.setPower(-Constants.MAX_DRIVE_SPEED);
         intakeright.setPower(-Constants.MAX_DRIVE_SPEED);
+    }
+    public void intakeIn(double speed) {
+        intakeleft.setPower(-speed);
+        intakeright.setPower(-speed);
     }
 
     public void intakeOut(){
