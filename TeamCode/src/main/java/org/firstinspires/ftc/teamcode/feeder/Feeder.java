@@ -97,8 +97,8 @@ public class Feeder extends LinearOpMode {
             double turn  =  gamepad1.right_stick_x;
             double strafe = gamepad1.left_stick_x;
 
-            leadleftPower = Range.clip(drive + turn - strafe, -1.0, 1.0);
-            leadrightPower = Range.clip(drive - turn + strafe, -1.0, 1.0);
+            leadleftPower = Range.clip(drive + turn + strafe, -1.0, 1.0);
+            leadrightPower = Range.clip(drive - turn - strafe, -1.0, 1.0);
             rearLeftPower = Range.clip(drive + turn - strafe, -1.0, 1.0);
             rearRightPower = Range.clip(drive - turn + strafe, -1.0, 1.0);
 
@@ -116,9 +116,9 @@ public class Feeder extends LinearOpMode {
         boolean rightb = gamepad2.right_bumper;
         boolean leftb = gamepad2.left_bumper;
 
-        if (leftb) {
+        if (rightb) {
             rb.intakeIn(-0.3);
-        } else if (rightb) {
+        } else if (leftb) {
             rb.intakeIn();
         }else{
             rb.intakeStop();
