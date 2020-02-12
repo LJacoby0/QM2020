@@ -121,11 +121,18 @@ public class HardwareFeeder {
 //        BR.setPower(-Constants.MAX_DRIVE_SPEED);
 //        BL.setPower(Constants.MAX_DRIVE_SPEED);
 //    }
-    public void drive(double speed) {
-        FR.setPower(speed);
-        FL.setPower(speed);
-        BR.setPower(speed);
-        BL.setPower(speed);
+public void drive(double speed) {
+    FR.setPower(speed);
+    FL.setPower(speed);
+    BR.setPower(speed);
+    BL.setPower(speed);
+}
+
+    public void drive(double leftPower, double rightPower) {
+        FR.setPower(rightPower);
+        FL.setPower(leftPower);
+        BR.setPower(rightPower);
+        BL.setPower(leftPower);
     }
 
     public void newDrive(double frontrightPower, double frontleftPower, double backrightPower, double backleftPower) {
