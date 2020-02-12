@@ -128,11 +128,11 @@ public class HardwareFeeder {
         BL.setPower(speed);
     }
 
-    public void drive(double leftPower, double rightPower) {
-        FR.setPower(rightPower);
-        FL.setPower(leftPower);
-        BR.setPower(rightPower);
-        BL.setPower(leftPower);
+    public void newDrive(double frontrightPower, double frontleftPower, double backrightPower, double backleftPower) {
+        FR.setPower(frontrightPower);
+        FL.setPower(frontleftPower);
+        BR.setPower(backrightPower);
+        BL.setPower(backleftPower);
     }
 
 //    void driveBackwards() {

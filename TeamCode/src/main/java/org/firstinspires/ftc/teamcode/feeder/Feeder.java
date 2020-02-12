@@ -41,6 +41,10 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
 
+import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
+
+
+
 @TeleOp(name = "Feeder Basic", group = "Sensor")
 public class Feeder extends LinearOpMode {
 
@@ -78,38 +82,34 @@ public class Feeder extends LinearOpMode {
 //    }
 
     private void drive() {
-        double leftPower = 0;
-        double rightPower = 0;
-        double frontPower = 0;
-        double backPower = 0;
-        double strafePower = 0;
+        double leadleftPower = 0;
+        double leadrightPower = 0;
+        double rearRightPower = 0;
+        double rearLeftPower = 0;
 
         double leftY = gamepad1.left_stick_y;
         double leftX = gamepad1.left_stick_x;
         double rightX = gamepad1.right_stick_x;
 
 
-        if (leftY < -0.13 || leftY > 0.13) {
+        if (rightX < -DRIVE_STICK_THRESHOLD || rightX > DRIVE_STICK_THRESHOLD || leftY < -DRIVE_STICK_THRESHOLD || leftY > DRIVE_STICK_THRESHOLD || leftX < -DRIVE_STICK_THRESHOLD || leftX > DRIVE_STICK_THRESHOLD) {
             double drive = -gamepad1.left_stick_y;
             double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-            rb.drive(-leftPower, -rightPower);
-//            frontPower = Range.clip(leftY, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
-//            rb.drive(frontPower);
-        } else if (leftX < -0.13 || leftX > 0.13) {
-            strafePower = Range.clip(leftX, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
-            rb.strafe(strafePower);
-        } else if (rightX < -0.13 || rightX > 0.13) {
-            leftPower = Range.clip(rightX, -FeederConstants.DRIVE_POWER, FeederConstants.DRIVE_POWER);
-            rb.turn(leftPower);
+            double strafe = gamepad1.left_stick_x;
+
+            leadleftPower = Range.clip(drive + turn, -1.0, 1.0);
+            leadrightPower = Range.clip(drive - turn, -1.0, 1.0);
+            rearLeftPower = Range.clip(drive + turn - strafe, -1.0, 1.0);
+            rearRightPower = Range.clip(drive - turn + strafe, -1.0, 1.0);
+
+            rb.newDrive(leadrightPower, leadleftPower, rearRightPower, rearLeftPower);
         }
         else {
             rb.driveStop();
         }
 
-        telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
-        telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+//        telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
+//        telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
 
     }
     private void intake(){
