@@ -113,13 +113,13 @@ public class Feeder extends LinearOpMode {
 
     }
     private void intake(){
-        boolean rightb = gamepad1.right_bumper;
-        boolean leftb = gamepad1.left_bumper;
+        boolean rightb = gamepad2.right_bumper;
+        boolean leftb = gamepad2.left_bumper;
 
         if (rightb) {
-            rb.intakeIn();
-        } else if (leftb) {
             rb.intakeOut();
+        } else if (leftb) {
+            rb.intakeIn();
         }else{
             rb.intakeStop();
         }
@@ -128,10 +128,18 @@ public class Feeder extends LinearOpMode {
     private void platform(){
         double rightTrigger = gamepad1.right_trigger;
         double leftTrigger = gamepad1.left_trigger;
-        if(rightTrigger>.15){
-            rb.setPlatformUp(false);
-        }else if(leftTrigger>.15){
+        boolean dpadUp = gamepad2.dpad_up;
+        boolean dpadDown = gamepad2.dpad_down;
+//        if(rightTrigger>.15){
+//            rb.setPlatformUp(false);
+//        }else if(leftTrigger>.15){
+//            rb.setPlatformUp(true);
+//        }
+
+        if(dpadUp){
             rb.setPlatformUp(true);
+        }else if(dpadDown){
+            rb.setPlatformUp(false);
         }
     }
 }
