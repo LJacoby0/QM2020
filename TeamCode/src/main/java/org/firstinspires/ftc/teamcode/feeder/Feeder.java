@@ -45,7 +45,7 @@ import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 
 
 
-@TeleOp(name = "Feeder Basic", group = "Sensor")
+@TeleOp(name = "!QM Feeder TeleOP", group = "Sensor")
 public class Feeder extends LinearOpMode {
 
     private HardwareFeeder rb = new HardwareFeeder();
@@ -68,6 +68,7 @@ public class Feeder extends LinearOpMode {
             drive();
             intake();
             platform();
+            compassDriving();
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -75,13 +76,8 @@ public class Feeder extends LinearOpMode {
         }
     }
 
-//    private void hand(){
-//        if(gamepad2.x){
-//
-//        }
-//    }
-
     private void drive() {
+        //Init variables
         double leadleftPower = 0;
         double leadrightPower = 0;
         double rearRightPower = 0;
@@ -94,7 +90,7 @@ public class Feeder extends LinearOpMode {
 
         if (rightX < -DRIVE_STICK_THRESHOLD || rightX > DRIVE_STICK_THRESHOLD || leftY < -DRIVE_STICK_THRESHOLD || leftY > DRIVE_STICK_THRESHOLD || leftX < -DRIVE_STICK_THRESHOLD || leftX > DRIVE_STICK_THRESHOLD) {
             double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
+            double turn  =  gamepad1.right_stick_x*1.25;
             double strafe = gamepad1.left_stick_x;
 
             leadleftPower = Range.clip(drive + turn + strafe, -1.0, 1.0);
@@ -108,8 +104,8 @@ public class Feeder extends LinearOpMode {
             rb.driveStop();
         }
 
-//        telemetry.addData("NS Motors", "front (%.2f), back (%.2f)", frontPower, backPower);
-//        telemetry.addData("Side Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.addData("Front Motors", "Left (%.2f), Right (%.2f)", leadleftPower, leadrightPower);
+        telemetry.addData("Rear Motors", "left (%.2f), right (%.2f)", rearLeftPower, rearRightPower);
 
     }
     private void intake(){
@@ -146,6 +142,24 @@ public class Feeder extends LinearOpMode {
             rb.setPlatformUp(true);
         }else if(leftTrigger > .13){
             rb.setPlatformUp(false);
+        }
+    }
+
+    private void compassDriving() {
+        if (gamepad1.dpad_up = true) {
+            rb.drive(1);
+        }
+
+        else if (gamepad1.dpad_down= true) {
+            rb.drive(-1);
+        }
+
+        else if (gamepad1.dpad_right = true) {
+            rb.strafe(1);
+        }
+
+        else if (gamepad1.dpad_left = true) {
+            rb.strafe(-1);
         }
     }
 }

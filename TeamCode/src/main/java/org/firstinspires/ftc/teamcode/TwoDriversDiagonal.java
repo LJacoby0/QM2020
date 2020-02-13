@@ -15,7 +15,7 @@ import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 //Constant Imports from Constants.java
 
 
-@TeleOp(name = "! TwoDriversDiagonal 1/26", group = "Sensor")
+@TeleOp(name = "TwoDriversDiagonal", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
 
     private HardwarePot rb = new HardwarePot();
