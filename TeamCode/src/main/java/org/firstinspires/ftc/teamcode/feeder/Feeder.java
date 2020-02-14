@@ -68,13 +68,16 @@ public class Feeder extends LinearOpMode {
             drive();
             intake();
             platform();
-            //compassDriving();
+            compassDriving();
+            //fastRotate();
 
-            // Show the elapsed game time and wheel power.
-//            telemetry.addData("Status", "Run Time: " + runtime.toString());
-//            telemetry.update();
+
         }
     }
+
+    private void fastRotate() {
+    }
+
 
     private void drive() {
         //Init variables
@@ -149,22 +152,22 @@ public class Feeder extends LinearOpMode {
             rb.setPlatformUp(false);
         }
     }
-//
-//    private void compassDriving() {
-//        if (gamepad1.dpad_up = true) {
-//            rb.drive(1);
-//        }
-//
-//        else if (gamepad1.dpad_down= true) {
-//            rb.drive(-1);
-//        }
-//
-//        else if (gamepad1.dpad_right = true) {
-//            rb.strafe(1);
-//        }
-//
-//        else if (gamepad1.dpad_left = true) {
-//            rb.strafe(-1);
-//        }
-//    }
+
+    private void compassDriving() {
+        if (gamepad1.dpad_up = true) {
+            rb.drive(1);
+        }
+
+        else if (gamepad1.dpad_down= true) {
+            rb.drive(-1);
+        }
+
+        else if (gamepad1.dpad_right = true) {
+            rb.strafe(1);
+        }
+
+        else if (gamepad1.dpad_left = true) {
+            rb.strafe(-1);
+        }
+    }
 }
