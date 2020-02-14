@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
-
+@Disabled
 @TeleOp(name = "Pototato", group = "Sensor")
 public class Pototato extends LinearOpMode {
 

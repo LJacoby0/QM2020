@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
 import org.firstinspires.ftc.teamcode.HardwarePot;
-
+@Disabled
 @Autonomous(name="Red Platform Auto")
 public class Auto_RedPlatform_DriveByTime extends LinearOpMode {
 

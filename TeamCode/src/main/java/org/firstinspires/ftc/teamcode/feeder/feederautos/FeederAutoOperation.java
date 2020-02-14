@@ -86,7 +86,7 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 
         //back to park
         runtime.reset();
-        while(runtime.seconds() < 1.2) {
+        while(runtime.seconds() < 0.9) {
             robot.drive(-1);
         }
         robot.driveStop();

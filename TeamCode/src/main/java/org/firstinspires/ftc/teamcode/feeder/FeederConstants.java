@@ -8,7 +8,9 @@ public final class FeederConstants {
     //Speeds:
     public static final float DRIVE_POWER = 1;
     public static final double INTAKE_SPEED = 0.6;
-    public static final double OUTTAKE_SPEED = 0.3;
+//    public static final double OUTTAKE_SPEED = 0.3;
+    public static final double OUTTAKE_SPEED = 0.2;
+
 
     //Sticks:
     public static final float DRIVE_STICK_THRESHOLD = .09f;
@@ -16,11 +18,11 @@ public final class FeederConstants {
     public static final float TRIGGER_THRESHOLD = .5f;
 
     //Servo:
-    public static final double RIGHT_PLATFORM_UP = .45;
-    public static final double RIGHT_PLATFORM_DOWN = .76;
+    public static final double RIGHT_PLATFORM_UP = .46;
+    public static final double RIGHT_PLATFORM_DOWN = .84;
 
-    public static final double LEFT_PLATFORM_UP = .60;
-    public static final double LEFT_PLATFORM_DOWN = .25;
+    public static final double LEFT_PLATFORM_UP = .80;
+    public static final double LEFT_PLATFORM_DOWN = .41;
 
     public static final double OPEN_HAND = .22;
 

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * This is an autonomous drive mode that will use encoders. It is the revised/better version of the
  * "EncoderAuto" class.
  */
+@Disabled
 
 @Autonomous(name="Encoder Auto Platform Red")
 public class BetterEncoderAutoPlatformRed extends LinearOpMode {

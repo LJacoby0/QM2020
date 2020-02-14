@@ -68,11 +68,11 @@ public class Feeder extends LinearOpMode {
             drive();
             intake();
             platform();
-            compassDriving();
+            //compassDriving();
 
             // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.update();
+//            telemetry.addData("Status", "Run Time: " + runtime.toString());
+//            telemetry.update();
         }
     }
 
@@ -90,7 +90,7 @@ public class Feeder extends LinearOpMode {
 
         if (rightX < -DRIVE_STICK_THRESHOLD || rightX > DRIVE_STICK_THRESHOLD || leftY < -DRIVE_STICK_THRESHOLD || leftY > DRIVE_STICK_THRESHOLD || leftX < -DRIVE_STICK_THRESHOLD || leftX > DRIVE_STICK_THRESHOLD) {
             double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x*1.25;
+            double turn  =  gamepad1.right_stick_x;
             double strafe = gamepad1.left_stick_x;
 
             leadleftPower = Range.clip(drive + turn + strafe, -1.0, 1.0);
@@ -99,13 +99,18 @@ public class Feeder extends LinearOpMode {
             rearRightPower = Range.clip(drive - turn + strafe, -1.0, 1.0);
 
             rb.drive(-leadrightPower, -leadleftPower, -rearRightPower, -rearLeftPower);
+            telemetry.addData("Front-right motor", "%5.2f", leadrightPower);
+            telemetry.addData("Back-right motor", "%5.2f", rearRightPower);
+            telemetry.addData("Front-left motor", "%5.2f", leadleftPower);
+            telemetry.addData("Back-left motor", "%5.2f", rearLeftPower);
+            telemetry.update();
         }
         else {
             rb.driveStop();
         }
 
-        telemetry.addData("Front Motors", "Left (%.2f), Right (%.2f)", leadleftPower, leadrightPower);
-        telemetry.addData("Rear Motors", "left (%.2f), right (%.2f)", rearLeftPower, rearRightPower);
+//        telemetry.addData("Front Motors", "Left (%.2f), Right (%.2f)", leadleftPower, leadrightPower);
+//        telemetry.addData("Rear Motors", "left (%.2f), right (%.2f)", rearLeftPower, rearRightPower);
 
     }
     private void intake(){
@@ -113,7 +118,7 @@ public class Feeder extends LinearOpMode {
         boolean leftb = gamepad2.left_bumper;
 
         if (rightb) {
-            rb.intakeIn(-0.3);
+            rb.intakeIn(-FeederConstants.OUTTAKE_SPEED);
         } else if (leftb) {
             rb.intakeIn();
         }else{
@@ -122,8 +127,8 @@ public class Feeder extends LinearOpMode {
 
     }
     private void platform(){
-        double rightTrigger = gamepad1.right_trigger;
-        double leftTrigger = gamepad1.left_trigger;
+        double rightTrigger = gamepad2.right_trigger;
+        double leftTrigger = gamepad2.left_trigger;
         boolean dpadUp = gamepad2.dpad_up;
         boolean dpadDown = gamepad2.dpad_down;
 //        if(rightTrigger>.15){
@@ -144,22 +149,22 @@ public class Feeder extends LinearOpMode {
             rb.setPlatformUp(false);
         }
     }
-
-    private void compassDriving() {
-        if (gamepad1.dpad_up = true) {
-            rb.drive(1);
-        }
-
-        else if (gamepad1.dpad_down= true) {
-            rb.drive(-1);
-        }
-
-        else if (gamepad1.dpad_right = true) {
-            rb.strafe(1);
-        }
-
-        else if (gamepad1.dpad_left = true) {
-            rb.strafe(-1);
-        }
-    }
+//
+//    private void compassDriving() {
+//        if (gamepad1.dpad_up = true) {
+//            rb.drive(1);
+//        }
+//
+//        else if (gamepad1.dpad_down= true) {
+//            rb.drive(-1);
+//        }
+//
+//        else if (gamepad1.dpad_right = true) {
+//            rb.strafe(1);
+//        }
+//
+//        else if (gamepad1.dpad_left = true) {
+//            rb.strafe(-1);
+//        }
+//    }
 }

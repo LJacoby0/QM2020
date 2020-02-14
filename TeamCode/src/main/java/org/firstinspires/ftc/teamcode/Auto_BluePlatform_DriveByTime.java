@@ -38,6 +38,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
+@Disabled
 @Autonomous(name="Blue Platform Auto")
 public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
 

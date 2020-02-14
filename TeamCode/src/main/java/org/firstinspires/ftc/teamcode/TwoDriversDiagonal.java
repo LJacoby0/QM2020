@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -14,6 +15,7 @@ import static org.firstinspires.ftc.teamcode.Constants.TRIGGER_THRESHOLD;
 
 //Constant Imports from Constants.java
 
+@Disabled
 
 @TeleOp(name = "TwoDriversDiagonal", group = "Sensor")
 public class TwoDriversDiagonal extends LinearOpMode {
