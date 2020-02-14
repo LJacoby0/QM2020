@@ -18,7 +18,7 @@ public final class FeederConstants {
     public static final float TRIGGER_THRESHOLD = .5f;
 
     //Servo:
-    public static final double RIGHT_PLATFORM_UP = .46;
+    public static final double RIGHT_PLATFORM_UP = .19;
     public static final double RIGHT_PLATFORM_DOWN = .56;
 
     public static final double LEFT_PLATFORM_UP = .80;
