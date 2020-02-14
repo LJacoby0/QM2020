@@ -19,7 +19,7 @@ public final class FeederConstants {
 
     //Servo:
     public static final double RIGHT_PLATFORM_UP = .46;
-    public static final double RIGHT_PLATFORM_DOWN = .84;
+    public static final double RIGHT_PLATFORM_DOWN = .56;
 
     public static final double LEFT_PLATFORM_UP = .80;
     public static final double LEFT_PLATFORM_DOWN = .41;
