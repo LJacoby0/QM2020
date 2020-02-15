@@ -11,7 +11,6 @@ public final class FeederConstants {
 //    public static final double OUTTAKE_SPEED = 0.3;
     public static final double OUTTAKE_SPEED = 0.2;
 
-
     //Sticks:
     public static final float DRIVE_STICK_THRESHOLD = .09f;
     public static final float DRIVE_STICK_THRESHOLD_SQUARED = DRIVE_STICK_THRESHOLD * DRIVE_STICK_THRESHOLD;

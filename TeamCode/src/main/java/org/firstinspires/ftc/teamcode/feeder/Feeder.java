@@ -68,6 +68,7 @@ public class Feeder extends LinearOpMode {
             drive();
             intake();
             platform();
+            emergencyEject();
             //compassDriving();
 
             // Show the elapsed game time and wheel power.
@@ -126,6 +127,18 @@ public class Feeder extends LinearOpMode {
         }
 
     }
+
+    private void emergencyEject(){
+
+        if (gamepad2.x || gamepad2.left_stick_button) {
+            rb.intakeIn(-1);
+        }
+        else{
+            rb.intakeStop();
+        }
+
+    }
+
     private void platform(){
         double rightTrigger = gamepad2.right_trigger;
         double leftTrigger = gamepad2.left_trigger;
