@@ -179,6 +179,10 @@ public void drive(double speed) {
             platformright.setPosition(FeederConstants.RIGHT_PLATFORM_DOWN);
         }
     }
+    public void placeCap() {
+            platformleft.setPosition(FeederConstants.LEFT_PLATFORM_UP);
+            platformright.setPosition(FeederConstants.RIGHT_PLATFORM_CAP);
+    }
 
 //    void turnLeft(double speed) {
 //        FR.setPower(speed);

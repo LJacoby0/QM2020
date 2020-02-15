@@ -8,7 +8,7 @@ import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.RED;
 
 
-public abstract class BlockAutoOperation extends LinearOpMode {
+public abstract class BlockAutoWaitOperation extends LinearOpMode {
 
     public abstract Alliance getAlliance();
 
@@ -23,6 +23,15 @@ public abstract class BlockAutoOperation extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
+
+        //back to park
+        runtime.reset();
+        while(runtime.seconds() < 15) {
+            robot.driveStop();
+
+        }
+        robot.driveStop();
+
 
         //back to park
         runtime.reset();

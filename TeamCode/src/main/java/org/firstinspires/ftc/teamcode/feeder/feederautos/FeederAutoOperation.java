@@ -32,7 +32,7 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 
         // move left a bit
         runtime.reset();
-        while(runtime.seconds() < 0.5) {
+        while(runtime.seconds() < 0.6) {
             robot.strafe(blueNegativeFactor * -0.5);
         }
         robot.driveStop();
@@ -40,13 +40,13 @@ public abstract class FeederAutoOperation extends LinearOpMode {
         //move backward again
         runtime.reset();
         while(runtime.seconds() < .7) {
-            robot.drive(-1);
+            robot.drive(-.8);
         }
 
         //forward to platform
         runtime.reset();
         while(runtime.seconds() < 1.5) {
-            robot.drive(0.5);
+            robot.drive(0.4);
         }
         robot.driveStop();
 
@@ -82,18 +82,18 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 
         //forward to platform
         runtime.reset();
-        while(runtime.seconds() < 1) {
+        while(runtime.seconds() < .5) {
             robot.drive(0.5);
         }
         robot.driveStop();
-//
-//
-//        //back to park
-//        runtime.reset();
-//        while(runtime.seconds() < 0.9) {
-//            robot.drive(-1);
-//        }
-//        robot.driveStop();
+
+
+        //back to park
+        runtime.reset();
+        while(runtime.seconds() < 1.1) {
+            robot.drive(-1);
+        }
+        robot.driveStop();
 
 //        runtime.reset();
 //        while(runtime.seconds() < 0.5) {
