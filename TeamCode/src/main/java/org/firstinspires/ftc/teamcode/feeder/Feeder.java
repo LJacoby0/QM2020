@@ -121,7 +121,7 @@ public class Feeder extends LinearOpMode {
         boolean leftb = gamepad2.left_bumper;
 
         if (rightb) {
-            rb.intakeIn(-FeederConstants.OUTTAKE_SPEED);
+            rb.intakeOut();
         } else if (leftb) {
             rb.intakeIn();
         }else{
