@@ -55,6 +55,8 @@ public class Feeder extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        telemetry.addData("Status", "Initializing");
+        telemetry.update();
         rb.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
