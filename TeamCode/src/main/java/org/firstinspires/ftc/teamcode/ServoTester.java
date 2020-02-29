@@ -95,7 +95,7 @@
                 servo.setPosition(position1);
                 servo2.setPosition(position2);
                 servo3.setPosition(position2);
-                
+
                 sleep(DELAY);
                 idle();
         }
