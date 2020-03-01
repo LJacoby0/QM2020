@@ -16,15 +16,61 @@ import org.firstinspires.ftc.teamcode.feeder.HardwareFeeder;
 
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 
+import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
+import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.RED;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 public abstract class ColorAutoTestOperation extends LinearOpMode {
 
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
+    BNO055IMU               imu;
+    Orientation             lastAngles = new Orientation();
+    double                  globalAngle, power = .30, correction;
+
+
     public abstract Alliance getAlliance();
 
     @Override
     public void runOpMode() throws InterruptedException {
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
+        parameters.mode                = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled      = false;
+
+        // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
+        // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
+        // and named "imu".
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+
+        imu.initialize(parameters);
+
+        telemetry.addData("Mode", "calibrating...");
+        telemetry.update();
+
+        // make sure the imu gyro is calibrated before continuing.
+        while (!isStopRequested() && !imu.isGyroCalibrated())
+        {
+            sleep(50);
+            idle();
+        }
+
+        telemetry.addData("Mode", "waiting for start");
+        telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
+
 
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
@@ -106,21 +152,91 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                 robot.drive(0.1);
             }
 
-            //Servo code goes here
+            //Servo code to grab block here
 
             runtime.reset();
+
             //Move backwards
             while(runtime.seconds() < .8) {
                 robot.drive(-.7);
             }
 
             runtime.reset();
-
+            //Go back to other side of the field
             while(runtime.seconds() < 2.5) {
                 robot.strafe(blueNegativeFactor * 0.8);
+
             }
 
-            //Servo Eject
+            //Servo drop block code here
+
+
+            //THIS IS THE ROTATE CODE BUT IDK HOW TO PUT IT INTO A FUNCTION SO ITS A MESS:
+
+
+            //rotate(20,20);
+
+
+
+
+            double  leftPower, rightPower;
+            int degrees = 90; //CHANGE THIS TO ADJUST ROTATION DEGREES
+            // restart imu movement tracking.
+            resetAngle();
+
+            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+            // clockwise (right).
+
+
+            if (degrees < 0)
+            {   // turn right.
+                leftPower = power;
+                rightPower = -power;
+            }
+            else if (degrees > 0)
+            {   // turn left.
+                leftPower = -power;
+                rightPower = power;
+            }
+            else return;
+
+            // set power to rotate.
+//            fr.setPower(leftPower);
+//            rightMotor.setPower(rightPower);
+
+            robot.turn(rightPower);
+
+            // rotate until turn is completed.
+            if (degrees < 0)
+            {
+                // On right turn we have to get off zero first.
+                while (opModeIsActive() && getAngle() == 0) {}
+
+                while (opModeIsActive() && getAngle() > degrees) {}
+            }
+            else    // left turn.
+                while (opModeIsActive() && getAngle() < degrees) {}
+
+            // turn the motors off.
+//            rightMotor.setPower(0);
+//            leftMotor.setPower(0);
+
+            robot.driveStop();
+
+            // wait for rotation to stop.
+            sleep(1000);
+
+            // reset angle tracking on new heading.
+            resetAngle();
+
+
+
+
+
+
+
+
+
         }
 
         //back to park
@@ -128,6 +244,50 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+    public void resetAngle()
+    {
+        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        globalAngle = 0;
+    }
+
+    private double getAngle()
+    {
+        // We experimentally determined the Z axis is the axis we want to use for heading angle.
+        // We have to process the angle because the imu works in euler angles so the Z axis is
+        // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
+        // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
+
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+
+        if (deltaAngle < -180)
+            deltaAngle += 360;
+        else if (deltaAngle > 180)
+            deltaAngle -= 360;
+
+        globalAngle += deltaAngle;
+
+        lastAngles = angles;
+
+        return globalAngle;
+    }
+
+
+
 
 //        runtime.reset();
 //        while(runtime.seconds() < 0.5) {

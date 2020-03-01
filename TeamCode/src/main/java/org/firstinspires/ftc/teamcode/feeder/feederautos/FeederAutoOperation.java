@@ -26,7 +26,7 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        
+
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
         HardwareFeeder robot = new HardwareFeeder();
