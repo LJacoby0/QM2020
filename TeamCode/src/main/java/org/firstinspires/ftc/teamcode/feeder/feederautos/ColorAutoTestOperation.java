@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.feeder.HardwareFeeder;
 
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 
-import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.RED;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -44,6 +43,12 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        HardwareFeeder robot = new HardwareFeeder();
+        robot.init(hardwareMap);
+
+        robot.ledColorFLashYellow();
+
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
         parameters.mode                = BNO055IMU.SensorMode.IMU;
@@ -74,8 +79,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
-        HardwareFeeder robot = new HardwareFeeder();
-        robot.init(hardwareMap);
+
 
         ElapsedTime runtime = new ElapsedTime();
 // get a reference to the color sensor.
@@ -100,9 +104,15 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
         final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
 
         // wait for the start button to be pressed.
+
+
+        robot.ledColorGreen();
         waitForStart();
         runtime.reset();
+
+
         while (opModeIsActive()) {
+            robot.ledOff();
             // convert the RGB values to HSV values.
             // multiply by the SCALE_FACTOR.
             // then cast it back to int (SCALE_FACTOR is a double)
@@ -130,7 +140,6 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             });
 
             telemetry.update();
-            //TODO: Turn off leds
             //Move forwards until 4cm away from block
             while (sensorDistance.getDistance(DistanceUnit.CM) >= 4) {
                 robot.drive(0.25);
@@ -148,12 +157,13 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             runtime.reset();
             //timed auto into position
+            robot.ledColorOrange();
             while(runtime.seconds() < 0.3) {
                 robot.drive(0.1);
             }
 
             //Servo code to grab block here
-
+            robot.ledColorGreen();
             runtime.reset();
 
             //Move backwards
@@ -220,7 +230,6 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             // turn the motors off.
 //            rightMotor.setPower(0);
 //            leftMotor.setPower(0);
-
             robot.driveStop();
 
             // wait for rotation to stop.
@@ -228,6 +237,8 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             // reset angle tracking on new heading.
             resetAngle();
+
+            //THEN PLATFORM CODE
 
 
 

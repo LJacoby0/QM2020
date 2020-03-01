@@ -36,16 +36,26 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Constants;
 import org.firstinspires.ftc.teamcode.feeder.FeederConstants;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+
+
 public class HardwareFeeder {
     /* Public OpMode members. */
     DcMotor FR   = null;
     DcMotor FL  = null;
     DcMotor BR = null;
     DcMotor BL = null;
+
     DcMotor intakeleft = null;
     DcMotor intakeright = null;
+
     Servo platformleft = null;
     Servo platformright = null;
+    //Servo blockServo = null;
+
+    RevBlinkinLedDriver blinkinLedDriver = null;
+    RevBlinkinLedDriver.BlinkinPattern pattern = null;
+
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -66,6 +76,9 @@ public class HardwareFeeder {
         intakeleft  = hwMap.get(DcMotor.class, "intakeleft");
         platformleft = hwMap.get(Servo.class, "platform left");
         platformright = hwMap.get(Servo.class, "platform right");
+
+
+        blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
 
 
 
@@ -104,6 +117,9 @@ public class HardwareFeeder {
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeright.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+
 
     }
 
@@ -208,6 +224,32 @@ public void drive(double speed) {
         intakeleft.setPower(0);
         intakeright.setPower(0);
     }
+
+    public void ledColorFLashYellow() {
+        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
+        blinkinLedDriver.setPattern(pattern);
+    }
+
+    public void ledColorGreen() {
+        pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+        blinkinLedDriver.setPattern(pattern);
+    }
+
+    public void ledColorOrange() {
+        pattern = RevBlinkinLedDriver.BlinkinPattern.ORANGE;
+        blinkinLedDriver.setPattern(pattern);
+    }
+
+    public void flashRed() {
+        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_RED;
+        blinkinLedDriver.setPattern(pattern);
+    }
+
+    public void ledOff() {
+        pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+        blinkinLedDriver.setPattern(pattern);
+    }
+
 
 
 
