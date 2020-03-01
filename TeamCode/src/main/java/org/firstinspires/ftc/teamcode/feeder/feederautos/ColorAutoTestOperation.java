@@ -25,6 +25,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
         HardwareFeeder robot = new HardwareFeeder();
@@ -83,14 +84,43 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             });
 
             telemetry.update();
-
-            if (hsvValues[0] <= 100) {
-                robot.strafe(0.15);
+            //TODO: Turn off leds
+            //Move forwards until 4cm away from block
+            while (sensorDistance.getDistance(DistanceUnit.CM) >= 4) {
+                robot.drive(0.25);
             }
 
-            else {
+            runtime.reset();
+            while(runtime.seconds() < 0.3) {
                 robot.driveStop();
             }
+
+            //Drive until block is black
+            while (hsvValues[0] <= 100) {
+                robot.strafe(blueNegativeFactor * -0.20);
+            }
+
+            runtime.reset();
+            //timed auto into position
+            while(runtime.seconds() < 0.3) {
+                robot.drive(0.1);
+            }
+
+            //Servo code goes here
+
+            runtime.reset();
+            //Move backwards
+            while(runtime.seconds() < .8) {
+                robot.drive(-.7);
+            }
+
+            runtime.reset();
+
+            while(runtime.seconds() < 2.5) {
+                robot.strafe(blueNegativeFactor * 0.8);
+            }
+
+            //Servo Eject
         }
 
         //back to park

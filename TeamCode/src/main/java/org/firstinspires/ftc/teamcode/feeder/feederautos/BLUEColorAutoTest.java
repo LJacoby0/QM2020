@@ -10,10 +10,10 @@ import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Color Auto Test")
-public class ColorAutoTest extends ColorAutoTestOperation {
+@Autonomous(name = "BLUE Color Auto Test")
+public class BLUEColorAutoTest extends ColorAutoTestOperation {
     @Override
     public Alliance getAlliance() {
-        return Alliance.RED;
+        return Alliance.BLUE;
     }
 }

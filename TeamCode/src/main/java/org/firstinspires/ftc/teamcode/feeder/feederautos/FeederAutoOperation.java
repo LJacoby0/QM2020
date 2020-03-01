@@ -6,6 +6,18 @@ import org.firstinspires.ftc.teamcode.feeder.HardwareFeeder;
 
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.RED;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 
 public abstract class FeederAutoOperation extends LinearOpMode {
@@ -14,6 +26,7 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
         HardwareFeeder robot = new HardwareFeeder();
