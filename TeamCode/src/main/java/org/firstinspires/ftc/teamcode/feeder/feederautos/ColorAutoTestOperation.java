@@ -75,6 +75,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
         telemetry.addData("Mode", "waiting for start");
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
+        telemetry.update();
 
 
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
@@ -107,9 +108,9 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
 
         robot.ledColorGreen();
-        waitForStart();
-        runtime.reset();
 
+        runtime.reset();
+        waitForStart();
 
         while (opModeIsActive()) {
             robot.ledOff();
@@ -129,6 +130,8 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
             telemetry.addData("Hue", hsvValues[0]);
+            telemetry.update();
+
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
@@ -146,47 +149,51 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             }
 
             runtime.reset();
-            while(runtime.seconds() < 0.3) {
+            while(runtime.seconds() < 1) {
                 robot.driveStop();
             }
 
             //Drive until block is black
-            while (hsvValues[0] <= 100) {
-                robot.strafe(blueNegativeFactor * -0.20);
+            do {
+                Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                        (int) (sensorColor.green() * SCALE_FACTOR),
+                        (int) (sensorColor.blue() * SCALE_FACTOR),
+                        hsvValues);
+                robot.strafe(blueNegativeFactor * -0.10);
             }
+            while (hsvValues[0] <= 100); {
 
+            }
+sleep(3000); //stop for 3 seconds after finding block
             runtime.reset();
             //timed auto into position
             robot.ledColorOrange();
-            while(runtime.seconds() < 0.3) {
-                robot.drive(0.1);
-            }
+//            while(runtime.seconds() < 0.3) {
+//                robot.drive(0.1);
+//            }
 
             //Servo code to grab block here
             robot.ledColorGreen();
             runtime.reset();
 
             //Move backwards
-            while(runtime.seconds() < .8) {
-                robot.drive(-.7);
+            while(runtime.seconds() < .9) {
+                robot.drive(-.1);
             }
 
-            runtime.reset();
-            //Go back to other side of the field
-            while(runtime.seconds() < 2.5) {
-                robot.strafe(blueNegativeFactor * 0.8);
-
-            }
+//            runtime.reset();
+//            //Go back to other side of the field
+//            while(runtime.seconds() < 2.5) {
+//                robot.strafe(blueNegativeFactor * 0.8);
+//
+//            }
 
             //Servo drop block code here
 
 
             //THIS IS THE ROTATE CODE BUT IDK HOW TO PUT IT INTO A FUNCTION SO ITS A MESS:
 
-
             //rotate(20,20);
-
-
 
 
             double  leftPower, rightPower;
@@ -243,11 +250,6 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
 
 
-
-
-
-
-
         }
 
         //back to park
@@ -255,12 +257,6 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
 
         }
-
-
-
-
-
-
 
 
 
@@ -295,6 +291,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
         lastAngles = angles;
 
         return globalAngle;
+
     }
 
 
