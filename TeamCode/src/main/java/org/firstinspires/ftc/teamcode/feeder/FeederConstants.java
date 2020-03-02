@@ -27,4 +27,6 @@ public final class FeederConstants {
 
     public static final double OPEN_HAND = .22;
 
+    public static final double THETA_TOLERANCE = 0.04;
+
 }

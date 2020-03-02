@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.feeder.feederautos;
+package org.firstinspires.ftc.teamcode.feeder;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.feeder.feederautos.IMU;
 
 public class MecanumOdometry {
     // Encoder constants
     public static final double CM_PER_TICK_A = -100.0 / 1673.0;
     public static final double CM_PER_TICK_B = -100.0 / 1693.0;
     public static final double CM_PER_TICK_C = -100.0 / 1434.0;
-    public static final double STRAFE_CONSTANT = 1;
+    // This is theoretically correct, but may need to be changed in practice
+    public static final double STRAFE_CONSTANT = .5;
 
     // The current position and orientation of the robot
     private double x = 0;
@@ -103,5 +106,4 @@ public class MecanumOdometry {
         this.x += dx;
         this.y += dy;
     }
-
 }
