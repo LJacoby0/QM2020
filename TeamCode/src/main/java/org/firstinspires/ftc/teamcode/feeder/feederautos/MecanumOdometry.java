@@ -48,7 +48,7 @@ public class MecanumOdometry {
 
     /**
      * Should be called when the OpMode is started
-     *
+     * Once again
      * @param a The current front-right encoder value
      * @param b The current front-left encoder value
      * @param c The current back-left encoder value
@@ -82,17 +82,18 @@ public class MecanumOdometry {
         oldB = b;
         oldC = c;
 
-        // Update the orientation using data from the IMU
+        // Update the orientation using data from the IMU, the angle gotten might be incorrect
         imu.update();
         theta = imu.getYAngle() - startingAngle;
 
         // Update the total displacement using the orientation and encoder displacements
+        double averageEncoderChange = (Math.abs(dB) + Math.abs(dC)) / 2;
         if (dB > 0 && dC < 0) {
-            dx = ((Math.abs(dB) + Math.abs(dC)) / 2) * STRAFE_CONSTANT * Math.cos(theta);
-            dy = ((Math.abs(dB) + Math.abs(dC)) / 2) * STRAFE_CONSTANT * Math.sin(theta);
+            dx = averageEncoderChange * STRAFE_CONSTANT * Math.cos(theta);
+            dy = averageEncoderChange * STRAFE_CONSTANT * Math.sin(theta);
         } else if (dB < 0 && dC > 0) {
-            dx = -((Math.abs(dB) + Math.abs(dC)) / 2) * STRAFE_CONSTANT * Math.cos(theta);
-            dy = -((Math.abs(dB) + Math.abs(dC)) / 2) * STRAFE_CONSTANT * Math.sin(theta);
+            dx = -averageEncoderChange * STRAFE_CONSTANT * Math.cos(theta);
+            dy = -averageEncoderChange * STRAFE_CONSTANT * Math.sin(theta);
         } else {
             dx = (dA + dB) / 2 * Math.sin(theta);
             dy = (dA + dB) / 2 * Math.cos(theta);
