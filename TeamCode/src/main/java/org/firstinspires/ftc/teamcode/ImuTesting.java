@@ -75,13 +75,13 @@ public class ImuTesting extends LinearOpMode {
             //telemetry.addData("1 imu heading", angle.firstAngle);
             //telemetry.addData("2 global heading", globalAngle);
             //telemetry.update();
-            rotateClockwise(0.1,20);
+//            rotateClockwise(0.5,180);
+            
             break;
         }
     }
 
     public void rotateClockwise(double power, int degs) {
-        degs -= 27; // To account for error
         double start = angle.firstAngle;
         globalAngle = start;
         FL.setPower(power);
