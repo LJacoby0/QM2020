@@ -31,6 +31,8 @@
             // Define class members
         private double position1 = 0.5; // Start at halfway position so was .5
                 private double position2 = 0.5; // Start at halfway position so was .5
+                private double position3 = 0.5; // Start at halfway position so was .5
+
 
 
                 private final double INCREMENT = 0.01 ;
@@ -43,6 +45,8 @@
 //        CRServo servo = hardwareMap.get(CRServo.class, "hand");
         Servo servo = hardwareMap.get(Servo.class, "platform left");
         Servo servo2 = hardwareMap.get(Servo.class, "platform right");
+        Servo servo3 = hardwareMap.get(Servo.class, "capstone servo");
+
 
 
                 // Wait for the start button
@@ -70,9 +74,19 @@
                         position2 -= INCREMENT;
                 }
 
+                if (gamepad1.y) {
+                        // Keep stepping up until we hit the max value.
+                        position3 += INCREMENT;
+                } else if (gamepad1.a) {
+                        // Keep stepping down until we hit the min value.
+                        position3 -= INCREMENT;
+                }
+
                 // Display the current value
                 telemetry.addData("Servo Left Position", "%5.2f", position1);
                 telemetry.addData("Servo right Position", "%5.2f", position2);
+                telemetry.addData("Servo right Position", "%5.2f", position3);
+
 
                 telemetry.addData(">", "Press Stop to end test.");
                 telemetry.update();
@@ -80,6 +94,8 @@
                 // Set the servo to the new position and pause;
                 servo.setPosition(position1);
                 servo2.setPosition(position2);
+                servo3.setPosition(position2);
+
                 sleep(DELAY);
                 idle();
         }

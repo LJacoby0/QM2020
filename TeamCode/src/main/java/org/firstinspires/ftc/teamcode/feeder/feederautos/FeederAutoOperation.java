@@ -7,6 +7,12 @@ import org.firstinspires.ftc.teamcode.feeder.HardwareFeeder;
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.RED;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
+
 
 public abstract class FeederAutoOperation extends LinearOpMode {
 
@@ -14,6 +20,7 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
         HardwareFeeder robot = new HardwareFeeder();

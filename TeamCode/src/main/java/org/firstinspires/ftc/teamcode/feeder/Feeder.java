@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.feeder;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -55,11 +56,13 @@ public class Feeder extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        rb.ledColorFLashYellow();
         telemetry.addData("Status", "Initializing");
         telemetry.update();
         rb.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+        rb.ledColorGreen();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -122,9 +125,17 @@ public class Feeder extends LinearOpMode {
 
         if (rightb) {
             rb.intakeOut();
+            rb.ledColorFLashYellow();
         } else if (leftb) {
             rb.intakeIn();
-        }else{
+            rb.ledColorOrange();
+
+        }
+        //emergency eject
+        else if (rightb && gamepad2.right_stick_button) {
+            rb.intakeIn(-1);
+        }
+        else{
             rb.intakeStop();
         }
 
