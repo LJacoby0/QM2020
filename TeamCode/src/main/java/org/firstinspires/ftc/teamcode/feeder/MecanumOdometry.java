@@ -58,7 +58,7 @@ public class MecanumOdometry {
      */
     public void start(double a, double b, double c) {
         imu.update();
-        startingAngle = imu.getYAngle();
+        startingAngle = imu.getZAngle();
         x = 0;
         y = 0;
         oldA = a;
@@ -85,9 +85,9 @@ public class MecanumOdometry {
         oldB = b;
         oldC = c;
 
-        // Update the orientation using data from the IMU, the angle gotten might be incorrect
+        // Update the orientation using data from the IMU
         imu.update();
-        theta = imu.getYAngle() - startingAngle;
+        theta = imu.getZAngle() - startingAngle;
 
         // Update the total displacement using the orientation and encoder displacements
         double averageEncoderChange = (Math.abs(dB) + Math.abs(dC)) / 2;

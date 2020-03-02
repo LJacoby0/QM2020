@@ -24,7 +24,7 @@ public abstract class FeederAutoOperation extends LinearOpMode {
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
 
         HardwareFeeder robot = new HardwareFeeder();
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, this);
 
         ElapsedTime runtime = new ElapsedTime();
 

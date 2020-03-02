@@ -59,7 +59,7 @@ public class Feeder extends LinearOpMode {
         rb.ledColorFLashYellow();
         telemetry.addData("Status", "Initializing");
         telemetry.update();
-        rb.init(hardwareMap);
+        rb.init(hardwareMap, this   );
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         rb.ledColorGreen();

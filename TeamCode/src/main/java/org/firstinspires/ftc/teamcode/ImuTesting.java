@@ -76,7 +76,7 @@ public class ImuTesting extends LinearOpMode {
             //telemetry.addData("2 global heading", globalAngle);
             //telemetry.update();
 //            rotateClockwise(0.5,180);
-            
+
             break;
         }
     }

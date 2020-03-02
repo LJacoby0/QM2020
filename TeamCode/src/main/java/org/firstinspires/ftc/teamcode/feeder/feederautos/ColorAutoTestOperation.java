@@ -34,9 +34,9 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
-    BNO055IMU               imu;
-    Orientation             lastAngles = new Orientation();
-    double                  globalAngle, power = .30, correction;
+    Orientation lastAngles = new Orientation();
+    double globalAngle, power = .30, correction;
+    IMU imu = new IMU();
 
 
     public abstract Alliance getAlliance();
@@ -44,42 +44,11 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         HardwareFeeder robot = new HardwareFeeder();
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, this);
 
         robot.ledColorFLashYellow();
 
-
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-
-        parameters.mode                = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled      = false;
-
-        // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
-        // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
-        // and named "imu".
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-
-        imu.initialize(parameters);
-
-        telemetry.addData("Mode", "calibrating...");
-        telemetry.update();
-
-        // make sure the imu gyro is calibrated before continuing.
-        while (!isStopRequested() && !imu.isGyroCalibrated())
-        {
-            sleep(50);
-            idle();
-        }
-
-        telemetry.addData("Mode", "waiting for start");
-        telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
-        telemetry.update();
-
-
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
-
 
 
         ElapsedTime runtime = new ElapsedTime();
@@ -144,12 +113,12 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             telemetry.update();
             //Move forwards until 4cm away from block
-            while (sensorDistance.getDistance(DistanceUnit.CM) >= 4) {
+            while (sensorDistance.getDistance(DistanceUnit.CM) >= 6) {
                 robot.drive(0.25);
             }
 
             runtime.reset();
-            while(runtime.seconds() < 1) {
+            while (runtime.seconds() < 1) {
                 robot.driveStop();
             }
 
@@ -159,12 +128,13 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                         (int) (sensorColor.green() * SCALE_FACTOR),
                         (int) (sensorColor.blue() * SCALE_FACTOR),
                         hsvValues);
-                robot.strafe(blueNegativeFactor * -0.10);
+                robot.strafe(blueNegativeFactor * -0.25);
             }
-            while (hsvValues[0] <= 100); {
+            while (hsvValues[0] <= 100);
+            {
 
             }
-sleep(3000); //stop for 3 seconds after finding block
+            sleep(3000); //stop for 3 seconds after finding block
             runtime.reset();
             //timed auto into position
             robot.ledColorOrange();
@@ -177,135 +147,13 @@ sleep(3000); //stop for 3 seconds after finding block
             runtime.reset();
 
             //Move backwards
-            while(runtime.seconds() < .9) {
+            while (runtime.seconds() < .9) {
                 robot.drive(-.1);
             }
 
-//            runtime.reset();
-//            //Go back to other side of the field
-//            while(runtime.seconds() < 2.5) {
-//                robot.strafe(blueNegativeFactor * 0.8);
-//
-//            }
-
-            //Servo drop block code here
-
-
-            //THIS IS THE ROTATE CODE BUT IDK HOW TO PUT IT INTO A FUNCTION SO ITS A MESS:
-
-            //rotate(20,20);
-
-
-            double  leftPower, rightPower;
-            int degrees = 90; //CHANGE THIS TO ADJUST ROTATION DEGREES
-            // restart imu movement tracking.
-            resetAngle();
-
-            // getAngle() returns + when rotating counter clockwise (left) and - when rotating
-            // clockwise (right).
-
-
-            if (degrees < 0)
-            {   // turn right.
-                leftPower = power;
-                rightPower = -power;
-            }
-            else if (degrees > 0)
-            {   // turn left.
-                leftPower = -power;
-                rightPower = power;
-            }
-            else return;
-
-            // set power to rotate.
-//            fr.setPower(leftPower);
-//            rightMotor.setPower(rightPower);
-
-            robot.turn(rightPower);
-
-            // rotate until turn is completed.
-            if (degrees < 0)
-            {
-                // On right turn we have to get off zero first.
-                while (opModeIsActive() && getAngle() == 0) {}
-
-                while (opModeIsActive() && getAngle() > degrees) {}
-            }
-            else    // left turn.
-                while (opModeIsActive() && getAngle() < degrees) {}
-
-            // turn the motors off.
-//            rightMotor.setPower(0);
-//            leftMotor.setPower(0);
-            robot.driveStop();
-
-            // wait for rotation to stop.
-            sleep(1000);
-
-            // reset angle tracking on new heading.
-            resetAngle();
-
-            //THEN PLATFORM CODE
-
 
 
 
         }
-
-        //back to park
-        runtime.reset();
-
-
-        }
-
-
-
-
-
-
-    public void resetAngle()
-    {
-        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        globalAngle = 0;
     }
-
-    private double getAngle()
-    {
-        // We experimentally determined the Z axis is the axis we want to use for heading angle.
-        // We have to process the angle because the imu works in euler angles so the Z axis is
-        // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
-        // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
-
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
-
-        if (deltaAngle < -180)
-            deltaAngle += 360;
-        else if (deltaAngle > 180)
-            deltaAngle -= 360;
-
-        globalAngle += deltaAngle;
-
-        lastAngles = angles;
-
-        return globalAngle;
-
-    }
-
-
-
-
-//        runtime.reset();
-//        while(runtime.seconds() < 0.5) {
-//            robot.driveStop();
-//        }
-//
-//        //move under the bridge
-//        runtime.reset();
-//        while(runtime.seconds() < 4) {
-//            robot.strafe(blueNegativeFactor * 0.5);
-//        }
-    }
-
+}
