@@ -52,7 +52,7 @@ public class HardwareFeeder {
 
     Servo platformleft = null;
     Servo platformright = null;
-    //Servo blockServo = null;
+    Servo blockservo = null;
 
     RevBlinkinLedDriver blinkinLedDriver ;
     RevBlinkinLedDriver.BlinkinPattern pattern ;
@@ -80,6 +80,8 @@ public class HardwareFeeder {
         tape  = hwMap.get(DcMotor.class, "tape");
         platformleft = hwMap.get(Servo.class, "platform left");
         platformright = hwMap.get(Servo.class, "platform right");
+        blockservo = hwMap.get(Servo.class, "blockservo");
+
 
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
@@ -230,10 +232,10 @@ public void drive(double speed) {
         intakeright.setPower(0);
     }
     public void tapeIn(){
-        tape.setPower(.5);
+        tape.setPower(1);
     }
     public void tapeOut(){
-        tape.setPower(-.5);
+        tape.setPower(-1);
     }
 
     public void tapeStop(){

@@ -53,7 +53,7 @@ public class Feeder extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
-    private MecanumOdometry odometry = new MecanumOdometry();
+    //private MecanumOdometry odometry = new MecanumOdometry();
 
     @Override
     public void runOpMode() {
@@ -64,7 +64,7 @@ public class Feeder extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 //        rb.ledColorGreen();
-        odometry.start(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
+        //odometry.start(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -76,10 +76,10 @@ public class Feeder extends LinearOpMode {
             intake();
             platform();
             tapeMeasure();
-            odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
-            telemetry.addData("x",odometry.getX());
-            telemetry.addData("y", odometry.getY());
-            telemetry.addData("theta", odometry.getTheta());
+           // odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
+          //  telemetry.addData("x",odometry.getX());
+         //   telemetry.addData("y", odometry.getY());
+        //    telemetry.addData("theta", odometry.getTheta());
             telemetry.update();
 //            emergencyEject();
             //compassDriving();
