@@ -57,13 +57,13 @@ public class Feeder extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        rb.ledColorFLashYellow();
+//        rb.ledColorFLashYellow();
         telemetry.addData("Status", "Initializing");
         telemetry.update();
         rb.init(hardwareMap, this);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        rb.ledColorGreen();
+//        rb.ledColorGreen();
         odometry.start(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
 
         // Wait for the game to start (driver presses PLAY)
@@ -75,6 +75,7 @@ public class Feeder extends LinearOpMode {
             drive();
             intake();
             platform();
+            tapeMeasure();
             odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
             telemetry.addData("x",odometry.getX());
             telemetry.addData("y", odometry.getY());
@@ -132,10 +133,10 @@ public class Feeder extends LinearOpMode {
 
         if (rightb) {
             rb.intakeOut();
-            rb.ledColorFLashYellow();
+//            rb.ledColorFLashYellow();
         } else if (leftb) {
             rb.intakeIn();
-            rb.ledColorOrange();
+//            rb.ledColorOrange();
 
         }
         //emergency eject
@@ -183,6 +184,17 @@ public class Feeder extends LinearOpMode {
             rb.setPlatformUp(true);
         }else if(leftTrigger < -.13){
             rb.setPlatformUp(false);
+        }
+    }
+    private void tapeMeasure(){
+        double leftx = gamepad2.left_stick_y;
+
+        if(leftx > .1){
+            rb.tapeIn();
+        } else if(leftx < -.1){
+            rb.tapeOut();
+        }else{
+            rb.tapeStop();
         }
     }
 //

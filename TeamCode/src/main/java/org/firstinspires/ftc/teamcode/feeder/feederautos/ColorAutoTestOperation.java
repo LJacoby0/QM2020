@@ -113,10 +113,14 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             telemetry.update();
             //Move forwards until 4cm away from block
-            while (sensorDistance.getDistance(DistanceUnit.CM) >= 6) {
+            telemetry.addData("1. Moving 4cm Away From Block; Distance (cm)",
+                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+            telemetry.update();
+            while (sensorDistance.getDistance(DistanceUnit.CM) >= 5) {
                 robot.drive(0.25);
             }
-
+            telemetry.addData("2. Block Found Hue", hsvValues[0]);
+            telemetry.update();
             runtime.reset();
             while (runtime.seconds() < 1) {
                 robot.driveStop();
@@ -130,7 +134,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                         hsvValues);
                 robot.strafe(blueNegativeFactor * -0.25);
             }
-            while (hsvValues[0] <= 100);
+            while (hsvValues[0] <= 110);
             {
 
             }

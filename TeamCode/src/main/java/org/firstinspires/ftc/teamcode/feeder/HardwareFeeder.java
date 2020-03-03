@@ -46,6 +46,7 @@ public class HardwareFeeder {
     public DcMotor BR = null;
     public DcMotor BL = null;
 
+    DcMotor tape = null;
     DcMotor intakeleft = null;
     DcMotor intakeright = null;
 
@@ -53,8 +54,8 @@ public class HardwareFeeder {
     Servo platformright = null;
     //Servo blockServo = null;
 
-    RevBlinkinLedDriver blinkinLedDriver = null;
-    RevBlinkinLedDriver.BlinkinPattern pattern = null;
+    RevBlinkinLedDriver blinkinLedDriver ;
+    RevBlinkinLedDriver.BlinkinPattern pattern ;
 
 
     /* local OpMode members. */
@@ -76,13 +77,12 @@ public class HardwareFeeder {
         BL  = hwMap.get(DcMotor.class, "BL");
         intakeright  = hwMap.get(DcMotor.class, "intakeright");
         intakeleft  = hwMap.get(DcMotor.class, "intakeleft");
+        tape  = hwMap.get(DcMotor.class, "tape");
         platformleft = hwMap.get(Servo.class, "platform left");
         platformright = hwMap.get(Servo.class, "platform right");
 
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-
-
 
         // Set motor directions
         FR.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
@@ -91,6 +91,7 @@ public class HardwareFeeder {
         BL.setDirection(DcMotor.Direction.FORWARD);
         intakeright.setDirection(DcMotor.Direction.FORWARD);
         intakeleft.setDirection(DcMotor.Direction.REVERSE);
+        tape.setDirection(DcMotor.Direction.FORWARD);
 
 
         // Set rb to brake when power is zero
@@ -101,6 +102,7 @@ public class HardwareFeeder {
         BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeright.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        tape.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         FR.setPower(0);
@@ -109,6 +111,8 @@ public class HardwareFeeder {
         BL.setPower(0);
         intakeright.setPower(0);
         intakeleft.setPower(0);
+        tape.setPower(0);
+
 
 
         // Set all motors to run without encoders.
@@ -119,8 +123,7 @@ public class HardwareFeeder {
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeright.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-
+        tape.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
     }
@@ -225,6 +228,17 @@ public void drive(double speed) {
     public void intakeStop(){
         intakeleft.setPower(0);
         intakeright.setPower(0);
+    }
+    public void tapeIn(){
+        tape.setPower(.5);
+    }
+    public void tapeOut(){
+        tape.setPower(-.5);
+    }
+
+    public void tapeStop(){
+        tape.setPower(0);
+
     }
 
     public void ledColorFLashYellow() {
