@@ -19,14 +19,21 @@ public final class FeederConstants {
     //Servo:
     public static final double RIGHT_PLATFORM_UP = .19;
     public static final double RIGHT_PLATFORM_DOWN = .56;
-    public static final double RIGHT_PLATFORM_CAP = .46;
 
 
     public static final double LEFT_PLATFORM_UP = .76;
     public static final double LEFT_PLATFORM_DOWN = .10;
 
-    public static final double OPEN_HAND = .22;
-
     public static final double THETA_TOLERANCE = 0.04;
+
+    public static final double BLOCK_UP = .58;
+    public static final double BLOCK_DOWN = .72;
+
+    public static final double CAP_UP = 0;
+    public static final double CAP_DOWN = 0;
+
+
+
+
 
 }

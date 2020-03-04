@@ -75,6 +75,9 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
         // wait for the start button to be pressed.
 
+        //block mechanism
+//        robot.blockUp(true);//goes up to release block
+//        robot.blockUp(false);//goes down to pick up block
 
         robot.ledColorGreen();
 

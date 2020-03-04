@@ -53,6 +53,7 @@ public class HardwareFeeder {
     Servo platformleft = null;
     Servo platformright = null;
     Servo blockservo = null;
+    Servo capservo = null;
 
     RevBlinkinLedDriver blinkinLedDriver ;
     RevBlinkinLedDriver.BlinkinPattern pattern ;
@@ -80,9 +81,8 @@ public class HardwareFeeder {
         tape  = hwMap.get(DcMotor.class, "tape");
         platformleft = hwMap.get(Servo.class, "platform left");
         platformright = hwMap.get(Servo.class, "platform right");
+        capservo = hwMap.get(Servo.class, "capservo");
         blockservo = hwMap.get(Servo.class, "blockservo");
-
-
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
 
@@ -202,17 +202,16 @@ public void drive(double speed) {
             platformright.setPosition(FeederConstants.RIGHT_PLATFORM_DOWN);
         }
     }
-    public void placeCap() {
-            platformleft.setPosition(FeederConstants.LEFT_PLATFORM_UP);
-            platformright.setPosition(FeederConstants.RIGHT_PLATFORM_CAP);
+
+    public void blockUp(boolean isUp) {
+        if(isUp) {
+            blockservo.setPosition(FeederConstants.BLOCK_UP);
+        } else {
+            blockservo.setPosition(FeederConstants.BLOCK_DOWN);
+
+        }
     }
 
-//    void turnLeft(double speed) {
-//        FR.setPower(speed);
-//        FL.setPower(speed);
-//        BR.setPower(speed);
-//        BL.setPower(speed);
-//    }
 
     public void intakeIn() {
         intakeleft.setPower(-Constants.MAX_DRIVE_SPEED);
