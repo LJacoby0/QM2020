@@ -201,6 +201,7 @@ public class Feeder extends LinearOpMode {
 
     private void blockGrabber(){
         double rightTrigger = gamepad2.right_trigger;
+
         if(rightTrigger < .13){
             rb.blockDown();
         } else {
