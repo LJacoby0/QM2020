@@ -52,7 +52,7 @@ public class HardwareFeeder {
 
     Servo platformleft = null;
     Servo platformright = null;
-    Servo blockservo = null;
+    public Servo blockservo = null;
     Servo capservo = null;
 
     RevBlinkinLedDriver blinkinLedDriver ;
@@ -126,7 +126,6 @@ public class HardwareFeeder {
         intakeright.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         tape.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
 
     }
 
