@@ -10,6 +10,7 @@ public class EncoderOdometryTest extends LinearOpMode {
     private MecanumOdometry odometry = new MecanumOdometry();
     @Override
     public void runOpMode() throws InterruptedException {
+        rb.init(hardwareMap,this);
         telemetry.addData("FR Encoder",rb.FR.getCurrentPosition());
         telemetry.addData("FL Encoder",rb.FL.getCurrentPosition());
         telemetry.addData("BL Encoder",rb.BL.getCurrentPosition());

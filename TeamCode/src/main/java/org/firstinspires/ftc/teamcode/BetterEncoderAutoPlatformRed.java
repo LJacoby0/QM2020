@@ -25,7 +25,7 @@ public class BetterEncoderAutoPlatformRed extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 3.937 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.04;
+    static final double     DRIVE_SPEED             = 0.03;
     static final double     DRAGGING_SPEED          = 0.5;
     static final double     TURN_SPEED              = 0.2;
 
@@ -66,10 +66,10 @@ public class BetterEncoderAutoPlatformRed extends LinearOpMode {
         robot.righthand.setPosition(Constants.CLOSED_HAND); //close hand
         encoderDrive(DRIVE_SPEED,  -1.5,  1.5, 0, 0, 2.0);
         sleep(500);
-        encoderDrive(DRIVE_SPEED,   0, 0, 2, -2, 4.0);
+        encoderDrive(DRIVE_SPEED,   0, 0, 1.5, -1.5, 4.0);
         sleep(500);
         robot.drag.setPower(0.3);
-        sleep(500);
+        sleep(1000);
         encoderDrive(DRAGGING_SPEED, 0, 0, -2.5, 2.5, 4.0);
         sleep(500);
         robot.drag.setPower(-0.3);

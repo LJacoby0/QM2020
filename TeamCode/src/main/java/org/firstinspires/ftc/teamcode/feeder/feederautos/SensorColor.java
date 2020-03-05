@@ -24,7 +24,7 @@ public class SensorColor {
     private View relativeLayout;
     public void initColorSensor(HardwareMap hardwareMap) {
         HardwareFeeder robot = new HardwareFeeder();
-        robot.ledColorFLashYellow();
+//        robot.ledColorFLashYellow();
         // get a reference to the color sensor.
         colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
         // get a reference to the distance sensor that shares the same name.
@@ -32,11 +32,11 @@ public class SensorColor {
 
         int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
         relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-        robot.ledColorGreen();
+//        robot.ledColorGreen();
     }
     public void RGBToTelemetry(LinearOpMode opMode){
         HardwareFeeder robot = new HardwareFeeder();
-        robot.ledOff();
+//        robot.ledOff();
         // send the info back to driver station using telemetry function.
         opMode.telemetry.addData("Distance (cm)",
                 String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
@@ -51,17 +51,17 @@ public class SensorColor {
     }
     public double getRed(){
         HardwareFeeder robot = new HardwareFeeder();
-        robot.ledOff();
+//        robot.ledOff();
         return colorSensor.red();
     }
     public double getGreen(){
         HardwareFeeder robot = new HardwareFeeder();
-        robot.ledOff();
+//        robot.ledOff();
         return colorSensor.green();
     }
     public double getBlue(){
         HardwareFeeder robot = new HardwareFeeder();
-        robot.ledOff();
+//        robot.ledOff();
         return colorSensor.blue();
     }
     public boolean isYellow(){

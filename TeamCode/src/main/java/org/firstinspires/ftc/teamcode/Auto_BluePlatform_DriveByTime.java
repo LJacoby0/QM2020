@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Constant;
 import org.firstinspires.ftc.teamcode.HardwarePot;
 
@@ -61,17 +62,20 @@ public class Auto_BluePlatform_DriveByTime extends LinearOpMode {
 
         // Init: Move hand up
         runtime.reset();
-        rb.righthand.setPosition(0);
-        while (opModeIsActive() && (runtime.seconds() < 1.4)) {
+        rb.righthand.setPosition(Constants.OPEN_HAND);
+
+//        while (opModeIsActive() && (runtime.seconds() < 1.4)) {
+            rb.righthand.setPosition(Constants.CLOSED_HAND);
             rb.drag.setPower(-.3);
             telemetry.addData("Path", "Init: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-        }
+//        }
+        sleep(500);
         rb.drag.setPower(0); // lower claw
         runtime.reset();
 
         //back up
-        while (opModeIsActive() && (runtime.seconds() < .4)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.4)) {
             goFront(Constants.FORWARD_SPEED);
             telemetry.addData("Path", "Back: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();

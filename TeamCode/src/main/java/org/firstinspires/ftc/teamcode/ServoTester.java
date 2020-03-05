@@ -91,7 +91,7 @@
                         position4 += INCREMENT;
                 }
                 else if (gamepad1.b) {
-                        position4 += INCREMENT;
+                        position4 -= INCREMENT;
                 }
 
                 // Display the current value

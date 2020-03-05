@@ -202,13 +202,11 @@ public void drive(double speed) {
         }
     }
 
-    public void blockUp(boolean isUp) {
-        if(isUp) {
+    public void blockUp() {
             blockservo.setPosition(FeederConstants.BLOCK_UP);
-        } else {
-            blockservo.setPosition(FeederConstants.BLOCK_DOWN);
-
-        }
+    }
+    public void blockDown() {
+        blockservo.setPosition(FeederConstants.BLOCK_DOWN);
     }
 
 

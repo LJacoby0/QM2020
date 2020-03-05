@@ -84,6 +84,7 @@ public class Feeder extends LinearOpMode {
             platform();
             tapeMeasure();
             capstone();
+            blockGrabber();
 
            // odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
           //  telemetry.addData("x",odometry.getX());
@@ -135,6 +136,7 @@ public class Feeder extends LinearOpMode {
         }
 
     }
+
     private void intake(){
         boolean rightb = gamepad2.right_bumper;
         boolean leftb = gamepad2.left_bumper;
@@ -157,7 +159,6 @@ public class Feeder extends LinearOpMode {
 
     }
 
-
     private void capstone(){
         boolean y = gamepad2.y;
         boolean x = gamepad2.x;
@@ -171,8 +172,6 @@ public class Feeder extends LinearOpMode {
     }
 
     private void platform(){
-        double rightTrigger = gamepad2.right_trigger;
-        double leftTrigger = gamepad2.left_trigger;
         boolean dpadUp = gamepad2.dpad_up;
         boolean dpadDown = gamepad2.dpad_down;
 //        if(rightTrigger>.15){
@@ -186,13 +185,8 @@ public class Feeder extends LinearOpMode {
         }else if(dpadDown){
             rb.setPlatformUp(false);
         }
-
-        if(rightTrigger < -.13){
-            rb.setPlatformUp(true);
-        }else if(leftTrigger < -.13){
-            rb.setPlatformUp(false);
-        }
     }
+
     private void tapeMeasure(){
         double leftx = gamepad2.left_stick_y;
 
@@ -205,6 +199,14 @@ public class Feeder extends LinearOpMode {
         }
     }
 
+    private void blockGrabber(){
+        double rightTrigger = gamepad2.right_trigger;
+        if(rightTrigger < .13){
+            rb.blockDown();
+        } else {
+            rb.blockUp();
+        }
+    }
 
 
 
