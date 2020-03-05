@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.feeder;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.feeder.feederautos.IMU;
+
 @TeleOp(name = "EncoderOdometryTest", group = "Test")
 public class EncoderOdometryTest extends LinearOpMode {
     private HardwareFeeder rb = new HardwareFeeder();
@@ -11,6 +13,7 @@ public class EncoderOdometryTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         rb.init(hardwareMap,this);
+        odometry.init(hardwareMap);
         telemetry.addData("FR Encoder",rb.FR.getCurrentPosition());
         telemetry.addData("FL Encoder",rb.FL.getCurrentPosition());
         telemetry.addData("BL Encoder",rb.BL.getCurrentPosition());
