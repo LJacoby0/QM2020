@@ -8,7 +8,6 @@ public final class FeederConstants {
     //Speeds:
     public static final float DRIVE_POWER = 1;
     public static final double INTAKE_SPEED = 0.6;
-//    public static final double OUTTAKE_SPEED = 0.3;
     public static final double OUTTAKE_SPEED = 0.2;
 
     //Sticks:
@@ -29,8 +28,8 @@ public final class FeederConstants {
     public static final double BLOCK_UP = .58;
     public static final double BLOCK_DOWN = .72;
 
-    public static final double CAP_UP = 0;
-    public static final double CAP_DOWN = 0;
+    public static final double CAP_UP = .18;
+    public static final double CAP_DOWN = .87;
 
 
 
