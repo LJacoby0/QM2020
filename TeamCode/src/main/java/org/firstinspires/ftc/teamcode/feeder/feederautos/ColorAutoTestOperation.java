@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.feeder.feederautos;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SampleRevBlinkinLedDriver;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Locale;
@@ -12,6 +16,7 @@ import android.graphics.Color;
 import android.view.View;
 
 
+import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.feeder.HardwareFeeder;
 
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
@@ -38,6 +43,9 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
     double globalAngle, power = .30, correction;
     IMU imu = new IMU();
 
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
+
 
     public abstract Alliance getAlliance();
 
@@ -46,10 +54,11 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
         HardwareFeeder robot = new HardwareFeeder();
         robot.init(hardwareMap, this);
 
-        robot.ledColorFLashYellow();
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
+        blinkinLedDriver.setPattern(pattern);
 
         double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
-
 
         ElapsedTime runtime = new ElapsedTime();
 // get a reference to the color sensor.
@@ -79,14 +88,16 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 //        robot.blockUp(true);//goes up to release block
 //        robot.blockUp(false);//goes down to pick up block
 
-        robot.ledColorGreen();
+        //robot.ledColorGreen();
+        pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+        blinkinLedDriver.setPattern(pattern);
 
         runtime.reset();
         waitForStart();
 
         while (opModeIsActive()) {
-            robot.ledOff();
-            // convert the RGB values to HSV values.
+            pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+            blinkinLedDriver.setPattern(pattern);            // convert the RGB values to HSV values.
             // multiply by the SCALE_FACTOR.
             // then cast it back to int (SCALE_FACTOR is a double)
             Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
@@ -144,13 +155,15 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             sleep(3000); //stop for 3 seconds after finding block
             runtime.reset();
             //timed auto into position
-            robot.ledColorOrange();
+            pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_PARTY_PALETTE;
+            blinkinLedDriver.setPattern(pattern);
+            //robot.ledColorOrange();
 //            while(runtime.seconds() < 0.3) {
 //                robot.drive(0.1);
 //            }
 
             //Servo code to grab block here
-            robot.ledColorGreen();
+            //robot.ledColorGreen();
             runtime.reset();
 
             //Move backwards

@@ -55,8 +55,8 @@ public class HardwareFeeder {
     Servo blockservo = null;
     Servo capservo = null;
 
-    RevBlinkinLedDriver blinkinLedDriver ;
-    RevBlinkinLedDriver.BlinkinPattern pattern ;
+//    RevBlinkinLedDriver blinkinLedDriver ;
+//    RevBlinkinLedDriver.BlinkinPattern pattern ;
 
 
     /* local OpMode members. */
@@ -84,7 +84,7 @@ public class HardwareFeeder {
         capservo = hwMap.get(Servo.class, "capservo");
         blockservo = hwMap.get(Servo.class, "blockservo");
 
-        blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+      // blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
 
         // Set motor directions
         FR.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
@@ -242,30 +242,36 @@ public void drive(double speed) {
 
     }
 
-    public void ledColorFLashYellow() {
-        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
-        blinkinLedDriver.setPattern(pattern);
-    }
+//    public void ledColorFLashYellow() {
+//        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
+//        blinkinLedDriver.setPattern(pattern);
+//    }
+//
+//    public void ledColorGreen() {
+//        pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
+//        blinkinLedDriver.setPattern(pattern);
+//    }
+//
+//    public void ledColorOrange() {
+//        pattern = RevBlinkinLedDriver.BlinkinPattern.ORANGE;
+//        blinkinLedDriver.setPattern(pattern);
+//    }
+//
+//    public void flashRed() {
+//        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_RED;
+//        blinkinLedDriver.setPattern(pattern);
+//    }
+//
+//    public void ledOff() {
+//        pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+//        blinkinLedDriver.setPattern(pattern);
+//    }
 
-    public void ledColorGreen() {
-        pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
-        blinkinLedDriver.setPattern(pattern);
-    }
 
-    public void ledColorOrange() {
-        pattern = RevBlinkinLedDriver.BlinkinPattern.ORANGE;
-        blinkinLedDriver.setPattern(pattern);
-    }
 
-    public void flashRed() {
-        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_RED;
-        blinkinLedDriver.setPattern(pattern);
-    }
 
-    public void ledOff() {
-        pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-        blinkinLedDriver.setPattern(pattern);
-    }
+
+
 
     public static double angleDiff(double theta1, double theta2) {
         return Math.atan2(Math.sin(theta1 - theta2), Math.cos(theta1 - theta2));

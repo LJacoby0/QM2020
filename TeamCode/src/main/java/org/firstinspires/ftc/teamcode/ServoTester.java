@@ -48,7 +48,7 @@
 //        CRServo servo = hardwareMap.get(CRServo.class, "hand");
         Servo servo = hardwareMap.get(Servo.class, "platform left");
         Servo servo2 = hardwareMap.get(Servo.class, "platform right");
-//        Servo servo3 = hardwareMap.get(Servo.class, "capstone servo");
+        Servo servo3 = hardwareMap.get(Servo.class, "capservo");
         Servo servo4 = hardwareMap.get(Servo.class, "blockservo");
 
 
@@ -97,7 +97,7 @@
                 // Display the current value
                 telemetry.addData("Servo Left Position", "%5.2f", position1);
                 telemetry.addData("Servo right Position", "%5.2f", position2);
-                telemetry.addData("Servo right Position", "%5.2f", position3);
+                telemetry.addData("Capservo", "%5.2f", position3);
                 telemetry.addData("Block Servo Position", "%5.2f", position4);
 
 
@@ -108,7 +108,7 @@
                 // Set the servo to the new position and pause;
                 servo.setPosition(position1);
                 servo2.setPosition(position2);
-//                servo3.setPosition(position3);
+               servo3.setPosition(position3);
                 servo4.setPosition(position4);
 
 

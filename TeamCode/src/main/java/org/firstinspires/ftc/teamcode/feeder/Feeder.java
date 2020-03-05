@@ -52,6 +52,9 @@ public class Feeder extends LinearOpMode {
     private HardwareFeeder rb = new HardwareFeeder();
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
+
 
     //private MecanumOdometry odometry = new MecanumOdometry();
 
@@ -65,6 +68,10 @@ public class Feeder extends LinearOpMode {
         telemetry.update();
 //        rb.ledColorGreen();
         //odometry.start(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
+        blinkinLedDriver.setPattern(pattern);
+
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -77,11 +84,12 @@ public class Feeder extends LinearOpMode {
             platform();
             tapeMeasure();
             capstone();
+
            // odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
           //  telemetry.addData("x",odometry.getX());
          //   telemetry.addData("y", odometry.getY());
         //    telemetry.addData("theta", odometry.getTheta());
-            telemetry.update();
+     //       telemetry.update();
 //            emergencyEject();
             //compassDriving();
 
@@ -102,10 +110,12 @@ public class Feeder extends LinearOpMode {
         double leftX = gamepad1.left_stick_x;
         double rightX = gamepad1.right_stick_x;
 
+        pattern = RevBlinkinLedDriver.BlinkinPattern.ORANGE;
+        blinkinLedDriver.setPattern(pattern);
 
         if (rightX < -DRIVE_STICK_THRESHOLD || rightX > DRIVE_STICK_THRESHOLD || leftY < -DRIVE_STICK_THRESHOLD || leftY > DRIVE_STICK_THRESHOLD || leftX < -DRIVE_STICK_THRESHOLD || leftX > DRIVE_STICK_THRESHOLD) {
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
+            double drive = -gamepad1.left_stick_y*1.10;
+            double turn  =  gamepad1.right_stick_x*1.25;
             double strafe = gamepad1.left_stick_x;
 
             leadleftPower = Range.clip(drive + turn + strafe, -1.0, 1.0);
@@ -124,16 +134,13 @@ public class Feeder extends LinearOpMode {
             rb.driveStop();
         }
 
-//        telemetry.addData("Front Motors", "Left (%.2f), Right (%.2f)", leadleftPower, leadrightPower);
-//        telemetry.addData("Rear Motors", "left (%.2f), right (%.2f)", rearLeftPower, rearRightPower);
-
     }
     private void intake(){
         boolean rightb = gamepad2.right_bumper;
         boolean leftb = gamepad2.left_bumper;
 
-        if (rightb) {
-            rb.intakeOut();
+        if (rightb && gamepad2.right_stick_button) {
+            rb.intakeIn(-1);
 //            rb.ledColorFLashYellow();
         } else if (leftb) {
             rb.intakeIn();
@@ -141,25 +148,14 @@ public class Feeder extends LinearOpMode {
 
         }
         //emergency eject
-        else if (rightb && gamepad2.right_stick_button) {
-            rb.intakeIn(-1);
+        else if (rightb) {
+            rb.intakeOut();
         }
         else{
             rb.intakeStop();
         }
 
     }
-
-//    private void emergencyEject(){
-//
-//        if (gamepad2.x || gamepad2.left_stick_button) {
-//            rb.intakeIn(-1);
-//        }
-//        else{
-//            rb.intakeStop();
-//        }
-//
-//    }
 
 
     private void capstone(){
@@ -208,6 +204,10 @@ public class Feeder extends LinearOpMode {
             rb.tapeStop();
         }
     }
+
+
+
+
 //
 //    private void compassDriving() {
 //        if (gamepad1.dpad_up = true) {
