@@ -79,12 +79,14 @@ public class Feeder extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
             drive();
             intake();
             platform();
             tapeMeasure();
             capstone();
             blockGrabber();
+            //compassDriving();
 
            // odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
           //  telemetry.addData("x",odometry.getX());
@@ -200,33 +202,38 @@ public class Feeder extends LinearOpMode {
     }
 
     private void blockGrabber(){
+
         double rightTrigger = gamepad2.right_trigger;
 
-        if(rightTrigger < .13){
+        if (gamepad2.right_stick_button){
             rb.blockDown();
         } else {
             rb.blockUp();
         }
-    }
+     }
 
 
 
-//
+
 //    private void compassDriving() {
 //        if (gamepad1.dpad_up = true) {
-//            rb.drive(1);
+//            rb.drive(.25);
 //        }
 //
 //        else if (gamepad1.dpad_down= true) {
-//            rb.drive(-1);
+//            rb.drive(-.25);
 //        }
 //
 //        else if (gamepad1.dpad_right = true) {
-//            rb.strafe(1);
+//            rb.strafe(.25);
 //        }
 //
 //        else if (gamepad1.dpad_left = true) {
-//            rb.strafe(-1);
+//            rb.strafe(-.25);
+//        }
+//
+//        else {
+//            rb.driveStop();
 //        }
 //    }
 }

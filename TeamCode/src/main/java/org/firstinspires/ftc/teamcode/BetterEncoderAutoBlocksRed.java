@@ -93,6 +93,7 @@ public class BetterEncoderAutoBlocksRed extends LinearOpMode {
         if (opModeIsActive()) {
             telemetry.addData("Status", "We are driving");
 
+
             // Determine new target position, and pass to motor controller
             newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
             newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);

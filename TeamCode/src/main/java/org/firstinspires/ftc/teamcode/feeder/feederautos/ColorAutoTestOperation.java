@@ -51,8 +51,10 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        HardwareFeeder robot = new HardwareFeeder();
-        robot.init(hardwareMap, this);
+
+
+        HardwareFeeder rb = new HardwareFeeder();
+        rb.init(hardwareMap, this);
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
         pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
@@ -127,17 +129,16 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             telemetry.update();
             //Move forwards until 4cm away from block
-            telemetry.addData("1. Moving 4cm Away From Block; Distance (cm)",
-                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+            rb.driveForwardByEncoder(1410, rb.BL, .69);
+
             telemetry.update();
-            while (sensorDistance.getDistance(DistanceUnit.CM) >= 5) {
-                robot.drive(0.25);
-            }
+
             telemetry.addData("2. Block Found Hue", hsvValues[0]);
             telemetry.update();
             runtime.reset();
-            while (runtime.seconds() < 1) {
-                robot.driveStop();
+
+            while (runtime.seconds() < 1.5) {
+                rb.driveStop();
             }
 
             //Drive until block is black
@@ -146,17 +147,21 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                         (int) (sensorColor.green() * SCALE_FACTOR),
                         (int) (sensorColor.blue() * SCALE_FACTOR),
                         hsvValues);
-                robot.strafe(blueNegativeFactor * -0.25);
+                rb.strafe(blueNegativeFactor * 0.25);
             }
-            while (hsvValues[0] <= 110);
+            while (hsvValues[0] <= 103);
             {
 
             }
+
+            rb.driveForwardByEncoder(200, rb.BL, .20); //Go forward a little bit
+            rb.blockDown(); //Grab block
+
             sleep(3000); //stop for 3 seconds after finding block
+
             runtime.reset();
             //timed auto into position
-            pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_PARTY_PALETTE;
-            blinkinLedDriver.setPattern(pattern);
+
             //robot.ledColorOrange();
 //            while(runtime.seconds() < 0.3) {
 //                robot.drive(0.1);
@@ -164,15 +169,15 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             //Servo code to grab block here
             //robot.ledColorGreen();
+
+
             runtime.reset();
-
-            //Move backwards
-            while (runtime.seconds() < .9) {
-                robot.drive(-.1);
-            }
+            rb.driveForwardByEncoder(-750, rb.BL, .5);
 
 
 
+
+            stop();
 
         }
     }
