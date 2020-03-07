@@ -7,7 +7,7 @@ public final class FeederConstants {
 
     //Speeds:
     public static final float DRIVE_POWER = 1;
-    public static final double INTAKE_SPEED = 0.6;
+    public static final double INTAKE_SPEED = .8;
     public static final double OUTTAKE_SPEED = 0.2;
 
     //Sticks:

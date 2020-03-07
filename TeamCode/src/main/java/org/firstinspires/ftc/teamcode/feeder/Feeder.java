@@ -88,17 +88,25 @@ public class Feeder extends LinearOpMode {
             blockGrabber();
             //compassDriving();
 
-           // odometry.update(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
-          //  telemetry.addData("x",odometry.getX());
-         //   telemetry.addData("y", odometry.getY());
-        //    telemetry.addData("theta", odometry.getTheta());
-     //       telemetry.update();
-//            emergencyEject();
-            //compassDriving();
 
-            // Show the elapsed game time and wheel power.
-//            telemetry.addData("Status", "Run Time: " + runtime.toString());
-//            telemetry.update();
+           //  Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.update();
+            /* CONTROLS:
+            * Driver: (Start + A)
+            * Left Stick - Movement
+            * Right Stick - Rotation
+            *
+            * Gunner: (Start + B)
+            * Right Trigger - Intake
+            * Left Trigger - Outtake
+            * A - Block Grabber (only in emergencies)
+            * Y - Capstone down
+            * X - Capstone up
+            * Left Stick Up - Tape Measure Eject
+            * Left Stick Down - Tape Measure Input
+            *
+            * */
         }
     }
 
@@ -145,13 +153,9 @@ public class Feeder extends LinearOpMode {
 
         if (rightb && gamepad2.right_stick_button) {
             rb.intakeIn(-1);
-//            rb.ledColorFLashYellow();
         } else if (leftb) {
             rb.intakeIn();
-//            rb.ledColorOrange();
-
         }
-        //emergency eject
         else if (rightb) {
             rb.intakeOut();
         }
@@ -205,7 +209,7 @@ public class Feeder extends LinearOpMode {
 
         double rightTrigger = gamepad2.right_trigger;
 
-        if (gamepad2.right_stick_button){
+        if (gamepad2.a){
             rb.blockDown();
         } else {
             rb.blockUp();
@@ -213,27 +217,4 @@ public class Feeder extends LinearOpMode {
      }
 
 
-
-
-//    private void compassDriving() {
-//        if (gamepad1.dpad_up = true) {
-//            rb.drive(.25);
-//        }
-//
-//        else if (gamepad1.dpad_down= true) {
-//            rb.drive(-.25);
-//        }
-//
-//        else if (gamepad1.dpad_right = true) {
-//            rb.strafe(.25);
-//        }
-//
-//        else if (gamepad1.dpad_left = true) {
-//            rb.strafe(-.25);
-//        }
-//
-//        else {
-//            rb.driveStop();
-//        }
-//    }
 }

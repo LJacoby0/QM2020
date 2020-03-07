@@ -86,20 +86,11 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
         // wait for the start button to be pressed.
 
-        //block mechanism
-//        robot.blockUp(true);//goes up to release block
-//        robot.blockUp(false);//goes down to pick up block
-
-        //robot.ledColorGreen();
-        pattern = RevBlinkinLedDriver.BlinkinPattern.GREEN;
-        blinkinLedDriver.setPattern(pattern);
-
         runtime.reset();
         waitForStart();
 
         while (opModeIsActive()) {
             pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
-            blinkinLedDriver.setPattern(pattern);            // convert the RGB values to HSV values.
             // multiply by the SCALE_FACTOR.
             // then cast it back to int (SCALE_FACTOR is a double)
             Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
@@ -128,19 +119,21 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             });
 
             telemetry.update();
+
+            //TODO: Test Red sIde
             //Move forwards until 4cm away from block
+            rb.setPlatformUp(true);
+            rb.blockUp(); //Set Other Mechanisms out of the way
+
             rb.driveForwardByEncoder(1370, rb.BL, .69);
-
-            telemetry.update();
-
             telemetry.addData("2. Block Found Hue", hsvValues[0]);
             telemetry.update();
             runtime.reset();
-
-            while (runtime.seconds() < 1.5) {
+            //Pause after moving to block
+            while (runtime.seconds() < 1.0) { //TODO: Adjust this timing
                 rb.driveStop();
             }
-
+            runtime.reset();
             //Drive until block is black
             do {
                 Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
@@ -151,33 +144,48 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             }
             while (hsvValues[0] <= 103);
             {
+            }
+
+            double backToBlockBeginning = runtime.seconds();
+            runtime.reset();
+
+            rb.driveForwardByEncoder(200, rb.BL, .20); //Go forward a little bit
+
+            rb.blockDown(); //Grab first skystone //TODO: Fix this
+
+            sleep(1500); //stop  after finding block for servo to go down
+
+            rb.driveForwardByEncoder(-274, rb.BL, .5); //Back Up a little
+
+            runtime.reset(); //Reset Time
+            while (runtime.seconds()<backToBlockBeginning) {
+                rb.strafe(blueNegativeFactor * -0.25); //go Back to beginning of block line
+            }
+
+            int strafeToMidPoint = (int) (4346 * blueNegativeFactor);
+            rb.strafeRightByEncoder(strafeToMidPoint, rb.BL, .7); //go to midpoint for blocks //TODO: Check to see where this ends up
+            rb.blockUp(); //Eject skystone
+            sleep(1000);
+            int strafeToPlatform = (int) (2173 * blueNegativeFactor);
+            rb.strafeRightByEncoder(strafeToPlatform, rb.BL, .7); //go to platform for blocks //TODO: Check to see where this ends up
+
+            rb.driveForwardByEncoder(300,rb.BL, .18);//Move slightly into platform //TODO: Check to see where this ends up
+
+            rb.setPlatformUp(false); //Put platform grabbers down
+
+            rb.driveForwardByEncoder(-500,rb.BL, .20); //Move backwards a little TODO: check values
+
+            int turnTo = (int) (2173 * blueNegativeFactor);
+            rb.turnClockwiseByEncoder(turnTo, rb.BL, 0.14); //Rotate 90  TODO: find values for rotate
+
+            runtime.reset();
+            while (runtime.seconds() < 6) {
+                rb.tapeOut();
+                rb.driveForwardByEncoder(-500, rb.BL, 0.40); //Push into wall TODO: find values
 
             }
 
-            rb.driveForwardByEncoder(200, rb.BL, .20); //Go forward a little bit
-            rb.blockDown(); //Grab block
-
-            sleep(3000); //stop for 3 seconds after finding block
-
-            runtime.reset();
-            //timed auto into position
-
-            //robot.ledColorOrange();
-//            while(runtime.seconds() < 0.3) {
-//                robot.drive(0.1);
-//            }
-
-            //Servo code to grab block here
-            //robot.ledColorGreen();
-
-
-            runtime.reset();
-            rb.driveForwardByEncoder(-750, rb.BL, .5);
-
-            rb.strafeRightByEncoder(300, rb.BL, .3);
-
-
-
+            rb.setPlatformUp(true); //Lift platform pullers before end of auto
 
             stop();
 

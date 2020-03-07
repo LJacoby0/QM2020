@@ -214,8 +214,8 @@ public void drive(double speed) {
 
 
     public void intakeIn() {
-        intakeleft.setPower(-Constants.MAX_DRIVE_SPEED);
-        intakeright.setPower(-Constants.MAX_DRIVE_SPEED);
+        intakeleft.setPower(-FeederConstants.INTAKE_SPEED);
+        intakeright.setPower(-FeederConstants.INTAKE_SPEED );
     }
     public void intakeIn(double speed) {
         intakeleft.setPower(-speed);
@@ -223,8 +223,8 @@ public void drive(double speed) {
     }
 
     public void intakeOut(){
-        intakeleft.setPower(Constants.MAX_DRIVE_SPEED);
-        intakeright.setPower(Constants.MAX_DRIVE_SPEED);
+        intakeleft.setPower(FeederConstants.OUTTAKE_SPEED);
+        intakeright.setPower(FeederConstants.OUTTAKE_SPEED);
     }
     public void intakeStop(){
         intakeleft.setPower(0);
