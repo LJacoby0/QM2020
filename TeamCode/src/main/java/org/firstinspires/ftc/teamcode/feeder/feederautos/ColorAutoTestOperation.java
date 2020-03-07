@@ -134,7 +134,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             while (inBlock)
             {
-
+   //hi
 
                 Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                         (int) (sensorColor.green() * SCALE_FACTOR),
