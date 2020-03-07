@@ -129,7 +129,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             telemetry.update();
             //Move forwards until 4cm away from block
-            rb.driveForwardByEncoder(1410, rb.BL, .69);
+            rb.driveForwardByEncoder(1370, rb.BL, .69);
 
             telemetry.update();
 
@@ -173,6 +173,8 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             runtime.reset();
             rb.driveForwardByEncoder(-750, rb.BL, .5);
+
+            rb.strafeRightByEncoder(300, rb.BL, .3);
 
 
 
