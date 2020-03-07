@@ -126,59 +126,59 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             rb.blockUp(); //Set Other Mechanisms out of the way
 
 
-            rb.driveForwardByEncoder(-1400, rb.BL, .90);
+            rb.driveForwardByEncoder(-1450, rb.BL, .90);
 
+            boolean inBlock = true;
+            int blockNumber = 0;
+            int blockInterval = (int) (blueNegativeFactor *-500);
+
+            while (inBlock)
+            {
+
+
+                Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
+                        (int) (sensorColor.green() * SCALE_FACTOR),
+                        (int) (sensorColor.blue() * SCALE_FACTOR),
+                        hsvValues);
+
+                if (hsvValues[0] >= 90) {
+                    inBlock = false;
+
+
+                }
+                else {
+                    inBlock=true;
+                    blockNumber++;
+                    rb.strafeRightByEncoder(blockInterval, rb.BL, 0.25);
+                }
+            }
+            rb.driveForwardByEncoder(-100, rb.BL, .40);
+            rb.turnClockwiseByEncoder(-500, rb.BL,.50 );
             rb.intakeIn(1);
-
-            rb.turnClockwiseByEncoder(-1100, rb.BL,.50);
-
-            rb.driveForwardByEncoder(-400, rb.BL, .20);
-
-            rb.driveForwardByEncoder(800, rb.BL, .90);
-
-            rb.turnClockwiseByEncoder(1100, rb.BL,.50 );
-
-            rb.strafeRightByEncoder(-1600, rb.BL, 1);
-
-            rb.intakeOut();
-
-            sleep(1000);
-
-            rb.strafeRightByEncoder(3000, rb.BL, 1);
-
-            rb.turnClockwiseByEncoder(-450, rb.BL,.50 );
+            rb.driveForwardByEncoder(-600, rb.BL, .40);
+            rb.turnClockwiseByEncoder(500, rb.BL,.70 );
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//            rb.intakeIn(1);
+//
+//            rb.turnClockwiseByEncoder(-1100, rb.BL,.50);
+//
+//            rb.driveForwardByEncoder(-400, rb.BL, .20);
+//
+//            rb.driveForwardByEncoder(800, rb.BL, .90);
+//
+//            rb.turnClockwiseByEncoder(1100, rb.BL,.50 );
+//
+//            rb.strafeRightByEncoder(-1600, rb.BL, 1); //left
+//
+//            rb.intakeOut();
+//
+//            sleep(1000);
+//
+//            rb.strafeRightByEncoder(3000, rb.BL, 1);
+//
+//            rb.turnClockwiseByEncoder(-450, rb.BL,.50 );
 
 //            telemetry.addData("2. Block Found Hue", hsvValues[0]);
 //            telemetry.update();
@@ -249,7 +249,8 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 //            rb.blockUp(); //Eject skystone
 //            sleep(1000);
 //
-//            int strafeToPlatform = (int) (-1860 * blueNegativeFactor);
+//            int strafeToPlatform = (int) (-1860 * blueNegativeFactor);\
+
 //            rb.strafeRightByEncoder(strafeToPlatform, rb.BL, .7); //go to platform for blocks //TODO: Check to see where this ends up
 //
 //            rb.driveForwardByEncoder(1200,rb.BL, .18);//Move slightly into platform //TODO: Check to see where this ends up
