@@ -23,16 +23,10 @@ public final class FeederConstants {
     public static final double LEFT_PLATFORM_UP = .76;
     public static final double LEFT_PLATFORM_DOWN = .09;
 
-    public static final double THETA_TOLERANCE = 0.04;
-
     public static final double BLOCK_UP = .78;
     public static final double BLOCK_DOWN = .39;
 
     public static final double CAP_UP = .78;
     public static final double CAP_DOWN = .39;
-
-
-
-
 
 }

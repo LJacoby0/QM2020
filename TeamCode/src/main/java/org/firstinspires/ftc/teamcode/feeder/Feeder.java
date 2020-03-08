@@ -1,17 +1,10 @@
 package org.firstinspires.ftc.teamcode.feeder;
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.teamcode.HardwarePot;
-
 
 import static org.firstinspires.ftc.teamcode.Constants.DRIVE_STICK_THRESHOLD;
 
@@ -26,23 +19,14 @@ public class Feeder extends LinearOpMode {
     RevBlinkinLedDriver blinkinLedDriver;
     RevBlinkinLedDriver.BlinkinPattern pattern;
 
-
-    //private MecanumOdometry odometry = new MecanumOdometry();
-
     @Override
     public void runOpMode() {
-//        rb.ledColorFLashYellow();
         telemetry.addData("Status", "Initializing");
         telemetry.update();
         rb.init(hardwareMap, this);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-//        rb.ledColorGreen();
-        //odometry.start(rb.FR.getCurrentPosition(),rb.FL.getCurrentPosition(),rb.BL.getCurrentPosition());
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-        pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
-        blinkinLedDriver.setPattern(pattern);
-
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -57,12 +41,12 @@ public class Feeder extends LinearOpMode {
             tapeMeasure();
             capstone();
             blockGrabber();
-            //compassDriving();
 
 
            //  Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
+
             /* CONTROLS:
             * Driver: (Start + A)
             * Left Stick - Movement
@@ -186,6 +170,5 @@ public class Feeder extends LinearOpMode {
             rb.blockUp();
         }
      }
-
 
 }

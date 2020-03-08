@@ -25,22 +25,10 @@ public abstract class BlockAutoOperation extends LinearOpMode {
         runtime.reset();
 
         //back to park
-        runtime.reset();
-        while(runtime.seconds() < 0.75) {
-            robot.drive(1);
+        while (runtime.seconds()< 5) {
+            robot.tapeOut();
         }
-        robot.driveStop();
-
-//        runtime.reset();
-//        while(runtime.seconds() < 0.5) {
-//            robot.driveStop();
-//        }
-//
-//        //move under the bridge
-//        runtime.reset();
-//        while(runtime.seconds() < 4) {
-//            robot.strafe(blueNegativeFactor * 0.5);
-//        }
+        robot.tapeStop();
         robot.driveStop();
     }
 }

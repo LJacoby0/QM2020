@@ -28,16 +28,11 @@
  */
 package org.firstinspires.ftc.teamcode.feeder;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Constants;
-import org.firstinspires.ftc.teamcode.feeder.FeederConstants;
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 
 public class HardwareFeeder {
@@ -335,10 +330,61 @@ public void drive(double speed) {
         }
     }
 
+    public void driveWithLeftMore(int positionChange, DcMotor motor, double power) {
+        power = Math.abs(power);
+        int oldPosition = motor.getCurrentPosition();
+        int targetPosition = oldPosition + positionChange;
 
+        if (positionChange > 0) {
+            FR.setPower(power);
+            FL.setPower(power);
+            BR.setPower(power);
+            BL.setPower(power);
+            while (opMode.opModeIsActive() && motor.getCurrentPosition() < targetPosition) {
+                Thread.yield();
+            }
 
+            driveStop();
+        } else if (positionChange < 0) {
+            FR.setPower(-power*.66);
+            FL.setPower(-power);
+            BR.setPower(-power*.66);
+            BL.setPower(-power);
+            while (opMode.opModeIsActive() && motor.getCurrentPosition() > targetPosition) {
+                Thread.yield();
+            }
+            driveStop();
+        }
 
+    }
 
+    public void driveWithRightMore(int positionChange, DcMotor motor, double power) {
+        power = Math.abs(power);
+        int oldPosition = motor.getCurrentPosition();
+        int targetPosition = oldPosition + positionChange;
+
+        if (positionChange > 0) {
+            FR.setPower(power);
+            FL.setPower(power);
+            BR.setPower(power);
+            BL.setPower(power);
+            while (opMode.opModeIsActive() && motor.getCurrentPosition() < targetPosition) {
+                Thread.yield();
+            }
+
+            driveStop();
+        } else if (positionChange < 0) {
+            FR.setPower(-power);
+            FL.setPower(-power*.66);
+            BR.setPower(-power);
+            BL.setPower(-power*.66);
+            while (opMode.opModeIsActive() && motor.getCurrentPosition() > targetPosition) {
+                Thread.yield();
+            }
+            driveStop();
+        }
+
+    }
 
 
 }

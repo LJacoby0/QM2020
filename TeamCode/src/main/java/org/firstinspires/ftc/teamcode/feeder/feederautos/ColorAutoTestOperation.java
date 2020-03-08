@@ -1,39 +1,22 @@
 package org.firstinspires.ftc.teamcode.feeder.feederautos;
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.SampleRevBlinkinLedDriver;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-import java.util.Locale;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.feeder.HardwareFeeder;
 
+import java.util.Locale;
+
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
-
-import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.RED;
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 public abstract class ColorAutoTestOperation extends LinearOpMode {
 
@@ -60,10 +43,12 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
         pattern = RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD;
         blinkinLedDriver.setPattern(pattern);
 
-        double blueNegativeFactor = getAlliance() == BLUE ? -1 : 1;
+        double blueNegativeFactor;
+        if (getAlliance() == BLUE) blueNegativeFactor = -1;
+        else blueNegativeFactor = 1;
 
         ElapsedTime runtime = new ElapsedTime();
-// get a reference to the color sensor.
+        // get a reference to the color sensor.
         sensorColor = hardwareMap.get(ColorSensor.class, "colorSensor");
 
         // get a reference to the distance sensor that shares the same name.
@@ -90,7 +75,6 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
             // multiply by the SCALE_FACTOR.
             // then cast it back to int (SCALE_FACTOR is a double)
             Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
@@ -99,8 +83,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                     hsvValues);
 
             // send the info back to driver station using telemetry function.
-            telemetry.addData("Distance (cm)",
-                    String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
+            telemetry.addData("Distance (cm)", String.format(Locale.US, "%.02f", sensorDistance.getDistance(DistanceUnit.CM)));
             telemetry.addData("Alpha", sensorColor.alpha());
             telemetry.addData("Red  ", sensorColor.red());
             telemetry.addData("Green", sensorColor.green());
@@ -120,45 +103,73 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 
             telemetry.update();
 
-            //TODO: Test Red sIde
-            //Move forwards until 4cm away from block
+            //After Setup:
+
             rb.setPlatformUp(true);
-            rb.blockUp(); //Set Other Mechanisms out of the way
+            rb.blockUp();
+            //Set Other Mechanisms out of the way
 
-
-            rb.driveForwardByEncoder(-1450, rb.BL, .90);
+            rb.driveForwardByEncoder(-1450, rb.BL, .90); //Drive Up to Blocks with intake in front
 
             boolean inBlock = true;
             int blockNumber = 0;
-            int blockInterval = (int) (blueNegativeFactor *-500);
+            int blockInterval = (int) (blueNegativeFactor * -500);
 
-            while (inBlock)
-            {
-   //hi
-
+            while (inBlock) {
                 Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                         (int) (sensorColor.green() * SCALE_FACTOR),
                         (int) (sensorColor.blue() * SCALE_FACTOR),
-                        hsvValues);
-
+                        hsvValues); //GET HUE VALUE
+                sleep(300);
                 if (hsvValues[0] >= 90) {
                     inBlock = false;
-
-
-                }
-                else {
-                    inBlock=true;
+                } else {
+                    inBlock = true;
                     blockNumber++;
                     rb.strafeRightByEncoder(blockInterval, rb.BL, 0.25);
                 }
             }
-            rb.driveForwardByEncoder(-100, rb.BL, .40);
-            rb.turnClockwiseByEncoder(-500, rb.BL,.50 );
-            rb.intakeIn(1);
-            rb.driveForwardByEncoder(-600, rb.BL, .40);
-            rb.turnClockwiseByEncoder(500, rb.BL,.70 );
+
+            rb.driveForwardByEncoder(-100, rb.BL, .40); //move forward
+            rb.intakeIn(1); //turn intake on
+            rb.turnClockwiseByEncoder(-500, rb.BL, .50); //rotate into block
+            rb.driveForwardByEncoder(-600, rb.BL, .40); // move into block
+            rb.turnClockwiseByEncoder(500, rb.BL, .50);//rotate back
+            rb.driveForwardByEncoder(400, rb.BL, .60); //back out a little
+            rb.intakeIn(.4); //slow down the intake speed so we mess something up
+            int strafeToEject = (int) (blueNegativeFactor * (3350 + Math.abs(blockInterval * blockNumber))); //value for Blocks --> 3350 + number of blocks * blockInterval value
+            rb.strafeRightByEncoder(strafeToEject, rb.BL, .80); //Strafe to eject
+            rb.intakeOut(); //eject skystone
+            sleep(1200); // wait for block to be ejected
+            int strafeToPlatform = (int) (-1860 * blueNegativeFactor);
+            rb.strafeRightByEncoder(strafeToPlatform, rb.BL, .7); //go to platform for blocks
+            rb.driveForwardByEncoder(1200, rb.BL, .18);//move forwards into platform
+            rb.setPlatformUp(false); //put platform grabbers down
+            sleep(1000); //wait for platform grabbers to go down
+            rb.driveForwardByEncoder(-2000, rb.BL, .59); //Move backwards a little
+
+            if (blueNegativeFactor==-1) { //if Blue Alliance
+               rb.driveWithLeftMore(1900, rb.BL, .30);
+            }
+
+            else { //if red alliance
+                rb.driveWithRightMore(-1254, rb.BL, .30); //1900 * .66 = -1254
+            }
+
+            runtime.reset();
+            while (runtime.seconds() < 4) {
+                rb.tapeOut();
+                rb.driveForwardByEncoder(-1000, rb.BL, 0.30); //Push into wall
+
+            }
+            rb.tapeStop();
+            rb.setPlatformUp(true); //Lift platform pullers before end of auto
 
 
+//            int turnTo = (int) (1900 * blueNegativeFactor);
+//            rb.turnClockwiseByEncoder(turnTo, rb.BL, 0.20); //Rotate 90
+
+//- is right for turns
 
 //            rb.intakeIn(1);
 //
@@ -184,7 +195,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 //            telemetry.update();
 //            runtime.reset();
 //            //Pause after moving to block
-//            while (runtime.seconds() < 1.0) { //TODO: Adjust this timing
+//            while (runtime.seconds() < 1.0) {
 //                rb.driveStop();
 //            }
 //            runtime.reset();
@@ -233,7 +244,7 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 //
 //
 //            sleep(500);
-//            rb.blockDown(); //Grab first skystone //TODO: Fix this
+//            rb.blockDown(); //Grab first skystone
 //
 //            sleep(1500); //stop  after finding block for servo to go down
 //
@@ -245,33 +256,33 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
 //
 //
 //            int strafeToMidPoint = (int) (-3350 * blueNegativeFactor);
-//            rb.strafeRightByEncoder(strafeToMidPoint, rb.BL, .7); //go to midpoint for blocks //TODO: Check to see where this ends up
+//            rb.strafeRightByEncoder(strafeToMidPoint, rb.BL, .7); //go to midpoint for blocks
 //            rb.blockUp(); //Eject skystone
 //            sleep(1000);
 //
 //            int strafeToPlatform = (int) (-1860 * blueNegativeFactor);\
 
-//            rb.strafeRightByEncoder(strafeToPlatform, rb.BL, .7); //go to platform for blocks //TODO: Check to see where this ends up
+//            rb.strafeRightByEncoder(strafeToPlatform, rb.BL, .7); //go to platform for blocks
 //
-//            rb.driveForwardByEncoder(1200,rb.BL, .18);//Move slightly into platform //TODO: Check to see where this ends up
+//            rb.driveForwardByEncoder(1200,rb.BL, .18);//Move slightly into platform
 //
 //            rb.setPlatformUp(false); //Put platform grabbers down
 //            sleep(1000);
-//            rb.driveForwardByEncoder(-1500,rb.BL, .59); //Move backwards a little TODO: check values
+//            rb.driveForwardByEncoder(-1500,rb.BL, .59); //Move backwards a little
 //
 //            int turnTo = (int) (-1900 * blueNegativeFactor);
-//            rb.turnClockwiseByEncoder(turnTo, rb.BL, 0.20); //Rotate 90  TODO: find values for rotate
+//            rb.turnClockwiseByEncoder(turnTo, rb.BL, 0.20); //Rotate 90
 //
 //            runtime.reset();
 //            while (runtime.seconds() < 4) {
 //                rb.tapeOut();
-//                //rb.driveForwardByEncoder(-1000, rb.BL, 0.60); //Push into wall TODO: find values
+//                //rb.driveForwardByEncoder(-1000, rb.BL, 0.60); //Push into wall
 //
 //            }
 //
 //            rb.setPlatformUp(true); //Lift platform pullers before end of auto
 
-            stop();
+            break;
 
         }
     }

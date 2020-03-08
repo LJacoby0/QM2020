@@ -32,75 +32,76 @@ public abstract class FeederAutoOperation extends LinearOpMode {
         runtime.reset();
 
         //move forward
-        while(runtime.seconds() < 0.3) {
-            robot.drive(0.5);
-        }
-        robot.driveStop();
-
-        // move left a bit
-        runtime.reset();
-        while(runtime.seconds() < 0.6) {
-            robot.strafe(blueNegativeFactor * -0.5);
-        }
-        robot.driveStop();
-
-        //move backward again
-        runtime.reset();
-        while(runtime.seconds() < .7) {
-            robot.drive(-.8);
-        }
-
-        //forward to platform
-        runtime.reset();
-        while(runtime.seconds() < 1.5) {
-            robot.drive(0.4);
-        }
-        robot.driveStop();
-
-        robot.setPlatformUp(false);
-
-        runtime.reset();
-        while(runtime.seconds() < 0.5) {
-            robot.driveStop();
-        }
-
-        robot.setPlatformUp(false);
-
-        //back towards the wall
-        runtime.reset();
-        while(runtime.seconds() < 1.3) {
-            robot.drive(-0.5);
-        }
-
-        robot.setPlatformUp(false);
-
-        //rotate
-        runtime.reset();
-        while(runtime.seconds() < 2.5) {
-            if(getAlliance() == BLUE) {
-                robot.drive(0.5, -0.5);
-            } else {
-                robot.drive(-0.5, 0.5);
+        while (opModeIsActive()) {
+            while (runtime.seconds() < 0.3) {
+                robot.drive(0.5);
             }
-        }
+            robot.driveStop();
 
-        // move the platform up
-        robot.setPlatformUp(true);
+            // move left a bit
+            runtime.reset();
+            while (runtime.seconds() < 0.6) {
+                robot.strafe(blueNegativeFactor * -0.5);
+            }
+            robot.driveStop();
 
-        //forward to platform
-        runtime.reset();
-        while(runtime.seconds() < .5) {
-            robot.drive(0.5);
-        }
-        robot.driveStop();
+            //move backward again
+            runtime.reset();
+            while (runtime.seconds() < .7) {
+                robot.drive(-.8);
+            }
+
+            //forward to platform
+            runtime.reset();
+            while (runtime.seconds() < 1.5) {
+                robot.drive(0.4);
+            }
+            robot.driveStop();
+
+            robot.setPlatformUp(false);
+
+            runtime.reset();
+            while (runtime.seconds() < 0.5) {
+                robot.driveStop();
+            }
+
+            robot.setPlatformUp(false);
+
+            //back towards the wall
+            runtime.reset();
+            while (runtime.seconds() < 1.3) {
+                robot.drive(-0.5);
+            }
+
+            robot.setPlatformUp(false);
+
+            //rotate
+            runtime.reset();
+            while (runtime.seconds() < 2.5) {
+                if (getAlliance() == BLUE) {
+                    robot.drive(0.5, -0.5);
+                } else {
+                    robot.drive(-0.5, 0.5);
+                }
+            }
+
+            // move the platform up
+            robot.setPlatformUp(true);
+
+            //forward to platform
+            runtime.reset();
+            while (runtime.seconds() < .5) {
+                robot.drive(0.5);
+            }
+            robot.driveStop();
 
 
-        //back to park
-        runtime.reset();
-        while(runtime.seconds() < 1.1) {
-            robot.drive(-1);
-        }
-        robot.driveStop();
+            //back to park
+            runtime.reset();
+            while (runtime.seconds() < 1.1) {
+                robot.drive(-1);
+            }
+            robot.driveStop();
 
 //        runtime.reset();
 //        while(runtime.seconds() < 0.5) {
@@ -112,6 +113,8 @@ public abstract class FeederAutoOperation extends LinearOpMode {
 //        while(runtime.seconds() < 4) {
 //            robot.strafe(blueNegativeFactor * 0.5);
 //        }
-        robot.driveStop();
+            robot.driveStop();
+            break;
+        }
     }
 }
