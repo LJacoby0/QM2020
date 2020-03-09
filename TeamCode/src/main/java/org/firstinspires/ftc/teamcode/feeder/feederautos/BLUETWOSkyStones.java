@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.feeder.feederautos;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Move Auto")
-public class BlockAutoWait extends BlockAutoWaitOperation {
+@Autonomous(name = "!!Blue TWO Sky Stones")
+public class BLUETWOSkyStones extends TWOSkyStoneOperation {
     @Override
     public Alliance getAlliance() {
-        return Alliance.RED;
+        return Alliance.BLUE;
     }
 }

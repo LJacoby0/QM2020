@@ -18,7 +18,7 @@ import java.util.Locale;
 
 import static org.firstinspires.ftc.teamcode.feeder.feederautos.Alliance.BLUE;
 
-public abstract class ColorAutoTestOperation extends LinearOpMode {
+public abstract class TWOSkyStoneOperation extends LinearOpMode {
 
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
@@ -114,14 +114,15 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
             boolean inBlock = true;
             int blockNumber = 0;
             int blockInterval = (int) (blueNegativeFactor * -500);
+            int parkingturn = (int)(blueNegativeFactor * 1300); //test this
 
-            while ((opModeIsActive() && inBlock) && blockNumber < 4) {
+            while (inBlock) {
                 Color.RGBToHSV((int) (sensorColor.red() * SCALE_FACTOR),
                         (int) (sensorColor.green() * SCALE_FACTOR),
                         (int) (sensorColor.blue() * SCALE_FACTOR),
                         hsvValues); //GET HUE VALUE
-                sleep(300);
-                if (hsvValues[0] >= 90) {
+                sleep(500);
+                if (hsvValues[0] >= 100 || blockNumber >= 4) {
                     inBlock = false;
                 } else {
                     inBlock = true;
@@ -129,7 +130,9 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                     rb.strafeRightByEncoder(blockInterval, rb.BL, 0.25);
                 }
             }
-            if(blockNumber >= 4 ){
+
+
+            if(blockNumber >= 4 ){//failsafe
                 int failsafestrafe = 0;
                 if(blueNegativeFactor == -1){
                     failsafestrafe = 150;
@@ -142,49 +145,88 @@ public abstract class ColorAutoTestOperation extends LinearOpMode {
                 rb.intakeIn(1); //turn intake on
                 rb.turnClockwiseByEncoder(500, rb.BL, .50); //rotate into block
                 rb.driveForwardByEncoder(-600, rb.BL, .40); // move into block
-                rb.turnClockwiseByEncoder(-500, rb.BL, .50);//rotate back
-                rb.driveForwardByEncoder(700, rb.BL, .60); //back out a little
-                rb.intakeIn(.4); //slow down the intake speed so we mess something up
-                int strafeToEject = (int) (blueNegativeFactor * (1950 + Math.abs(blockInterval * blockNumber))); //value for Blocks --> 3350 + number of blocks * blockInterval value
+                rb.turnClockwiseByEncoder(-360, rb.BL, .50);//rotate back
+                rb.driveForwardByEncoder(850, rb.BL, .60); //back out a little
+                rb.intakeIn(.4); //slow dowhile
+                int strafeToEject = (int) (blueNegativeFactor * (4000 + Math.abs(blockInterval * blockNumber))); //value for Blocks --> 3350 + number of blocks * blockInterval value
                 rb.strafeRightByEncoder(strafeToEject, rb.BL, .80); //Strafe to eject
                 rb.intakeOut(); //eject skystone
-                rb.turnClockwiseByEncoder(1300, rb.BL, .50);//rotate to park
-                rb.tapeOut();
-                sleep(4000);
+                rb.turnClockwiseByEncoder(parkingturn, rb.BL, .50);//rotate to park
+                runtime.reset();
+                while (runtime.seconds() < 1.75) {
+                    rb.tapeOut();
+                }
+                rb.tapeStop();
                 stop();
             }
+
+
             rb.driveForwardByEncoder(-100, rb.BL, .40); //move forward
-            rb.intakeIn(1); //turn intake on
+            rb.intakeIn(.9); //turn intake on
             rb.turnClockwiseByEncoder(-500, rb.BL, .50); //rotate into block
             rb.driveForwardByEncoder(-600, rb.BL, .40); // move into block
-            rb.turnClockwiseByEncoder(500, rb.BL, .50);//rotate back
-            rb.driveForwardByEncoder(700, rb.BL, .60); //back out a little
-            rb.intakeIn(.4); //slow down the intake speed so we mess something up
-            int strafeToEject = (int) (blueNegativeFactor * (1950 + Math.abs(blockInterval * blockNumber))); //value for Blocks --> 3350 + number of blocks * blockInterval value
+            rb.intakeIn(.6); //slow down the intake speed so we mess something up
+            rb.turnClockwiseByEncoder(360, rb.BL, .50);//rotate back
+            rb.driveForwardByEncoder(850, rb.BL, .60); //back out a little
+            int strafeToEject = (int) (blueNegativeFactor * (3450 + Math.abs(blockInterval * blockNumber))); //value for Blocks --> 3350 + number of blocks * blockInterval value
             rb.strafeRightByEncoder(strafeToEject, rb.BL, .80); //Strafe to eject
             rb.intakeOut(); //eject skystone
             sleep(1200); // wait for block to be ejected
-            int strafeToPlatform = (int) (-1860 * blueNegativeFactor);
-            rb.strafeRightByEncoder(strafeToPlatform, rb.BL, .7); //go to platform for blocks
-            rb.driveForwardByEncoder(1200, rb.BL, .18);//move forwards into platform
-            rb.setPlatformUp(false); //put platform grabbers down
-            sleep(1000); //wait for platform grabbers to go down
-            rb.driveForwardByEncoder(-2000, rb.BL, .59); //Move backwards a little
-
-            if (blueNegativeFactor == -1) { //if Blue Alliance
-                rb.driveWithLeftMore(1900, rb.BL, .30);
-            } else { //if red alliance
-                rb.driveWithRightMore(-1254, rb.BL, .30); //1900 * .66 = -1254
-            }
-
+            int parkafterone = (int)(4*blockInterval/3);
+            int specialturn = (int)(blueNegativeFactor * -50);
+            rb.turnClockwiseByEncoder(specialturn, rb.BL, .50); //rotate into block
+            rb.strafeRightByEncoder(parkafterone, rb.BL, .80); //Strafe to eject
+            rb.turnClockwiseByEncoder(parkingturn, rb.BL, .50);//rotate to park
             runtime.reset();
-            while (opModeIsActive() &&runtime.seconds() < 4) {
+            while (runtime.seconds() < 2) {
                 rb.tapeOut();
-                rb.driveForwardByEncoder(-1000, rb.BL, 0.30); //Push into wall
-
             }
             rb.tapeStop();
-            rb.setPlatformUp(true); //Lift platform pullers before end of auto
+            /*int specialturn = (int)(blueNegativeFactor * -50);
+            rb.turnClockwiseByEncoder(specialturn, rb.BL, .50); //rotate into block
+            int driveback = -strafeToEject;
+            int drivebackone = 0;
+            if(blockNumber >= 3) { //if we get the fourth block or fifth block, go for the 5th block instead
+                drivebackone = (int)(-(blueNegativeFactor * blockInterval * 3));
+            }
+            else{
+                drivebackone = (int)((blueNegativeFactor * blockInterval * 3));
+            }
+            rb.strafeRightByEncoder(driveback, rb.BL, .7); //going back for a second block
+            rb.driveForwardByEncoder(-300, rb.BL, .40); //move forward
+            rb.strafeRightByEncoder(drivebackone, rb.BL, .7); //going back fir a second block
+            rb.driveForwardByEncoder(-630, rb.BL, .40); //move forward
+
+            if(blockNumber == 2 && blueNegativeFactor == 1){
+                rb.intakeIn(1); //turn intake on
+                rb.turnClockwiseByEncoder(500, rb.BL, .50); //rotate into block
+                rb.driveForwardByEncoder(-600, rb.BL, .40); // move into block
+                rb.turnClockwiseByEncoder(-490, rb.BL, .50);//rotate back
+            }
+            else{
+                rb.intakeIn(1); //turn intake on
+                rb.turnClockwiseByEncoder(-500, rb.BL, .50); //rotate into block
+                rb.driveForwardByEncoder(-600, rb.BL, .40); // move into block
+                rb.turnClockwiseByEncoder(490, rb.BL, .50);//rotate back
+            }
+            rb.driveForwardByEncoder(650, rb.BL, .60); //back out a little
+            rb.intakeIn(.4); //slow down the intake speed so we mess something up
+            int strafeToEjecttwo = (int) (-driveback); //value for Blocks --> 3350 + number of blocks * blockInterval value
+            int strafeToEjectthree = -drivebackone;
+
+            rb.strafeRightByEncoder(strafeToEjecttwo, rb.BL, .80); //Strafe to eject
+            rb.driveForwardByEncoder(300, rb.BL, .40); //move forward
+            rb.strafeRightByEncoder(strafeToEjectthree, rb.BL, .80);
+            rb.strafeRightByEncoder(blockInterval, rb.BL, .80);//Strafe to eject
+            rb.intakeOut(); //eject skystone
+            sleep(1200); // wait for block to be ejected
+
+            rb.turnClockwiseByEncoder(parkingturn, rb.BL, .50);//rotate to park
+            runtime.reset();
+            while (runtime.seconds() < 2) {
+                rb.tapeOut();
+            }
+            rb.tapeStop();*/
 
 
 //            int turnTo = (int) (1900 * blueNegativeFactor);

@@ -8,7 +8,7 @@ public final class FeederConstants {
     //Speeds:
     public static final float DRIVE_POWER = 1;
     public static final double INTAKE_SPEED = .8;
-    public static final double OUTTAKE_SPEED = 0.2;
+    public static final double OUTTAKE_SPEED = 0.25;
 
     //Sticks:
     public static final float DRIVE_STICK_THRESHOLD = .09f;
